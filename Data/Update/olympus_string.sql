@@ -1,0 +1,3 @@
+INSERT INTO `olympus_string` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`) VALUES ('10000', 'Worgen Runt goes into a frenzy!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+UPDATE `olympus_string` SET `content_default`='[|cFFF222FFOlympus-Server|cffffff00] %s' WHERE (`entry`='3')
+UPDATE `olympus_string` SET `content_default`='|cffffff00[|c00077766Olympus-Anuncio|cffffff00]: |cFFF222FF%s|r' WHERE (`entry`='11000')
