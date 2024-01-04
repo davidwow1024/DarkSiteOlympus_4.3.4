@@ -1612,6 +1612,11 @@ void AddSC_Custom_Arena_Reward();
 void AddSC_Transmogrifier_NPC();
 void AddSC_clean_character_commandscript();
 void AddSC_npc_change_racial_traits();
+void AddSC_accontmounts();
+void AddSC_bug_dual();
+void AddSC_WelcomeWindowDev();
+void AddSC_npc_teleport();
+void AddSC_PvPTitles();
 #endif
 
 void AddCustomScripts()
@@ -1628,5 +1633,10 @@ void AddCustomScripts()
     AddSC_Transmogrifier_NPC();
     AddSC_clean_character_commandscript();
     AddSC_npc_change_racial_traits();
+	AddSC_accontmounts();
+	AddSC_bug_dual();
+	AddSC_WelcomeWindowDev();
+	AddSC_npc_teleport();
+	AddSC_PvPTitles();
 #endif
 }
