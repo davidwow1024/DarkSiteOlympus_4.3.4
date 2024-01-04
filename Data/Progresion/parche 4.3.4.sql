@@ -1,0 +1,35 @@
+/*4.3
+pvp
+alianza
+54662 implacable
+54661 cataclysmo
+54660 cataclysmo elite
+horda
+54659 implacable
+54658 cataclysmo
+54657 cataclysmo elite
+*/
+
+
+/*event*/
+INSERT INTO `game_event` (`eventEntry`, `start_time`, `end_time`, `occurence`, `length`, `holiday`, `holidayStage`, `description`, `world_event`) VALUES ('127', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '5184000', '2592000', '0', '2', 'Parche 4.3.4', '0');
+
+/*gamevent_creature*/
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '172155');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '170699');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '173075');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '172326');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '172344');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '172327');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '504167');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '486840');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '486839');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '171238');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '296067');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '99651577');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '9965657');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '171276');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '171277');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '171278');
+
+
