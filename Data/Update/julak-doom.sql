@@ -7,3 +7,6 @@ INSERT INTO `npc_spellclick_spells` (`npc_entry`, `spell_id`, `cast_flags`, `use
 
 --vehicle--
 INSERT INTO `vehicle_template_accessory` (`entry`, `accessory_entry`, `seat_id`, `minion`, `description`, `summontype`, `summontimer`) VALUES ('50089', '50091', '0', '1', 'Julak Doom ', '6', '0');
+
+--creature duplicada--
+DELETE FROM `creature`  WHERE `guid` = 500752;
