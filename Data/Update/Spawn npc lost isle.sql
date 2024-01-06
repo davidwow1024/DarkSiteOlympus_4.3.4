@@ -1,4 +1,4 @@
---delete creature--
+/*delete creature*/
 DELETE FROM `creature`  WHERE `guid` = 247521;
 DELETE FROM `creature`  WHERE `guid` = 246796;
 DELETE FROM `creature`  WHERE `guid` = 247486;
@@ -27,5 +27,5 @@ DELETE FROM `creature`  WHERE `guid` = 247537;
 DELETE FROM `creature`  WHERE `guid` = 247519;
 DELETE FROM `creature`  WHERE `guid` = 247538;
 
---add creature--
+/*add creature*/
 insert into `creature` (`guid`, `id`, `map`, `zone`, `area`, `spawnMask`, `phaseMask`, `modelid`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `spawndist`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `walkmode`) values('326969','38120','648','4720','4870','1','10240','0','38120','919.889','2335.79','3.51271','3.00493','300','0','0','198','0','0','0','0','0','0');
