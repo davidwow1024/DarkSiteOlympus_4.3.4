@@ -49,7 +49,8 @@ enum QuestIds
     QUEST_EVAC_MERC_SQUA                               = 14098,
     QUEST_SAVE_KRENNAN_ARANAS                          = 14293,
     QUEST_SACRIFICES                                   = 14212,
-    QUEST_THE_BATTLE_FOR_GILNEAS_CITY                  = 24904
+    QUEST_THE_BATTLE_FOR_GILNEAS_CITY                  = 24904,
+    SPELL_GILNEAS_MILITIA_SHOOT                        = 6660
 };
 
 enum SpellIds
@@ -118,7 +119,9 @@ enum SoundIds
 enum eAction
 {
     ACTION_START_EVENT,
-    ACTION_END_EVENT
+    ACTION_END_EVENT,
+    ACTION_LORNA_EVENT1,
+    ACTION_DARIUS_EVENT1
 };
 
 enum eData
