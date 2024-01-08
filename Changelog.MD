@@ -9,3 +9,8 @@ Fix Guardian of Ancient Kings
 Fix Locales
 Fix Quest Point
 
+
+### ==== 07/01/2024 ====
+Add Worguen Transform at 12:00 to 3:00 am
+
+
