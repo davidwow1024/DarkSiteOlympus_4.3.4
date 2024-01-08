@@ -62,6 +62,8 @@ enum WarriorSpells
     SPELL_PRIEST_RENEWED_HOPE = 63944,
     SPELL_GEN_DAMAGE_REDUCTION_AURA = 68066,
     SPELL_GEN_VENGEANCE_PERIODIC = 76691,
+	
+    SPELL_WARRIOR_INTERCEPT = 20252,
 };
 
 enum WarriorSpellIcons
@@ -143,88 +145,102 @@ public:
 class spell_warr_charge : public SpellScriptLoader
 {
 public:
-    spell_warr_charge() : SpellScriptLoader("spell_warr_charge") {}
+	spell_warr_charge() : SpellScriptLoader("spell_warr_charge") { }
 
-    class spell_warr_charge_SpellScript : public SpellScript
-    {
-        PrepareSpellScript(spell_warr_charge_SpellScript);
+	class spell_warr_charge_SpellScript : public SpellScript
+	{
+		PrepareSpellScript(spell_warr_charge_SpellScript);
 
-        bool Validate(SpellInfo const * /*spellInfo*/) override
+		bool Validate(SpellInfo const* /*spellInfo*/)
+		{
+			if (!sSpellMgr->GetSpellInfo(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT) || !sSpellMgr->GetSpellInfo(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_BUFF) || !sSpellMgr->GetSpellInfo(SPELL_WARRIOR_CHARGE))
+				return false;
+			return true;
+		}
+
+        void HandleBeforeCast()
         {
-            if (!sSpellMgr->GetSpellInfo(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT) || !sSpellMgr->GetSpellInfo(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_BUFF) || !sSpellMgr->GetSpellInfo(SPELL_WARRIOR_CHARGE))
-                return false;
-            return true;
-        }
-
-        void HandleDummy(SpellEffIndex /*effIndex*/)
-        {
-            int32 chargeBasePoints0 = GetEffectValue();
-            Unit *caster = GetCaster();
-            caster->CastCustomSpell(caster, SPELL_WARRIOR_CHARGE, &chargeBasePoints0, NULL, NULL, true);
-
-            // Juggernaut crit bonus
-            if (caster->HasAura(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT))
+            if (Unit* caster = GetCaster())
             {
-                caster->CastSpell(caster, SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_BUFF, true);
-                // Intercept shared cooldown
-                int32 cooldown = caster->HasAura(58355) ? 12000 : 13000;
-                WorldPacket data;
-                caster->BuildCooldownPacket(data, SPELL_COOLDOWN_FLAG_NONE, 20252, cooldown);
-                caster->ToPlayer()->SendDirectMessage(&data);
+                if (caster->HasAura(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT))
+                {
+                    // Intercept shared cooldown
+                    int32 cooldown = caster->HasAura(58355) ? 0 : 1;
+                    caster->ToPlayer()->AddSpellCooldown(SPELL_WARRIOR_INTERCEPT, 0, time(NULL) + (cooldown / IN_MILLISECONDS));
+
+                    WorldPacket data;
+                    caster->BuildCooldownPacket(data, SPELL_COOLDOWN_FLAG_NONE, SPELL_WARRIOR_INTERCEPT, cooldown);
+                    caster->ToPlayer()->SendDirectMessage(&data);
+                }
             }
         }
 
-        void HandleChargeStun(SpellEffIndex /*effIndex*/)
-        {
-            GetCaster()->CastSpell(GetHitUnit(), 7922, true);
-        }
+		void HandleDummy(SpellEffIndex /*effIndex*/)
+		{
+			int32 chargeBasePoints0 = GetEffectValue();
+			Unit* caster = GetCaster();
+			caster->CastCustomSpell(caster, SPELL_WARRIOR_CHARGE, &chargeBasePoints0, NULL, NULL, true);
 
-        void Register() override
-        {
-            OnEffectHitTarget += SpellEffectFn(spell_warr_charge_SpellScript::HandleChargeStun, EFFECT_0, SPELL_EFFECT_CHARGE);
-            OnEffectLaunch += SpellEffectFn(spell_warr_charge_SpellScript::HandleDummy, EFFECT_1, SPELL_EFFECT_DUMMY);
-        }
-    };
+			// Juggernaut crit bonus
+			if (caster->HasAura(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT))
+				caster->CastSpell(caster, SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_BUFF, true);
+		}
 
-    SpellScript *GetSpellScript() const override
-    {
-        return new spell_warr_charge_SpellScript();
-    }
+		void HandleChargeStun(SpellEffIndex /*effIndex*/)
+		{
+			GetCaster()->CastSpell(GetHitUnit(), 7922, true);
+		}
+
+		void Register()
+		{
+            BeforeCast += SpellCastFn(spell_warr_charge_SpellScript::HandleBeforeCast);
+			OnEffectHitTarget += SpellEffectFn(spell_warr_charge_SpellScript::HandleChargeStun, EFFECT_0, SPELL_EFFECT_CHARGE);
+			OnEffectLaunch += SpellEffectFn(spell_warr_charge_SpellScript::HandleDummy, EFFECT_1, SPELL_EFFECT_DUMMY);
+		}
+	};
+
+	SpellScript* GetSpellScript() const
+	{
+		return new spell_warr_charge_SpellScript();
+	}
 };
 
 /// Updated 4.3.4
 class spell_warr_intercept : public SpellScriptLoader
 {
 public:
-    spell_warr_intercept() : SpellScriptLoader("spell_warr_intercept") {}
+	spell_warr_intercept() : SpellScriptLoader("spell_warr_intercept") { }
 
-    class spell_warr_intercept_SpellScript : public SpellScript
-    {
-        PrepareSpellScript(spell_warr_intercept_SpellScript);
+	class spell_warr_intercept_SpellScript : public SpellScript
+	{
+		PrepareSpellScript(spell_warr_intercept_SpellScript);
 
-        void HandleChargeCooldown(SpellEffIndex /*effIndex*/)
-        {
-            if (Player *caster = GetCaster()->ToPlayer())
-            {
-                if (caster->HasAura(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT))
-                {
-                    WorldPacket data;
-                    caster->BuildCooldownPacket(data, SPELL_COOLDOWN_FLAG_NONE, 100, 30000);
-                    caster->SendDirectMessage(&data);
-                }
-            }
-        }
+		void HandleBeforeCast()
+		{
+			if (Player* caster = GetCaster()->ToPlayer())
+			{
+				if (caster->HasAura(SPELL_WARRIOR_JUGGERNAUT_CRIT_BONUS_TALENT))
+				{
+                    // Charge Shared cooldown
+                    caster->ToPlayer()->AddSpellCooldown(SPELL_WARRIOR_CHARGE, 0, time(NULL) + 30);
 
-        void Register() override
-        {
-            OnEffectLaunch += SpellEffectFn(spell_warr_intercept_SpellScript::HandleChargeCooldown, EFFECT_0, SPELL_EFFECT_CHARGE);
-        }
-    };
+					WorldPacket data;
+					caster->BuildCooldownPacket(data, SPELL_COOLDOWN_FLAG_NONE, SPELL_WARRIOR_CHARGE, 30000);
+					caster->SendDirectMessage(&data);
+				}
+			}
+		}
 
-    SpellScript *GetSpellScript() const override
-    {
-        return new spell_warr_intercept_SpellScript();
-    }
+		void Register()
+		{
+			BeforeCast += SpellCastFn(spell_warr_intercept_SpellScript::HandleBeforeCast);
+		}
+	};
+
+	SpellScript* GetSpellScript() const
+	{
+		return new spell_warr_intercept_SpellScript();
+	}
 };
 
 /// Updated 4.3.4
