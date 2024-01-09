@@ -11,7 +11,7 @@ public:
     {
         player->PlayerTalkClass->ClearMenus();                              // Clears old options 
         player->ADD_GOSSIP_ITEM(4, "    |TInterface\\glues\\common\\GLUES-WOW-CCLOGO:80:150:-15|t", GOSSIP_SENDER_MAIN, 999);
-        player->ADD_GOSSIP_ITEM(4, " |cFF8B0000BIENVENIDOS A Olympus-Project - Apocalypsis", GOSSIP_SENDER_MAIN, 999);
+        player->ADD_GOSSIP_ITEM(4, " |cFF8B0000BIENVENIDOS A Olympus-Project", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF8B0000---------------------------------------", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Recuerde cumplir con las normas establecidas", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3El servidor consta con:", GOSSIP_SENDER_MAIN, 999);
