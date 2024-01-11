@@ -105,7 +105,7 @@ bool Player::SendBattleGroundChat(uint8 msgtype, std::string message)
 
 void Player::MorphFit(bool value)
 {
-    if (!IsPlayingNative() && value)
+    /*if (!IsPlayingNative() && value)
     {
         if (GetOTeam() == HORDE)
         {
@@ -135,7 +135,7 @@ void Player::MorphFit(bool value)
         }
     }
     else
-        InitDisplayIds();
+        InitDisplayIds();*/
 }
 
 void Player::FitPlayerInTeam(bool action, Battleground* pBattleGround)
