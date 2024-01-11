@@ -28936,6 +28936,30 @@ void Player::SendOnCancelExpectedVehicleRideAura()
     GetSession()->SendPacket(&data);
 }
 
+bool Player::CanControlPet(uint32 spellId) const
+{
+    // Hunters and Warlocks cannot control their pets until they learned their spell
+    if (spellId)
+    {
+        switch (spellId)
+        {
+        case 93321: // Control Pet
+            return getClass() == CLASS_HUNTER;
+        case 93375: // Control Demon
+            return getClass() == CLASS_WARLOCK;
+        }
+    }
+    else
+    {
+        if (getClass() == CLASS_HUNTER && !HasAura(93321))
+            return false;
+        if (getClass() == CLASS_WARLOCK && !HasAura(93375))
+            return false;
+    }
+
+    return true;
+}
+
 void Player::SwitchRaidMap(uint32 mapid, Difficulty previousDifficulty, Difficulty newDifficulty, Map* map = NULL)
 {
     if (!IsInWorld())

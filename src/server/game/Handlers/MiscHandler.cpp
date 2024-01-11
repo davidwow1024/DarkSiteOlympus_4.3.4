@@ -1721,12 +1721,20 @@ void WorldSession::HandleCancelMountAuraOpcode(WorldPacket& /*recvData*/)
     _player->RemoveAurasByType(SPELL_AURA_FLY);
 }
 
-void WorldSession::HandleRequestPetInfoOpcode(WorldPacket& /*recvData */)
+void WorldSession::HandleRequestPetInfoOpcode(WorldPacket& /*recvData*/)
 {
-    /*
-        TC_LOG_DEBUG(LOG_FILTER_PACKETIO, "WORLD: CMSG_REQUEST_PET_INFO");
-        recvData.hexlike();
-    */
+    if (_player->GetPet() && _player->CanControlPet())
+        _player->PetSpellInitialize();
+
+    if (Unit* charm = _player->GetCharmer())
+    {
+        if (charm->HasUnitState(UNIT_STATE_POSSESSED))
+            _player->PossessSpellInitialize();
+        else if (charm->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED))
+            _player->VehicleSpellInitialize();
+        else
+            _player->CharmSpellInitialize();
+    }
 }
 
 void WorldSession::HandleSetTaxiBenchmarkOpcode(WorldPacket& recvData)
