@@ -99,6 +99,7 @@ public:
             { "gm_tickets",                   SEC_ADMINISTRATOR, true,  &HandleReloadGMTicketsCommand,                  "" },
             { "gossip_menu",                  SEC_ADMINISTRATOR, true,  &HandleReloadGossipMenuCommand,                 "" },
             { "gossip_menu_option",           SEC_ADMINISTRATOR, true,  &HandleReloadGossipMenuOptionCommand,           "" },
+			{ "item_template",                SEC_ADMINISTRATOR, true, &HandleReloadItemTemplateCommand,                "" },
             { "item_enchantment_template",    SEC_ADMINISTRATOR, true,  &HandleReloadItemEnchantementsCommand,          "" },
             { "item_loot_template",           SEC_ADMINISTRATOR, true,  &HandleReloadLootTemplatesItemCommand,          "" },
             { "lfg_dungeon_rewards",          SEC_ADMINISTRATOR, true,  &HandleReloadLfgRewardsCommand,                 "" },
@@ -165,6 +166,16 @@ public:
     }
 
     //reload commands
+	
+	static bool HandleReloadItemTemplateCommand(ChatHandler* handler, char const* /*args*/)
+	{
+		TC_LOG_INFO("misc", "Reloading item_template..");
+		sObjectMgr->LoadItemTemplates();
+		handler->SendGlobalGMSysMessage("DB table `item_template` has been reloaded.");
+		return true;
+	}
+	
+	
     static bool HandleReloadGMTicketsCommand(ChatHandler* /*handler*/, const char* /*args*/)
     {
         sTicketMgr->LoadTickets();
