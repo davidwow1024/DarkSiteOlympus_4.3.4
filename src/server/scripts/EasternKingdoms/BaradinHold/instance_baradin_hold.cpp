@@ -51,7 +51,7 @@ public:
             checkBattlefieldTimer = 60000;
         }
 
-        void OnPlayerEnter(Player *player)
+        /*void OnPlayerEnter(Player *player)
         {
             if (sWorld->getBoolConfig(CONFIG_TOL_BARAD_ENABLE))
             {
@@ -59,7 +59,7 @@ public:
                 if (pvpTB && !player->isGameMaster() && (player->GetTeamId() != pvpTB->GetDefenderTeam() || pvpTB->IsWarTime()))
                     player->TeleportTo(732, -616.94f, 1183.27f, 95.71f, player->GetOrientation());
             }
-        }
+        }*/
 
         void OnCreatureCreate(Creature* creature)
         {
@@ -117,7 +117,7 @@ public:
             }
         }
 
-        void Update(uint32 diff)
+        /*void Update(uint32 diff)
         {
             if (!sWorld->getBoolConfig(CONFIG_TOL_BARAD_ENABLE))
                 return;
@@ -142,7 +142,7 @@ public:
             }
             else
                 checkBattlefieldTimer -= diff;
-        }
+        }*/
 
     private:
         uint64 ArgalothGUID;
