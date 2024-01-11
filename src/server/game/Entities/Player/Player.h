@@ -1989,6 +1989,8 @@ public:
     void AddNewMailDeliverTime(time_t deliver_time);
     bool IsMailsLoaded() const { return m_mailsLoaded; }
 
+    void SendItemRetrievalMail(uint32 itemEntry, uint32 count); // Item retrieval mails sent by The Postmaster (34337), used in multiple places.
+
     void RemoveMail(uint32 id);
 
     void AddMail(Mail *mail) { m_mail.push_front(mail); } // for call from WorldSession::SendMailTo

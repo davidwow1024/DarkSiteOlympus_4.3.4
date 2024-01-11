@@ -1,0 +1,4 @@
+SET @ENTRY:=50000;
+INSERT INTO `olympus_string` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`) VALUES
+(@ENTRY+0, 'This server is running the |cff4CFF00Loot aoe|r module.', '', '', '', '', '', 'Este servidor está ejecutando el módulo |cff4CFF00Loot aoe|r.', 'Este servidor está ejecutando el módulo |cff4CFF00Loot aoe|r.', ''),
+(@ENTRY+1, '|cff4CFF00[Loot aoe]|r Your items has been mailed to you.', '', '', '', '', '', '|cff4CFF00[Loot aoe]|r  Sus artículos le han sido enviados por correo.', '|cff4CFF00[Loot aoe]|r  Sus artículos le han sido enviados por correo.', '');

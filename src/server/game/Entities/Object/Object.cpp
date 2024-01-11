@@ -2997,6 +2997,14 @@ void WorldObject::GetCreatureListWithEntryInGrid(std::list<Creature*>& creatureL
     cell.Visit(pair, visitor, *(this->GetMap()), *this, maxSearchRange);
 }
 
+void WorldObject::GetDeadCreatureListInGrid(std::list<Creature*>& creaturedeadList, float maxSearchRange, bool alive /*= false*/) const
+{
+    Player* pl = m_session->GetPlayer();
+    Trinity::AllDeadCreaturesInRange check(this, maxSearchRange, alive);
+    Trinity::CreatureListSearcher<Trinity::AllDeadCreaturesInRange> searcher(this, creaturedeadList, check);
+    pl->VisitNearbyGridObject(SIZE_OF_GRIDS, searcher);
+}
+
 /*
 namespace Trinity
 {

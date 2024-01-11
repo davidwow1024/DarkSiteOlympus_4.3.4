@@ -943,6 +943,8 @@ class WorldObject : public Object, public WorldLocation
         void GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange) const;
         void GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float fMaxSearchRange) const;
         void GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float x, float y, float fMaxSearchRange) const;
+        void GetDeadCreatureListInGrid(std::list<Creature*>& lList, float maxSearchRange, bool alive = false) const;
+
 
         void DestroyForNearbyPlayers();
         virtual void UpdateObjectVisibility(bool forced = true);
@@ -1017,6 +1019,8 @@ class WorldObject : public Object, public WorldLocation
         virtual bool IsAlwaysDetectableFor(WorldObject const* /*seer*/) const { return false; }
     private:
         Map* m_currMap;                                    //current object's Map location
+
+        WorldSession* m_session;
 
         //uint32 m_mapId;                                     // object at map with map_id
         uint32 m_InstanceId;                                // in map copy with instance id
