@@ -22,7 +22,6 @@
 // custom
 void AddSC_LevelUpScripts();
 void AddSC_npc_profession();
-void AddSC_AoeLoot();
 
 // examples
 void AddSC_example_creature();
@@ -1641,6 +1640,5 @@ void AddCustomScripts()
 	AddSC_WelcomeWindowDev();
 	AddSC_npc_teleport();
 	AddSC_PvPTitles();
-    AddSC_AoeLoot();
 #endif
 }
