@@ -22,3 +22,12 @@ Fix Spawn Npcs Gilneas
 Fix Gossip Lord Hewell
 Fix Spell Warr Charge
 Fix Spell Warr Intercept
+
+### ==== 12/01/2024 ====
+Fix Quest Unholy Cow
+Fix Quest He\'s Holding Out on Us
+Fix Quest Twilight Shores
+Fix SAI Flintlocke\'s Seaplane
+Fix SAI Anduin
+Fix SAI - condition  Samuelson
+Fix Cadena de misiones Se busca un heroe en tierras altas crepusculares
