@@ -36,6 +36,7 @@
 #include "CharacterDatabaseCleaner.h"
 #include "Chat.h"
 #include "Common.h"
+#include "Config.h"
 #include "ConditionMgr.h"
 #include "CreatureAI.h"
 #include "DB2Stores.h"

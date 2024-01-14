@@ -102,31 +102,6 @@ namespace Trinity
         void Visit(CreatureMapType &);
     };
 
-    struct AllDeadCreaturesInRange
-    {
-    public:
-        AllDeadCreaturesInRange(WorldObject const* obj, float range, bool reqAlive = true) : _obj(obj), _range(range), _reqAlive(reqAlive) {}
-
-        bool operator()(Unit* unit) const
-        {
-            if (_reqAlive && unit->isAlive())
-            {
-                return false;
-            }
-            if (!_obj->IsWithinDistInMap(unit, _range))
-            {
-                return false;
-            }
-            return true;
-        }
-
-    private:
-        WorldObject const* _obj;
-        float              _range;
-        bool               _reqAlive;
-    };
-
-
     struct GridUpdater
     {
         GridType &i_grid;
@@ -1407,6 +1382,28 @@ namespace Trinity
             const WorldObject* m_pObject;
             uint32 m_uiEntry;
             float m_fRange;
+    };
+
+    class AllDeadCreaturesInRange
+    {
+    public:
+        AllDeadCreaturesInRange(WorldObject const* obj, float range, bool reqAlive = true) : _obj(obj), _range(range), _reqAlive(reqAlive) { }
+
+        bool operator()(Unit* unit) const
+        {
+            if (_reqAlive && unit->isAlive())
+                return false;
+
+            if (!_obj->IsWithinDistInMap(unit, _range))
+                return false;
+
+            return true;
+        }
+
+    private:
+        WorldObject const* _obj;
+        float _range;
+        bool _reqAlive;
     };
 
     class PlayerAtMinimumRangeAway
