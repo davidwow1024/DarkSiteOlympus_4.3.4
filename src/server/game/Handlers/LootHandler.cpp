@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2021-2023 OlympusCore <http://www.OlympusCore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -20,7 +20,6 @@
 #include "Log.h"
 #include "Corpse.h"
 #include "Creature.h"
-#include "Config.h"
 #include "GameObject.h"
 #include "Group.h"
 #include "GuildMgr.h"
@@ -84,57 +83,16 @@ void WorldSession::HandleAutostoreLootItemOpcode(WorldPacket& recvData)
     else
     {
         Creature* creature = GetPlayer()->GetMap()->GetCreature(lguid);
-        if (!player->GetGroup())
+
+        bool lootAllowed = creature && creature->isAlive() == (player->getClass() == CLASS_ROGUE && creature->lootForPickPocketed);
+
+        if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
         {
-            uint32 noSpaceForCount = 0;
-
-            int i = 0;
-            float range = 30.0f;
-            Creature* c = nullptr;
-            std::list<Creature*> creaturedie;
-            player->GetCreatureListWithEntryInGrid(creaturedie, creature->GetEntry(), range);
-            for (std::list<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-            {
-                c = *itr;
-                loot = &c->loot;
-
-                uint8 maxSlot = loot->GetMaxSlotInLootFor(player);
-                for (i = 0; i < maxSlot; ++i)
-                {
-                    LootItem* item = loot->LootItemInSlot(i, player);
-                    if (player->AddItem(item->itemid, item->count))
-                    {
-                        player->SendNotifyLootItemRemoved(lootSlot);
-                        player->SendLootRelease(player->GetLootGUID());
-                    }
-                    else
-                    {
-                        player->SendItemRetrievalMail(item->itemid, item->count);
-                        player->GetSession()->SendAreaTriggerMessage("Votre objet vous a été envoyé par mail.");
-                    }
-                }
-
-                loot->clear();
-
-                if (loot->isLooted() && loot->empty())
-                {
-                    c->RemoveFlag(UNIT_DYNAMIC_FLAGS, UNIT_DYNFLAG_LOOTABLE);
-                    c->AllLootRemovedFromCorpse();
-                }
-            }
+            player->SendLootRelease(lguid);
+            return;
         }
-        else
-        {
-            bool lootAllowed = creature && creature->isAlive() == (player->getClass() == CLASS_ROGUE && creature->loot.loot_type == LOOT_PICKPOCKETING);
-            if (!lootAllowed || !creature->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
-            {
 
-                player->SendLootRelease(lguid);
-                return;
-            }
-
-            loot = &creature->loot;
-        }
+        loot = &creature->loot;
     }
 
     player->StoreLootItem(lootSlot, loot, gameObject);
@@ -243,26 +201,12 @@ void WorldSession::HandleLootMoneyOpcode(WorldPacket& /*recvData*/)
         }
         else
         {
-            if (!player->GetGroup())
-            {
-                float range = 30.0f;
-                uint32 gold = 0;
-                Creature* creature = GetPlayer()->GetMap()->GetCreature(guid);
-                Creature* c = nullptr;
-                std::list<Creature*> creaturedie;
-                player->GetCreatureListWithEntryInGrid(creaturedie, creature->GetEntry(), range);
-                for (std::list<Creature*>::iterator itr = creaturedie.begin(); itr != creaturedie.end(); ++itr)
-                {
-                    c = *itr;
-                    loot = &c->loot;
-                    gold += loot->gold;
-                    loot->gold = 0;
-                }
-                loot->gold = gold;
-            }
-
             player->ModifyMoney(loot->gold);
             player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LOOT_MONEY, loot->gold);
+
+            if (Guild* guild = sGuildMgr->GetGuildById(player->GetGuildId()))
+                if (uint32 guildGold = CalculatePct(loot->gold, player->GetTotalAuraModifier(SPELL_AURA_DEPOSIT_BONUS_MONEY_IN_GUILD_BANK_ON_LOOT)))
+                    guild->HandleMemberDepositMoney(this, guildGold, true);
 
             WorldPacket data(SMSG_LOOT_MONEY_NOTIFY, 4 + 1);
             data << uint32(loot->gold);

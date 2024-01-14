@@ -2997,13 +2997,86 @@ void WorldObject::GetCreatureListWithEntryInGrid(std::list<Creature*>& creatureL
     cell.Visit(pair, visitor, *(this->GetMap()), *this, maxSearchRange);
 }
 
-template <typename Container>
-void WorldObject::GetDeadCreatureListInGrid(Container& creaturedeadContainer, float maxSearchRange, bool alive /*= false*/) const
+void WorldObject::GetDeadCreatureListInGrid(std::list<Creature*>& creaturedeadList, float maxSearchRange, bool alive /*= false*/) const
 {
+    Player* pl = m_session->GetPlayer();
     Trinity::AllDeadCreaturesInRange check(this, maxSearchRange, alive);
-    Trinity::CreatureListSearcher<Trinity::AllDeadCreaturesInRange> searcher(this, creaturedeadContainer, check);
-    Cell::VisitGridObjects(this, searcher, maxSearchRange);
+    Trinity::CreatureListSearcher<Trinity::AllDeadCreaturesInRange> searcher(this, creaturedeadList, check);
+    pl->VisitNearbyGridObject(SIZE_OF_GRIDS, searcher);
 }
+
+/*
+namespace Trinity
+{
+    class NearUsedPosDo
+    {
+        public:
+            NearUsedPosDo(WorldObject const& obj, WorldObject const* searcher, float angle, ObjectPosSelector& selector)
+                : i_object(obj), i_searcher(searcher), i_angle(angle), i_selector(selector) {}
+
+            void operator()(Corpse*) const {}
+            void operator()(DynamicObject*) const {}
+
+            void operator()(Creature* c) const
+            {
+                // skip self or target
+                if (c == i_searcher || c == &i_object)
+                    return;
+
+                float x, y, z;
+
+                if (!c->isAlive() || c->HasUnitState(UNIT_STATE_ROOT | UNIT_STATE_STUNNED | UNIT_STATE_DISTRACTED) ||
+                    !c->GetMotionMaster()->GetDestination(x, y, z))
+                {
+                    x = c->GetPositionX();
+                    y = c->GetPositionY();
+                }
+
+                add(c, x, y);
+            }
+
+            template<class T>
+                void operator()(T* u) const
+            {
+                // skip self or target
+                if (u == i_searcher || u == &i_object)
+                    return;
+
+                float x, y;
+
+                x = u->GetPositionX();
+                y = u->GetPositionY();
+
+                add(u, x, y);
+            }
+
+            // we must add used pos that can fill places around center
+            void add(WorldObject* u, float x, float y) const
+            {
+                // u is too nearest/far away to i_object
+                if (!i_object.IsInRange2d(x, y, i_selector.m_dist - i_selector.m_size, i_selector.m_dist + i_selector.m_size))
+                    return;
+
+                float angle = i_object.GetAngle(u)-i_angle;
+
+                // move angle to range -pi ... +pi
+                while (angle > M_PI)
+                    angle -= 2.0f * M_PI;
+                while (angle < -M_PI)
+                    angle += 2.0f * M_PI;
+
+                // dist include size of u
+                float dist2d = i_object.GetDistance2d(x, y);
+                i_selector.AddUsedPos(u->GetObjectSize(), angle, dist2d + i_object.GetObjectSize());
+            }
+        private:
+            WorldObject const& i_object;
+            WorldObject const* i_searcher;
+            float              i_angle;
+            ObjectPosSelector& i_selector;
+    };
+}                                                           // namespace Trinity
+*/
 
 //===================================================================================================
 
@@ -3589,5 +3662,3 @@ std::string GuidToLua(uint64 guid)
     luaguid << "0x" << std::setfill('0') << std::setw(16) << std::hex << std::uppercase << guid;
     return luaguid.str();
 }
-
-

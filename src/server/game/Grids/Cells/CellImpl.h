@@ -60,18 +60,6 @@ inline CellArea Cell::CalculateCellArea(float x, float y, float radius)
     return CellArea(centerX, centerY);
 }
 
-template<class T>
-inline void Cell::VisitGridObjects(WorldObject const* center_obj, T& visitor, float radius, bool dont_load /*= true*/)
-{
-    CellCoord p(Trinity::ComputeCellCoord(center_obj->GetPositionX(), center_obj->GetPositionY()));
-    Cell cell(p);
-    if (dont_load)
-        cell.SetNoCreate();
-
-    TypeContainerVisitor<T, GridTypeMapContainer> gnotifier(visitor);
-    cell.Visit(p, gnotifier, *center_obj->GetMap(), *center_obj, radius);
-}
-
 template<class T, class CONTAINER>
 inline void Cell::Visit(CellCoord const& standing_cell, TypeContainerVisitor<T, CONTAINER>& visitor, Map& map, float radius, float x_off, float y_off) const
 {

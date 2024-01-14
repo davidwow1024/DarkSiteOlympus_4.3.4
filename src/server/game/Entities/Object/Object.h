@@ -943,10 +943,8 @@ class WorldObject : public Object, public WorldLocation
         void GetGameObjectListWithEntryInGrid(std::list<GameObject*>& lList, uint32 uiEntry, float fMaxSearchRange) const;
         void GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float fMaxSearchRange) const;
         void GetCreatureListWithEntryInGrid(std::list<Creature*>& lList, uint32 uiEntry, float x, float y, float fMaxSearchRange) const;
+        void GetDeadCreatureListInGrid(std::list<Creature*>& lList, float maxSearchRange, bool alive = false) const;
 
-
-        template <typename Container>
-        void GetDeadCreatureListInGrid(Container& creaturedeadContainer, float maxSearchRange, bool alive = false) const;
 
         void DestroyForNearbyPlayers();
         virtual void UpdateObjectVisibility(bool forced = true);
@@ -1056,13 +1054,6 @@ namespace Trinity
             const bool m_ascending;
     };
 }
-
-
-template < > void WorldObject::GetDeadCreatureListInGrid(std::list<Creature*>&, float, bool) const;
-
-template < > void WorldObject::GetDeadCreatureListInGrid(std::deque<Creature*>&, float, bool) const;
-
-template < > void WorldObject::GetDeadCreatureListInGrid(std::vector<Creature*>&, float, bool) const;
 
 std::string GuidToLua(uint64 guid);
 
