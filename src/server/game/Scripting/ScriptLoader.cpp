@@ -1619,6 +1619,7 @@ void AddSC_bug_dual();
 void AddSC_WelcomeWindowDev();
 void AddSC_npc_teleport();
 void AddSC_PvPTitles();
+void AddSC_world_chat();
 #endif
 
 void AddCustomScripts()
@@ -1640,5 +1641,6 @@ void AddCustomScripts()
 	AddSC_WelcomeWindowDev();
 	AddSC_npc_teleport();
 	AddSC_PvPTitles();
+	AddSC_world_chat();
 #endif
 }
