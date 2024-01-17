@@ -266,6 +266,115 @@ public:
     };
 };
 
+enum eyeOfAcherus
+{
+	EVENT_REMOVE_CONTROL = 1,
+	EVENT_SPEAK_1 = 2,
+	EVENT_LAUNCH = 3,
+	EVENT_REGAIN_CONTROL = 4,
+
+	EYE_TEXT_LAUNCH = 0,
+	EYE_TEXT_CONTROL = 1,
+
+	SPELL_EYE_OF_ACHERUS_VISUAL = 51892,
+
+	DISPLAYID_EYE_HUGE = 26320,
+	DISPLAYID_EYE_SMALL = 25499,
+};
+
+class npc_eye_of_acherus : public CreatureScript
+{
+public:
+	npc_eye_of_acherus() : CreatureScript("npc_eye_of_acherus") { }
+
+	CreatureAI* GetAI(Creature* creature) const override
+	{
+		return new npc_eye_of_acherusAI(creature);
+	}
+
+	struct npc_eye_of_acherusAI : public NullCreatureAI
+	{
+		npc_eye_of_acherusAI(Creature* creature) : NullCreatureAI(creature) { }
+
+		EventMap events;
+		uint64   m_playerGUID;
+
+		void Reset()
+		{
+			m_playerGUID = 0;
+			me->SetDisplayId(DISPLAYID_EYE_HUGE);
+			me->SetHomePosition(2363.970589f, -5659.861328f, 504.316833f, 0);
+			me->GetMotionMaster()->MovePoint(2001, 2341.57f, -5672.8f, 538.394f);
+			me->SetReactState(REACT_PASSIVE);
+			me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_NOT_SELECTABLE | UNIT_FLAG_STUNNED);
+			if (CharmInfo* info = me->GetCharmInfo())
+				for (uint32 i = 0; i < 8; i++)
+					info->SetActionBar(i, me->GetCreatureTemplate()->spells[i], ACT_PASSIVE);
+		}
+		void InitializeAI() override
+		{
+			events.Reset();
+			events.ScheduleEvent(EVENT_REMOVE_CONTROL, 500);
+			events.ScheduleEvent(EVENT_SPEAK_1, 4000);
+			events.ScheduleEvent(EVENT_LAUNCH, 7000);
+
+			me->CastSpell(me, SPELL_EYE_OF_ACHERUS_VISUAL, true);
+		}
+
+		void MovementInform(uint32 type, uint32 point) override
+		{
+			if (type == POINT_MOTION_TYPE || point != 0)
+				events.ScheduleEvent(EVENT_REGAIN_CONTROL, 1000);
+		}
+
+		void SetControl(Player* player, bool on)
+		{
+			WorldPacket data(SMSG_CLIENT_CONTROL_UPDATE, me->GetPackGUID().size() + 1);
+			data.append(me->GetPackGUID());
+			data << uint8(on ? 1 : 0);
+			player->GetSession()->SendPacket(&data);
+		}
+
+		void JustSummoned(Creature* creature) override
+		{
+			if (Unit* target = creature->SelectNearbyTarget())
+				creature->AI()->AttackStart(target);
+		}
+
+		void UpdateAI(uint32 diff) override
+		{
+			events.Update(diff);
+			switch (events.ExecuteEvent())
+			{
+			case EVENT_REMOVE_CONTROL:
+				if (Player* player = me->GetCharmerOrOwnerPlayerOrPlayerItself())
+					SetControl(player, false);
+				break;
+			case EVENT_SPEAK_1:
+				Talk(EYE_TEXT_LAUNCH);
+				break;
+			case EVENT_LAUNCH:
+			{
+				Movement::PointsArray path;
+				path.push_back(G3D::Vector3(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()));
+				path.push_back(G3D::Vector3(me->GetPositionX() - 40.0f, me->GetPositionY(), me->GetPositionZ() + 10.0f));
+				path.push_back(G3D::Vector3(1768.0f, -5876.0f, 153.0f));
+				me->GetMotionMaster()->MovePoint(2002, 1752.858276f, -5878.270996f, 145.136444f);
+				break;
+			}
+			case EVENT_REGAIN_CONTROL:
+				me->SetDisplayId(DISPLAYID_EYE_SMALL);
+				if (Player* player = me->GetCharmerOrOwnerPlayerOrPlayerItself())
+				{
+					SetControl(player, true);
+					Talk(EYE_TEXT_CONTROL);
+				}
+				break;
+			}
+		}
+	};
+};
+
 class npc_unworthy_initiate_anchor : public CreatureScript
 {
 public:
@@ -1150,4 +1259,5 @@ void AddSC_the_scarlet_enclave_c1()
     new npc_scarlet_miner();
     new npc_scarlet_miner_cart();
     new go_inconspicuous_mine_car();
+    new npc_eye_of_acherus();
 }
