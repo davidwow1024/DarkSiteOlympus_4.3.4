@@ -358,8 +358,8 @@ enum ItemSubclassWeapon
 {
     ITEM_SUBCLASS_WEAPON_AXE                    = 0,  // One-Handed Axes
     ITEM_SUBCLASS_WEAPON_AXE2                   = 1,  // Two-Handed Axes
-    ITEM_SUBCLASS_WEAPON_BOW                    = 2,
-    ITEM_SUBCLASS_WEAPON_GUN                    = 3,
+    ITEM_SUBCLASS_WEAPON_BOW                    = 2, // Arco
+    ITEM_SUBCLASS_WEAPON_GUN                    = 3, //Arma de Fuego
     ITEM_SUBCLASS_WEAPON_MACE                   = 4,  // One-Handed Maces
     ITEM_SUBCLASS_WEAPON_MACE2                  = 5,  // Two-Handed Maces
     ITEM_SUBCLASS_WEAPON_POLEARM                = 6,
