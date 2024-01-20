@@ -31,4 +31,5 @@ INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '487191'
 INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '487192');
 INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '487194');
 INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '487193');
+INSERT INTO `game_event_creature` (`eventEntry`, `guid`) VALUES ('127', '499706');
 
