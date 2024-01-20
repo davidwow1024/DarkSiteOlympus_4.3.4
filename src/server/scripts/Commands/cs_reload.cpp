@@ -79,11 +79,11 @@ public:
 			{ "conditions", SEC_ADMINISTRATOR, true, &HandleReloadConditions, "" },
 			{ "config", SEC_ADMINISTRATOR, true, &HandleReloadConfigCommand, "" },
 			{ "creature_text", SEC_ADMINISTRATOR, true, &HandleReloadCreatureText, "" },
-			{ "creature_involvedrelation", SEC_ADMINISTRATOR, true,  &HandleReloadCreatureQuestInvRelationsCommand, "" },
+			{ "creature_involvedrelation", SEC_ADMINISTRATOR, true, &HandleReloadCreatureQuestEnderCommand, "" },
 			{ "creature_linked_respawn", SEC_GAMEMASTER, true, &HandleReloadLinkedRespawnCommand, "" },
 			{ "creature_loot_template", SEC_ADMINISTRATOR, true, &HandleReloadLootTemplatesCreatureCommand, "" },
 			{ "creature_onkill_reward", SEC_ADMINISTRATOR, true, &HandleReloadOnKillRewardCommand, "" },
-			{ "creature_questrelation", SEC_ADMINISTRATOR, true,  &HandleReloadCreatureQuestRelationsCommand, "" },
+			{ "creature_questrelation", SEC_ADMINISTRATOR, true, &HandleReloadCreatureQuestStarterCommand, "" },
 			{ "creature_summon_groups", SEC_ADMINISTRATOR, true, &HandleReloadCreatureSummonGroupsCommand, "" },
 			{ "creature_template", SEC_ADMINISTRATOR, true, &HandleReloadCreatureTemplateCommand, "" },
 			//{ "db_script_string",             SEC_ADMINISTRATOR, true,  &HandleReloadDbScriptStringCommand,            "" },
@@ -150,6 +150,7 @@ public:
 			{ "spell_threats", SEC_ADMINISTRATOR, true, &HandleReloadSpellThreatsCommand, "" },
 			{ "spell_group_stack_rules", SEC_ADMINISTRATOR, true, &HandleReloadSpellGroupStackRulesCommand, "" },
 			{ "instance_teleporter_dest", SEC_ADMINISTRATOR, true, &HandleReloadInstanceTeleporterDestCommand, "" },
+			{ "spellregulator", SEC_ADMINISTRATOR, true, &HandleReloadSpellRegulatorCommand, "" },
 			{ "olympus_string", SEC_ADMINISTRATOR, true, &HandleReloadOlympusStringCommand, "" },
 			{ "warden_action", SEC_ADMINISTRATOR, true, &HandleReloadWardenactionCommand, "" },
 			{ "waypoint_scripts", SEC_ADMINISTRATOR, true, &HandleReloadWpScriptsCommand, "" },
@@ -257,7 +258,7 @@ public:
 		HandleReloadQuestTemplateCommand(handler, "a");
 
 		TC_LOG_INFO("misc", "Re-Loading Quests Relations...");
-		sObjectMgr->LoadQuestRelations();
+		sObjectMgr->LoadQuestStartersAndEnders();
 		handler->SendGlobalGMSysMessage("DB tables `*_questrelation` and `*_involvedrelation` reloaded.");
 		return true;
 	}
@@ -551,11 +552,11 @@ public:
 		return true;
 	}
 
-	static bool HandleReloadCreatureQuestRelationsCommand(ChatHandler* handler, const char* /*args*/)
+	static bool HandleReloadCreatureQuestStarterCommand(ChatHandler* handler, const char* /*args*/)
 	{
-		TC_LOG_INFO("misc", "Loading Quests Relations... (`creature_questrelation`)");
-		sObjectMgr->LoadCreatureQuestRelations();
-		handler->SendGlobalGMSysMessage("DB table `creature_questrelation` (creature quest givers) reloaded.");
+		TC_LOG_INFO("misc", "Loading Quests Relations... (`creature_queststarter`)");
+		sObjectMgr->LoadCreatureQuestStarters();
+		handler->SendGlobalGMSysMessage("DB table `creature_queststarter` (creature quest givers) reloaded.");
 		return true;
 	}
 
@@ -567,11 +568,11 @@ public:
 		return true;
 	}
 
-	static bool HandleReloadCreatureQuestInvRelationsCommand(ChatHandler* handler, const char* /*args*/)
+	static bool HandleReloadCreatureQuestEnderCommand(ChatHandler* handler, const char* /*args*/)
 	{
-		TC_LOG_INFO("misc", "Loading Quests Relations... (`creature_involvedrelation`)");
-		sObjectMgr->LoadCreatureInvolvedRelations();
-		handler->SendGlobalGMSysMessage("DB table `creature_involvedrelation` (creature quest takers) reloaded.");
+		TC_LOG_INFO("misc", "Loading Quests Relations... (`creature_questender`)");
+		sObjectMgr->LoadCreatureQuestEnders();
+		handler->SendGlobalGMSysMessage("DB table `creature_questender` (creature quest takers) reloaded.");
 		return true;
 	}
 
@@ -595,17 +596,17 @@ public:
 
 	static bool HandleReloadGOQuestRelationsCommand(ChatHandler* handler, const char* /*args*/)
 	{
-		TC_LOG_INFO("misc", "Loading Quests Relations... (`gameobject_questrelation`)");
-		sObjectMgr->LoadGameobjectQuestRelations();
-		handler->SendGlobalGMSysMessage("DB table `gameobject_questrelation` (gameobject quest givers) reloaded.");
+		TC_LOG_INFO("misc", "Loading Quests Relations... (`gameobject_queststarter`)");
+		sObjectMgr->LoadGameobjectQuestStarters();
+		handler->SendGlobalGMSysMessage("DB table `gameobject_queststarter` (gameobject quest givers) reloaded.");
 		return true;
 	}
 
 	static bool HandleReloadGOQuestInvRelationsCommand(ChatHandler* handler, const char* /*args*/)
 	{
-		TC_LOG_INFO("misc", "Loading Quests Relations... (`gameobject_involvedrelation`)");
-		sObjectMgr->LoadGameobjectInvolvedRelations();
-		handler->SendGlobalGMSysMessage("DB table `gameobject_involvedrelation` (gameobject quest takers) reloaded.");
+		TC_LOG_INFO("misc", "Loading Quests Relations... (`gameobject_questender`)");
+		sObjectMgr->LoadGameobjectQuestEnders();
+		handler->SendGlobalGMSysMessage("DB table `gameobject_questender` (gameobject quest takers) reloaded.");
 		return true;
 	}
 
@@ -945,6 +946,14 @@ public:
 		TC_LOG_INFO("misc", "Re-Loading Spell Group Stack Rules...");
 		sSpellMgr->LoadSpellGroupStackRules();
 		handler->SendGlobalGMSysMessage("DB table `spell_group_stack_rules` (spell stacking definitions) reloaded.");
+		return true;
+	}
+
+	static bool HandleReloadSpellRegulatorCommand(ChatHandler* handler, const char* /*args*/)
+	{
+		TC_LOG_INFO("misc", "Re-Loading Spell Regulator...");
+		sSpellRegulator->LoadFromDB();
+		handler->SendGlobalGMSysMessage("DB table `spellregulator` (spell damage definitions) reloaded.");
 		return true;
 	}
 
