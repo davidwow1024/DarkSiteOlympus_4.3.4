@@ -25,8 +25,8 @@
 DoorData const doorData[] =
 {
     {GO_ARGALOTH_DOOR,  DATA_ARGALOTH, DOOR_TYPE_ROOM,  BOUNDARY_NONE},
-    {GO_OCCUTHAR_DOOR,  DATA_OCCUTHAR, DOOR_TYPE_ROOM,  BOUNDARY_NONE},
-    {GO_ALIZABAL_DOOR,  DATA_ALIZABAL, DOOR_TYPE_ROOM,  BOUNDARY_NONE}
+    /*{GO_OCCUTHAR_DOOR,  DATA_OCCUTHAR, DOOR_TYPE_ROOM,  BOUNDARY_NONE},
+    {GO_ALIZABAL_DOOR,  DATA_ALIZABAL, DOOR_TYPE_ROOM,  BOUNDARY_NONE}*/
 };
 
 class instance_baradin_hold: public InstanceMapScript
@@ -46,8 +46,8 @@ public:
             SetBossNumber(MAX_ENCOUNTERS);
             LoadDoorData(doorData);
             ArgalothGUID = 0;
-            OccutharGUID = 0;
-            AlizabalGUID = 0;
+           /* OccutharGUID = 0;
+            AlizabalGUID = 0;*/
             checkBattlefieldTimer = 60000;
         }
 
@@ -68,11 +68,11 @@ public:
                 case BOSS_ARGALOTH:
                     ArgalothGUID = creature->GetGUID();
                     break;
-                case BOSS_OCCUTHAR:
+              /*  case BOSS_OCCUTHAR:
                     OccutharGUID = creature->GetGUID();
                     break;
                 case BOSS_ALIZABAL:
-                    AlizabalGUID = creature->GetGUID();
+                    AlizabalGUID = creature->GetGUID();*/
                     break;
             }
         }
@@ -82,8 +82,8 @@ public:
             switch(go->GetEntry())
             {
                 case GO_ARGALOTH_DOOR:
-                case GO_OCCUTHAR_DOOR:
-                case GO_ALIZABAL_DOOR:
+               /* case GO_OCCUTHAR_DOOR:
+                case GO_ALIZABAL_DOOR:*/
                     AddDoor(go, true);
                     break;
             }
@@ -95,10 +95,10 @@ public:
             {
                 case DATA_ARGALOTH:
                     return ArgalothGUID;
-                case DATA_OCCUTHAR:
+              /*  case DATA_OCCUTHAR:
                     return OccutharGUID;
                 case DATA_ALIZABAL:
-                    return AlizabalGUID;
+                    return AlizabalGUID;*/
                 default:
                     break;
             }
@@ -110,8 +110,8 @@ public:
             switch(go->GetEntry())
             {
                 case GO_ARGALOTH_DOOR:
-                case GO_OCCUTHAR_DOOR:
-                case GO_ALIZABAL_DOOR:
+               /* case GO_OCCUTHAR_DOOR:
+                case GO_ALIZABAL_DOOR:*/
                     AddDoor(go, false);
                     break;
             }
@@ -146,8 +146,8 @@ public:
 
     private:
         uint64 ArgalothGUID;
-        uint64 OccutharGUID;
-        uint64 AlizabalGUID;
+        /*uint64 OccutharGUID;
+        uint64 AlizabalGUID;*/
         uint32 checkBattlefieldTimer;
     };
 };

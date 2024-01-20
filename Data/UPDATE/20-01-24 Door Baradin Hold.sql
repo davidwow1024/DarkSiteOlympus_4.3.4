@@ -1,0 +1,3 @@
+
+replace into `gameobject` (`guid`, `id`, `map`, `zone`, `area`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) values('124547','208953','757','5600','5600','3','1','269.716','1471.05','179.943','3.14159','0','0','1','-0.0000000437114','120','255','1');
+replace into `gameobject` (`guid`, `id`, `map`, `zone`, `area`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`) values('124554','209849','757','5600','5600','3','1','386.859','1337.48','170.161','1.5708','0','0','0.707107','0.707107','120','255','1');
