@@ -32,7 +32,7 @@ Fix SAI Anduin
 Fix SAI - condition  Samuelson
 Fix Cadena de misiones Se busca un heroe en tierras altas crepusculares
 
-### ==== 16/01/2024 - 22/01/2024 Zone Vashjir ====
+### ==== 13/01/2024 - 22/01/2024 Zone Vashjir ====
 Quest fix Sea Legs
 Quest fix Pay It Forward
 Quest fix Remnants of Battle
