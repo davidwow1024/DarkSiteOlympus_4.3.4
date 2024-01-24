@@ -105,6 +105,7 @@ void AddSC_achievement_scripts();
 void AddSC_CdReset();
 void AddSC_boss_julak_doom();
 void AddSC_boss_akmahat();
+void AddSC_boss_mobus();
 
 // eastern kingdoms
 void AddSC_alterac_valley(); // Alterac Valley
@@ -895,6 +896,7 @@ void AddWorldScripts()
     AddSC_CdReset();
 	AddSC_boss_julak_doom();
 	AddSC_boss_akmahat();
+	AddSC_boss_mobus();
 #endif
 }
 
