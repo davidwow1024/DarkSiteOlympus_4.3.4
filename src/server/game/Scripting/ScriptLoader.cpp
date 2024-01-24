@@ -107,6 +107,7 @@ void AddSC_boss_julak_doom();
 void AddSC_boss_akmahat();
 void AddSC_boss_mobus();
 void AddSC_boss_garr_hyjal();
+void AddSC_boss_city_kings();
 
 // eastern kingdoms
 void AddSC_alterac_valley(); // Alterac Valley
@@ -899,6 +900,7 @@ void AddWorldScripts()
 	AddSC_boss_akmahat();
 	AddSC_boss_mobus();
 	AddSC_boss_garr_hyjal();
+	AddSC_boss_city_kings();
 #endif
 }
 
