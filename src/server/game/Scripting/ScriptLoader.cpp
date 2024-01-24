@@ -104,6 +104,7 @@ void AddSC_npc_taxi();
 void AddSC_achievement_scripts();
 void AddSC_CdReset();
 void AddSC_boss_julak_doom();
+void AddSC_boss_akmahat();
 
 // eastern kingdoms
 void AddSC_alterac_valley(); // Alterac Valley
@@ -893,6 +894,7 @@ void AddWorldScripts()
     AddSC_chat_log();
     AddSC_CdReset();
 	AddSC_boss_julak_doom();
+	AddSC_boss_akmahat();
 #endif
 }
 
