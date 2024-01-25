@@ -12972,54 +12972,22 @@ void Player::RemoveItem(uint8 bag, uint8 slot, bool update, bool slotSwitch)
 
         if (bag == INVENTORY_SLOT_BAG_0)
         {
-            if (slot < INVENTORY_SLOT_BAG_END && !slotSwitch)
+            if (slot < INVENTORY_SLOT_BAG_END)
             {
                 ItemTemplate const* pProto = pItem->GetTemplate();
                 // item set bonuses applied only at equip and removed at unequip, and still active for broken items
 
-                if (pProto && pProto->ItemSet)
+				if (pProto && pProto->ItemSet)
                     RemoveItemsSetItem(this, pProto);
 
                 _ApplyItemMods(pItem, slot, false);
 
-                // remove item dependent auras and casts (only weapon and armor slots)
-                if (slot < EQUIPMENT_SLOT_END)
-                {
-                    RemoveItemDependentAurasAndCasts(pItem);
-
-                    // remove held enchantments, update expertise
-                    if (slot == EQUIPMENT_SLOT_MAINHAND)
-                    {
-                        if (pItem->GetItemSuffixFactor())
-                        {
-                            pItem->ClearEnchantment(PROP_ENCHANTMENT_SLOT_3);
-                            pItem->ClearEnchantment(PROP_ENCHANTMENT_SLOT_4);
-                        }
-                        else
-                        {
-                            pItem->ClearEnchantment(PROP_ENCHANTMENT_SLOT_0);
-                            pItem->ClearEnchantment(PROP_ENCHANTMENT_SLOT_1);
-                        }
-
-                        UpdateExpertise(BASE_ATTACK);
-                    }
-                    else if (slot == EQUIPMENT_SLOT_OFFHAND)
-                        UpdateExpertise(OFF_ATTACK);
-                    // update armor penetration - passive auras may need it
-                    switch (slot)
-                    {
-                    case EQUIPMENT_SLOT_MAINHAND:
-                    case EQUIPMENT_SLOT_OFFHAND:
-                    case EQUIPMENT_SLOT_RANGED:
-                        RecalculateRating(CR_ARMOR_PENETRATION);
-                    default:
-                        break;
-                    }
-                }
+                if (slot == EQUIPMENT_SLOT_MAINHAND || slot == EQUIPMENT_SLOT_OFFHAND)
+                    UpdateExpertise(OFF_ATTACK);
             }
 
-            m_items[slot] = NULL;
-            SetUInt64Value(PLAYER_FIELD_INV_SLOT_HEAD + (slot * 2), 0);
+            m_items[slot] = nullptr;
+			SetUInt64Value(PLAYER_FIELD_INV_SLOT_HEAD + (slot * 2), 0);
 
             if (slot < EQUIPMENT_SLOT_END)
                 SetVisibleItemSlot(slot, NULL);
