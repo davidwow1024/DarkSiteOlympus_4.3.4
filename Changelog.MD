@@ -106,3 +106,19 @@ Quest fix What? What? In My Gut...?
 Quest fix Shark Weak
 Quest fix The Warden's Time
 Quest fix Once More, With Eeling
+
+### ==== 28/01/2024 Zone Vashjir ====
+Fix item  Levantatormentas, Tramo de la Tempestad
+Quest fix Backed Into a Corner
+Quest fix Totem Modification
+Quest fix The Looming Threat
+Quest fix Across the Great Divide
+Quest fix Shelled Salvation
+Quest fix Making Contact
+Quest fix Looking Forward
+Quest fix Swift Action
+Quest fix Fallen But Not Forgotten
+Quest fix Gauging Success
+Quest fix Decompression
+Quest fix What? What? In My Gut...?
+Quest fix Orders Are For the Living
