@@ -20,6 +20,18 @@
 #include "GridNotifiersImpl.h"
 #include "endTime.h"
 
+enum Texts
+{	
+    TALK_INTRO        = 0, 
+    TALK_ENTER_COMBAT = 1,
+	TALK_SAY_AGGRO    = 2, 
+	TALK_REWIND_TIME  = 3,
+	TALK_PLAYER_DEATH = 4 ,
+	TALK_WIPE         = 5,
+	TALK_DEATH        = 8,
+	TALK_UNK2 = 9,
+};
+
 enum Spells
 {
     // 01:32:59.157
@@ -81,11 +93,12 @@ enum Miscs
 };
 
 Position const infiniteSuppressorPos[4] =
-    {
-        {4047.39f, -438.898f, 119.089f, 2.22507f},
-        {4061.68f, -427.949f, 118.416f, 2.22513f},
-        {4104.93f, -405.556f, 120.733f, 4.83456f},
-        {4085.56f, -430.510f, 121.071f, 6.17846f}};
+{
+    { 4047.39f, -438.898f, 119.089f, 2.22507f },
+    { 4061.68f, -427.949f, 118.416f, 2.22513f },
+    { 4104.93f, -405.556f, 120.733f, 4.83456f },
+    { 4085.56f, -430.510f, 121.071f, 6.17846f }
+};
 
 Position const infiniteWardenPos[4] =
     {
@@ -136,6 +149,7 @@ public:
 
         void JustDied(Unit *killer) override
         {
+			Talk(TALK_DEATH);
             instance->CompleteGuildCriteriaForGuildGroup(CRITERIA_GUILD_RUN_END_TIME);
             instance->FinishLfgDungeon(me);
             me->RemoveDynObject(GO_DYN_DEFLAG);
@@ -146,9 +160,22 @@ public:
                 go->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_NOT_SELECTABLE);
             _JustDied();
         }
-
-        void EnterCombat(Unit *who) override
+		
+        void EnterEvadeMode() override
         {
+            Talk(TALK_WIPE);
+            BossAI::EnterEvadeMode();
+        }
+
+        void KilledUnit(Unit* victim) override
+        {
+            if (victim->GetTypeId() == TYPEID_PLAYER)
+                Talk(TALK_PLAYER_DEATH);
+        }
+		
+     	void EnterCombat(Unit* who)
+        {
+			Talk(TALK_SAY_AGGRO);
             events.ScheduleEvent(EVENT_INSTANT_TEMPORALITY, 3000);
             events.ScheduleEvent(EVENT_DISTORTION_BOMB, 6000);
             events.ScheduleEvent(EVENT_DISTORTION_BOMB_SOFT_ENRAGE, 58000);
@@ -164,6 +191,7 @@ public:
 
         void UseHourglassSand()
         {
+			Talk(TALK_REWIND_TIME);
             _rewindCount--;
             EntryCheckPredicate pred(NPC_MIRROR_IMAGE);
             summons.DoAction(ACTION_REWIND_TIME, pred);
@@ -186,14 +214,15 @@ public:
         {
             switch (action)
             {
-            case ACTION_ENTER_COMBAT:
-                me->GetMotionMaster()->MovePoint(POINT_ENTER_COMBAT, 4181.117f, -420.2193f, 145.3806f);
-                me->SetHomePosition(4181.117f, -420.2193f, 145.3806f, 2.9845f);
-                break;
-            case ACTION_REWIND_TIME:
-                if (_rewindCount)
-                    UseHourglassSand();
-                break;
+                case ACTION_ENTER_COMBAT:
+				    Talk(TALK_ENTER_COMBAT);
+                    me->GetMotionMaster()->MovePoint(POINT_ENTER_COMBAT, 4181.117f, -420.2193f, 145.3806f);
+                    me->SetHomePosition(4181.117f, -420.2193f, 145.3806f, 2.9845f);
+                    break;
+                case ACTION_REWIND_TIME:
+                    if (_rewindCount)
+                        UseHourglassSand();
+                    break;
             }
         }
 
@@ -249,35 +278,36 @@ public:
             {
                 switch (eventId)
                 {
-                case EVENT_INSTANT_TEMPORALITY:
-                    DoCast(SPELL_INSTANT_TEMPORALITY);
-                    instance->DoCastSpellOnPlayers(SPELL_SAND_HOURGLASS);
-                    if (GameObject *go = ObjectAccessor::GetGameObject(*me, instance->GetData64(DATA_HOURGLASS_OF_TIME_GUID)))
-                        go->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_NOT_SELECTABLE);
-                    break;
-                case EVENT_DISTORTION_BOMB:
-                    DoCastRandom(SPELL_DISTORTION_BOMB, 0.0f);
-                    events.ScheduleEvent(EVENT_DISTORTION_BOMB, 6000);
-                    break;
-                case EVENT_DISTORTION_BOMB_SOFT_ENRAGE:
-                    events.CancelEvent(EVENT_DISTORTION_BOMB);
-                    DoCastRandom(SPELL_DISTORTION_BOMB_2, 0.0f);
-                    events.ScheduleEvent(EVENT_DISTORTION_BOMB_SOFT_ENRAGE, 6000);
-                    break;
-                case EVENT_TEMPORALITY_DEFLAG:
-                    DoCast(SPELL_TEMPORALITY_DEFLAG);
-                    events.ScheduleEvent(EVENT_TEMPORALITY_DEFLAG, urand(12000, 15000));
-                    break;
-                case EVENT_INFINITE_BREATH:
-                    DoCast(SPELL_INFINITE_BREATH);
-                    events.ScheduleEvent(EVENT_INFINITE_BREATH, 21000);
-                    break;
-                case EVENT_TAIL_SWEEP:
-                    DoCast(SPELL_TAIL_SWEEP);
-                    events.ScheduleEvent(EVENT_TAIL_SWEEP, urand(12000, 20000));
-                    break;
-                default:
-                    break;
+					case EVENT_INSTANT_TEMPORALITY:
+					    Talk(TALK_UNK2);
+                        DoCast(SPELL_INSTANT_TEMPORALITY);
+                        instance->DoCastSpellOnPlayers(SPELL_SAND_HOURGLASS);
+                        if (GameObject *go = ObjectAccessor::GetGameObject(*me, instance->GetData64(DATA_HOURGLASS_OF_TIME_GUID)))
+                            go->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_NOT_SELECTABLE);
+                        break;
+                    case EVENT_DISTORTION_BOMB:
+                        DoCastRandom(SPELL_DISTORTION_BOMB, 0.0f);
+                        events.ScheduleEvent(EVENT_DISTORTION_BOMB, 6000);
+                        break;
+                    case EVENT_DISTORTION_BOMB_SOFT_ENRAGE:
+                        events.CancelEvent(EVENT_DISTORTION_BOMB);
+                        DoCastRandom(SPELL_DISTORTION_BOMB_2, 0.0f);
+                        events.ScheduleEvent(EVENT_DISTORTION_BOMB_SOFT_ENRAGE, 6000);
+                        break;
+                    case EVENT_TEMPORALITY_DEFLAG:
+                        DoCast(SPELL_TEMPORALITY_DEFLAG);
+                        events.ScheduleEvent(EVENT_TEMPORALITY_DEFLAG, urand(12000, 15000));
+                        break;
+                    case EVENT_INFINITE_BREATH:
+                        DoCast(SPELL_INFINITE_BREATH);
+                        events.ScheduleEvent(EVENT_INFINITE_BREATH, 21000);
+                        break;
+                    case EVENT_TAIL_SWEEP:
+                        DoCast(SPELL_TAIL_SWEEP);
+                        events.ScheduleEvent(EVENT_TAIL_SWEEP, urand(12000, 20000));
+                        break;
+                    default:
+                        break;
                 }
             }
 
