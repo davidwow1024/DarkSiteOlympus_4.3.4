@@ -138,7 +138,7 @@ int Master::Run()
 	TC_LOG_INFO("server.worldserver", "     \\_____\\  \\____//   \\  ||    \\/    ||  ||   C O R E  \\______// ||___//");
 	TC_LOG_INFO("server.worldserver", "Source Olympus 2023");
 	TC_LOG_INFO("server.worldserver", "Basado en OlympusCore");
-	TC_LOG_INFO("server.worldserver", "MMORPG V1.0 Cata 4.3.4");
+	TC_LOG_INFO("server.worldserver", "MMORPG V2.1 Cata 4.3.4");
 
     /// worldserver PID file creation
     std::string pidfile = sConfigMgr->GetStringDefault("PidFile", "");
