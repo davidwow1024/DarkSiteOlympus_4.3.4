@@ -106,17 +106,17 @@ extern int main(int argc, char **argv)
     TC_LOG_INFO("server.authserver", "%s (authserver)", _FULLVERSION);
     TC_LOG_INFO("server.authserver", "<Ctrl-C> to stop.\n");
     TC_LOG_INFO("server.authserver", "Using configuration file %s.", cfg_file);	
-	TC_LOG_INFO("server.worldserver", " ______     _        _                            ________                     _______");
-    TC_LOG_INFO("server.worldserver", "//    \\   //        \\                         //       ||   //      \\      //     \\ ");
-    TC_LOG_INFO("server.worldserver", "\\     \\  \\         \\        \\         //   ||       ||   ||      ||      \\");
-    TC_LOG_INFO("server.worldserver", " \\     \\  \\         \\      ||\\       //||  ||_______||   ||      ||       \\");
-    TC_LOG_INFO("server.worldserver", "  \\     \\  \\         \\     || \\     // ||  ||_______/    ||      ||        \\");
-    TC_LOG_INFO("server.worldserver", "   \\     \\  \\         \\    ||  \\   //  ||  ||            ||      ||        //");
-    TC_LOG_INFO("server.worldserver", "    \\     \\  \\         \\   ||   \\ //   ||  ||            ||      ||       //");
-    TC_LOG_INFO("server.worldserver", "     \\_____\\  \\____//   \\  ||    \\/    ||  ||   C O R E  \\______// ||___//");
-    TC_LOG_INFO("server.worldserver", "Source Olympus 2023");
-    TC_LOG_INFO("server.worldserver", "Basado en OlympusCore");
-    TC_LOG_INFO("server.worldserver", "MMORPG V1.0 Cata 4.3.4");
+	TC_LOG_INFO("server.authserver", " ______     _        _                            ________                     _______");
+    TC_LOG_INFO("server.authserver", "//    \\   //        \\                         //       ||   //      \\      //     \\ ");
+    TC_LOG_INFO("server.authserver", "\\     \\  \\         \\        \\         //   ||       ||   ||      ||      \\");
+    TC_LOG_INFO("server.authserver", " \\     \\  \\         \\      ||\\       //||  ||_______||   ||      ||       \\");
+    TC_LOG_INFO("server.authserver", "  \\     \\  \\         \\     || \\     // ||  ||_______/    ||      ||        \\");
+    TC_LOG_INFO("server.authserver", "   \\     \\  \\         \\    ||  \\   //  ||  ||            ||      ||        //");
+    TC_LOG_INFO("server.authserver", "    \\     \\  \\         \\   ||   \\ //   ||  ||            ||      ||       //");
+    TC_LOG_INFO("server.authserver", "     \\_____\\  \\____//   \\  ||    \\/    ||  ||   C O R E  \\______// ||___//");
+    TC_LOG_INFO("server.authserver", "Source Olympus 2023");
+    TC_LOG_INFO("server.authserver", "Basado en OlympusCore");
+    TC_LOG_INFO("server.authserver", "MMORPG V2.1 Cata 4.3.4");
 
     TC_LOG_WARN("server.authserver", "%s (Library: %s)", OPENSSL_VERSION_TEXT, SSLeay_version(SSLEAY_VERSION));
 
