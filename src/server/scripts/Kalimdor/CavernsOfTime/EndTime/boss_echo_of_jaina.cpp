@@ -17,7 +17,11 @@
 
 enum Texts
 {
-
+    TALK_AGGRO   = 0,
+    TALK_DEATH   = 1,
+    TALK_INTRO   = 2,
+    TALK_KILL    = 3,   
+    TALK_SPELL   = 4,
 };
 
 enum Spells
@@ -54,6 +58,10 @@ enum Npcs
     NPC_BLINK_TARGET = 54542,
 
 };
+enum Others
+{
+    ACTION_FRAGMENTS = 1,
+};
 
 class boss_echo_of_jaina : public CreatureScript
 {
@@ -65,7 +73,10 @@ public:
         {
             creature->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_KNOCK_BACK, true);
             creature->ApplySpellImmune(0, IMMUNITY_MECHANIC, MECHANIC_GRIP, true);
+			bIntro = false;
         }
+
+		bool bIntro;
 
         void Reset()
         {
@@ -82,8 +93,36 @@ public:
                 (*itr)->Respawn();
         }
 
+		void DoAction(const int32 action) override
+		{
+			if (action == DATA_FRAGMENTS)
+			{
+                    if (DATA_FRAGMENTS >= MAX_FRAGMENTS)
+                        return;
+
+                    if (!bIntro)
+                    {
+                        bIntro = true;
+                        Talk(TALK_INTRO);
+                    }
+					DATA_FRAGMENTS;
+
+                    if (DATA_FRAGMENTS >= MAX_FRAGMENTS)
+                    {
+                        instance->SetData(DATA_ECHO_OF_JAINA_GUID, DONE);
+                        me->SetVisible(true);
+                        me->SetReactState(REACT_AGGRESSIVE);
+                    }
+
+                    instance->SetData(DATA_FRAGMENTS, DATA_FRAGMENTS);
+                    instance->DoUpdateWorldState(WORLDSTATE_SHOW_FRAGMENTS, 1);
+                    instance->DoUpdateWorldState(WORLDSTATE_FRAGMENTS_COLLECTED, DATA_FRAGMENTS);
+                }
+            }
+			
         void JustDied(Unit* killer)
         {
+			Talk(TALK_DEATH);
             // fixes combat bug - we currently dont know what the players hold in combat
             Map::PlayerList const& playerList = me->GetMap()->GetPlayers();
             for (Map::PlayerList::const_iterator i = playerList.begin(); i != playerList.end(); ++i)
@@ -94,8 +133,15 @@ public:
             _JustDied();
         }
 
+		void KilledUnit(Unit* victim) override
+        {
+            if (victim->GetTypeId() == TYPEID_PLAYER)
+                Talk(TALK_KILL);
+        }
+		
         void EnterCombat(Unit* who)
         {
+			Talk(TALK_AGGRO);
             me->SetReactState(REACT_AGGRESSIVE);
             events.ScheduleEvent(EVENT_PYROBLAST, 500);
             events.ScheduleEvent(EVENT_PRE_FROSTBLADES, 20000);
@@ -158,7 +204,8 @@ public:
                         events.ScheduleEvent(EVENT_PRE_FROSTBLADES, 25000);
                         events.ScheduleEvent(EVENT_FROSTBLADES, 1000);
                         break;
-                    case EVENT_FROSTBLADES:
+                    case EVENT_FROSTBLADES:					
+					    Talk(TALK_SPELL);
                         if (Creature *blink = me->FindNearestCreature(NPC_BLINK_TARGET, 10.0f))
                             blink->DespawnOrUnsummon();
                         if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0))
