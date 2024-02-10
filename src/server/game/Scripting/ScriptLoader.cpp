@@ -1628,6 +1628,7 @@ void AddSC_WelcomeWindowDev();
 void AddSC_npc_teleport();
 void AddSC_PvPTitles();
 void AddSC_world_chat();
+void AddSC_VAS_AutoBalance();
 #endif
 
 void AddCustomScripts()
@@ -1650,5 +1651,6 @@ void AddCustomScripts()
 	AddSC_npc_teleport();
 	AddSC_PvPTitles();
 	AddSC_world_chat();
+	AddSC_VAS_AutoBalance();
 #endif
 }

@@ -13,7 +13,8 @@ source_group(Custom FILES ${scripts_Custom})
 
 set(scripts_STAT_SRCS
   ${scripts_STAT_SRCS}
-  ${scripts_Custom}
+  ${scripts_Custom}  
+  Custom/VAS_AutoBalance.cpp
 )
 
 message("  -> Prepared: Custom")

@@ -27,6 +27,7 @@
 #include "SharedDefines.h"
 #include "World.h"
 #include "Weather.h"
+#include "Unit.h"
 
 class AuctionHouseObject;
 class AuraScript;
@@ -61,6 +62,7 @@ class WorldSocket;
 class WorldObject;
 
 struct AuctionEntry;
+struct CreatureTemplate;
 struct ConditionSourceInfo;
 struct Condition;
 struct ItemTemplate;
@@ -287,6 +289,17 @@ public:
     virtual void OnGroupRateCalculation(float & /*rate*/, uint32 /*count*/, bool /*isRaid*/) {}
 };
 
+class AllMapScript : public ScriptObject
+{
+protected:
+	AllMapScript(const char* name);
+public:
+	// Called when a player enters any Map
+	virtual void OnPlayerEnterAll(Map* /*map*/, Player* /*player*/) { }
+	// Called when a player leave any Map
+	virtual void OnPlayerLeaveAll(Map* /*map*/, Player* /*player*/) { }
+};
+
 template <class TMap>
 class MapScript : public UpdatableScript<TMap>
 {
@@ -385,6 +398,13 @@ public:
 
     // Called when Spell Damage is being Dealt
     virtual void ModifySpellDamageTaken(Unit * /*target*/, Unit * /*attacker*/, int32 & /*damage*/) {}
+	
+	// Called when Heal is Recieved
+    virtual void ModifyHealRecieved(Unit* /*target*/, Unit* /*attacker*/, uint32& /*damage*/) { }
+
+    //VAS AutoBalance
+    virtual uint32 DealDamage(Unit* AttackerUnit, Unit *pVictim, uint32 damage, DamageEffectType damagetype) { return damage;}
+
 };
 
 class CreatureScript : public UnitScript, public UpdatableScript<Creature>
@@ -430,6 +450,17 @@ public:
 
     // Called after a passenger is removed from a vehicle.
     virtual void OnRemovePassenger(Creature * /*veh*/, Unit * /*passenger*/) {}
+};
+
+class AllCreatureScript : public ScriptObject
+{
+protected:
+	AllCreatureScript(const char* name);
+public:
+	// Called from End of Creature Update.
+	virtual void OnAllCreatureUpdate(Creature* /*creature*/, uint32 /*diff*/) { }
+	// Called from End of Creature SelectLevel.
+	virtual void Creature_SelectLevel(const CreatureTemplate* /*cinfo*/, Creature* /*creature*/) { }
 };
 
 class GameObjectScript : public ScriptObject, public UpdatableScript<GameObject>
@@ -820,6 +851,10 @@ public: /* Initialization */
 
 public: /* Unloading */
     void Unload();
+	
+public: /* {VAS} Script Hooks */
+    float VAS_Script_Hooks();	
+	
 
 public: /* SpellScriptLoader */
     void CreateSpellScripts(uint32 spellId, std::list<SpellScript *> &scriptVector);
@@ -854,6 +889,11 @@ public: /* FormulaScript */
     void OnGainCalculation(uint32 &gain, Player *player, Unit *unit);
     void OnGroupRateCalculation(float &rate, uint32 count, bool isRaid);
 
+public: /* AllScript */
+
+	void OnPlayerEnterMapAll(Map* map, Player* player);
+	void OnPlayerLeaveMapAll(Map* map, Player* player);
+	
 public: /* MapScript */
     void OnCreateMap(Map *map);
     void OnDestroyMap(Map *map);
@@ -871,6 +911,10 @@ public: /* ItemScript */
     bool OnQuestAccept(Player *player, Item *item, Quest const *quest);
     bool OnItemUse(Player *player, Item *item, SpellCastTargets const &targets);
     bool OnItemExpire(Player *player, ItemTemplate const *proto);
+	
+public: /* AllCreatureScript */
+	void OnAllCreatureUpdate(Creature* creature, uint32 diff);
+	void Creature_SelectLevel(const CreatureTemplate *cinfo, Creature* creature);
 
 public: /* CreatureScript */
     bool OnDummyEffect(Unit *caster, uint32 spellId, SpellEffIndex effIndex, Creature *target);
@@ -1008,6 +1052,8 @@ public: /* UnitScript */
     void ModifyPeriodicDamageAurasTick(Unit *target, Unit *attacker, uint32 &damage);
     void ModifyMeleeDamage(Unit *target, Unit *attacker, uint32 &damage);
     void ModifySpellDamageTaken(Unit *target, Unit *attacker, int32 &damage);
+	void ModifyHealRecieved(Unit* target, Unit* attacker, uint32& addHealth);
+    uint32 DealDamage(Unit* AttackerUnit, Unit *pVictim,uint32 damage,DamageEffectType damagetype);
 
 public: /* Scheduled scripts */
     uint32 IncreaseScheduledScriptsCount() { return ++_scheduledScripts; }
