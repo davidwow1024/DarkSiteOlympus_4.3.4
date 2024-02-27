@@ -15,5 +15,3 @@ Emulator MMORPG Core 434 Based on Olympus Core
 [jorge990125](https://github.com/jorge990125)
 
 
-[liosbel2000](https://github.com/liosbel2000)
-
