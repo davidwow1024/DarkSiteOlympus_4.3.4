@@ -4,12 +4,12 @@ on:
 
 jobs:
   issue_labeler:
-    if: github.repository == 'Legends-of-Azeroth/Legends-of-Azeroth-Pandaria-5.4.8'
+    if: github.repository == 'jorge990125/cataclysm'
     runs-on: ubuntu-latest
     name: Issue Labeler
     steps:
     - name: Issue Labeler
       id: issue-labeler
-      uses: Legends-of-Azeroth/GitHub-Actions@issue-labeler-prod
+      uses: jorge990125/GitHub-Actions@issue-labeler-prod
       with:
         token: ${{ secrets.GITHUB_TOKEN }}

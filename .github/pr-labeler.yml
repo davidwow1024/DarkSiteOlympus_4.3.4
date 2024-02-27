@@ -9,6 +9,6 @@ jobs:
     steps:
     - name: Pull Request Labeler
       id: pr-labeler
-      uses: Legends-of-Azeroth/GitHub-Actions@pr-labeler-prod
+      uses: jorge990125/GitHub-Actions@pr-labeler-prod
       with:
         token: ${{ secrets.GITHUB_TOKEN }}

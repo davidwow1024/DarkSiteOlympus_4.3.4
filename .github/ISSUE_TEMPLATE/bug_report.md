@@ -1,13 +1,13 @@
 ---
 name: 🐛 Bug Report
-about: Report any bug or defect you've come across when using Pandaria 5.4.8
+about: Report any bug or defect you've come across when using Pandaria 4.3.4
 labels: bug
 title: 🐛 [Bug] 
 ---
 <!--
-Visit our Discord to engage directly with the developers of Pandaria 5.4.8
+Visit our Discord to engage directly with the developers of Pandaria 4.3.4
 
-Discord: https://discord.gg/y3zspxan7k
+Discord: https://discord.gg/CBYTKys3sY
 -->
 ## 🐛 Bug report
 <!-- Describe your issue in detail. Give us as much information as possible. You should include a screenshot! -->
@@ -29,7 +29,7 @@ Discord: https://discord.gg/y3zspxan7k
 <!-- Provide these infos if available and applicable -->
 <!--
   Currently available client versions:
-  - 5.4.8.18414
+  - 4.3.4.15595
 -->
 Client Version: 
 - No information

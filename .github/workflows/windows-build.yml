@@ -19,11 +19,10 @@ env:
   REPO_DIR : ${{github.workspace}}
   BUILD_DIR: ${{github.workspace}}/bin/builddir
   BOOST_TOOLSET: "msvc"
-  BOOST_VERSION: "1.78.0"
   
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-2015
     
     steps:
     #git checkout
@@ -44,7 +43,7 @@ jobs:
           # https://github.com/actions/boost-versions/blob/main/versions-manifest.json
           boost_version: ${{env.BOOST_VERSION}}
           # OPTIONAL: Specify a platform version
-          platform_version: 2019         
+          platform_version: 2015         
           # OPTIONAL: Specify a toolset on windows
           toolset: ${{env.BOOST_TOOLSET}}
           # OPTIONAL: Specify a custon install location
@@ -88,9 +87,8 @@ jobs:
           cd ${{github.workspace}}/build/bin
           dir
           copy "C:/Program Files/MySQL/MySQL Server 5.7/lib/libmysql.dll" ${{github.workspace}}/build/bin/RelWithDebInfo/libmysql.dll
-          copy "C:/Program Files/OpenSSL/bin/libssl-3-x64.dll" ${{github.workspace}}/build/bin/RelWithDebInfo/libssl-3-x64.dll
-          copy "c:/Program Files/OpenSSL/bin/libcrypto-3-x64.dll" ${{github.workspace}}/build/bin/RelWithDebInfo/libcrypto-3-x64.dll
-          move ${{github.workspace}}/contrib/lua_scripts ${{github.workspace}}/build/bin/RelWithDebInfo/lua_scripts
+          copy "C:/OpenSSL/bin/libssl-3-x64.dll" ${{github.workspace}}/build/bin/RelWithDebInfo/libssl-3-x64.dll
+          copy "c:/OpenSSL/bin/libcrypto-3-x64.dll" ${{github.workspace}}/build/bin/RelWithDebInfo/libcrypto-3-x64.dll
           7z a -tzip ${{env.ARCHIVE_FILENAME}} RelWithDebInfo
     - name: Archive this artefact
       uses: actions/upload-artifact@v2
