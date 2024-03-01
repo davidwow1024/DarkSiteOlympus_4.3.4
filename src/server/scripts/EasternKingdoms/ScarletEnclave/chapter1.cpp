@@ -298,13 +298,13 @@ public:
 
 		EventMap events;
 		uint64   m_playerGUID;
-        char* text1 = "El Ojo de Acherus se lanza hacia su destino";
-        char* text2 = "El Ojo de Acherus está bajo tu control";
+        char * text1 = "El Ojo de Acherus se lanza hacia su destino";
+        char * text2 = "El Ojo de Acherus esta bajo tu control";
 
 		void Reset()
 		{
 			m_playerGUID = 0;
-			//me->SetDisplayId(DISPLAYID_EYE_HUGE);
+			me->SetDisplayId(DISPLAYID_EYE_HUGE);
 			me->SetHomePosition(2363.970589f, -5659.861328f, 504.316833f, 0);
 			me->GetMotionMaster()->MovePoint(2001, 2341.57f, -5672.8f, 538.394f);
 			me->SetReactState(REACT_PASSIVE);
@@ -353,7 +353,7 @@ public:
 					SetControl(player, false);
 				break;
 			case EVENT_SPEAK_1:
-                me->MonsterTextEmote(text1, me->GetGUID(), true);
+				me->MonsterTextEmote(text1, me->GetGUID(), true);
 				break;
 			case EVENT_LAUNCH:
 			{
@@ -365,10 +365,10 @@ public:
 				break;
 			}
 			case EVENT_REGAIN_CONTROL:
-				//me->SetDisplayId(DISPLAYID_EYE_HUGE);
+				me->SetDisplayId(DISPLAYID_EYE_SMALL);
 				if (Player* player = me->GetCharmerOrOwnerPlayerOrPlayerItself())
 				{
-					SetControl(player, true);
+					SetControl(player, true);					
                     me->MonsterTextEmote(text2, me->GetGUID(), true);
 				}
 				break;
