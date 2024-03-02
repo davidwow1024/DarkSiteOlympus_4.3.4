@@ -478,6 +478,7 @@ void AddSC_boss_slabhide();
 void AddSC_instance_the_stonecore();
 void AddSC_the_stonecore();
 void AddSC_tol_barad();
+void AddSC_the_maelstrom();
 
 // northrend
 void AddSC_boss_slad_ran();
@@ -1413,6 +1414,7 @@ void AddMaelstromScripts()
     AddSC_instance_the_stonecore();
     AddSC_the_stonecore();
     AddSC_tol_barad();
+	AddSC_the_maelstrom();
 #endif
 }
 

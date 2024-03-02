@@ -183,6 +183,15 @@ enum UnitBytes1_Flags
     UNIT_BYTE1_FLAG_ALL = 0xFF
 };
 
+enum class UnitAnimationTier : uint8
+{                  // Name from client executable
+    Ground = 0, // Normal/Ground                   - Plays ground tier animations
+    Swim = 1, // Swim (NOT YET IMPLEMENTED)      - Falls back to ground tier animations, not handled by the client, should never appear in sniffs, will prevent tier change animations from playing correctly if used
+    Hover = 2, // Hover                           - Plays flying tier animations or falls back to ground tier animations, automatically enables hover clientside when entering visibility with this value
+    Fly = 3, // Fly                             - Plays flying tier animations
+    Submerged = 4, // Submerged (NOT YET IMPLEMENTED)
+};
+
 // high byte (3 from 0..3) of UNIT_FIELD_BYTES_2
 enum ShapeshiftForm
 {
@@ -1500,6 +1509,9 @@ class Unit : public WorldObject
 
     void SetStandFlags(uint8 flags) { SetByteFlag(UNIT_FIELD_BYTES_1, 2, flags); }
     void RemoveStandFlags(uint8 flags) { RemoveByteFlag(UNIT_FIELD_BYTES_1, 2, flags); }
+
+    UnitAnimationTier GetAnimationTier() const { return (UnitAnimationTier)GetByteValue(UNIT_FIELD_BYTES_1, 3); }
+    void SetAnimationTier(UnitAnimationTier tier) { SetByteValue(UNIT_FIELD_BYTES_1, 3, (uint8)tier); }
 
     bool IsMounted() const { return HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_MOUNT); }
     uint32 GetMountID() const { return GetUInt32Value(UNIT_FIELD_MOUNTDISPLAYID); }

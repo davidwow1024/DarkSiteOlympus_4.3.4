@@ -291,6 +291,7 @@ typedef UNORDERED_MAP<uint16, CreatureModelInfo> CreatureModelContainer;
 
 enum InhabitTypeValues
 {
+    INHABIT_NONE = 0,
     INHABIT_GROUND = 1,
     INHABIT_WATER = 2,
     INHABIT_AIR = 4,
@@ -456,6 +457,11 @@ public:
     bool canWalk() const { return GetCreatureTemplate()->InhabitType & INHABIT_GROUND; }
     bool canSwim() const { return GetCreatureTemplate()->InhabitType & INHABIT_WATER || isPet(); }
     bool CanFly() const override { return GetCreatureTemplate()->InhabitType & INHABIT_AIR; }
+
+    // Used to dynamically change allowed path generator and movement flags behavior during scripts.
+// Can be used to allow ground-only creatures to temporarily fly, restrict flying creatures to the ground etc.
+    void OverrideInhabitType(InhabitTypeValues inhabitType) { m_inhabitTypeOverride = inhabitType; }
+    void ResetInhabitTypeOverride() { m_inhabitTypeOverride = (InhabitTypeValues)0; }
 
     void SetReactState(ReactStates st) { m_reactState = st; }
     ReactStates GetReactState() { return m_reactState; }
@@ -752,6 +758,8 @@ protected:
 
     CreatureTemplate const *m_creatureInfo; // in difficulty mode > 0 can different from sObjectMgr->GetCreatureTemplate(GetEntry())
     CreatureData const *m_creatureData;
+
+    InhabitTypeValues m_inhabitTypeOverride = INHABIT_NONE;
 
     uint16 m_LootMode; // bitmask, default LOOT_MODE_DEFAULT, determines what loot will be lootable
     uint32 guid_transport;
