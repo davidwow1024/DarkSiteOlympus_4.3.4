@@ -673,12 +673,186 @@ public:
     }
 };
 
-void AddSC_mount_hyjal()
+enum asHyjalBurnsTypes
 {
+    SPELL_HYJAL_INTRO_PORTAL        = 73519,
+
+    QUEST_AS_HYJAL_BURNS = 25316,
+
+    TALK_INTRO = 0,
+    TALK_SPECIAL_1,
+    TALK_SPECIAL_2,
+};
+
+const Position aronusFlyPos  = { 7733.60f, -2507.66f, 499.51f, 0.0f };
+const Position aronusTelePos = { 4688.42f, -3206.25f, 1130.532f, 3.074446f };
+
+const Position aronusFlyPath1[3] =
+{
+    { 4639.80f, -3203.77f, 1080.91f, 0.0f },
+    { 4626.59f, -3267.07f, 1068.14f, 0.0f },
+    { 4619.12f, -3283.12f, 1058.53f, 0.0f },
+};
+
+const Position aronusFlyPath2[4] =
+{
+    { 4671.70f, -3222.37f, 1098.02f, 0.0f },
+    { 4670.71f, -3150.38f, 1106.82f, 0.0f },
+    { 4455.97f, -3121.23f, 1086.35f, 0.0f },
+    { 4419.07f, -3123.98f, 1094.57f, 0.0f },
+};
+
+const Position aronusFlyPath3[5] =
+{
+    { 4320.86f, -3151.21f, 1080.19f, 0.0f },
+    { 4236.82f, -3117.47f, 1067.25f, 0.0f },
+    { 4174.11f, -3031.53f, 1045.60f, 0.0f },
+    { 4137.78f, -3020.57f, 1038.21f, 0.0f },
+    { 4090.87f, -3039.72f, 1003.84f, 0.0f },
+};
+
+const Position aronusFlyPath4[10] =
+{
+    { 4201.70f, -3100.97f, 1053.17f, 0.0f },
+    { 4461.28f, -3101.87f, 1113.38f, 0.0f },
+    { 4679.03f, -3176.81f, 1238.66f, 0.0f },
+    { 4860.93f, -3407.13f, 1451.36f, 0.0f },
+    { 4986.73f, -3519.42f, 1587.79f, 0.0f },
+    { 5174.43f, -3554.13f, 1686.15f, 0.0f },
+    { 5367.66f, -3691.16f, 1661.98f, 0.0f },
+    { 5491.47f, -3818.22f, 1663.15f, 0.0f },
+    { 5551.23f, -3706.56f, 1623.92f, 0.0f },
+    { 5533.11f, -3630.15f, 1578.64f, 0.0f },
+};
+
+// Aronus Ride 39128
+struct npc_hyjal_aronus_ride : public CreatureAI
+{
+    npc_hyjal_aronus_ride(Creature* creature) : CreatureAI(creature) { }
+
+    TaskScheduler scheduler;
+    uint64 targetGUID;
+    uint32 delay;
+
+    void IsSummonedBy(Unit* summoner) override
+    {
+        targetGUID = summoner->GetGUID();
+        me->OverrideInhabitType(INHABIT_AIR);
+        me->SetAnimationTier(UnitAnimationTier::Fly);
+        me->SetUnitMovementFlags(MOVEMENTFLAG_FLYING);
+        me->SetSpeed(MOVE_FLIGHT, 2.5f);
+        delay = 0;
+
+        scheduler
+            .Schedule(Milliseconds(1500), [this](TaskContext context)
+        {
+            me->GetMotionMaster()->MovePoint(0, aronusFlyPos);
+
+            delay = me->GetSplineDuration();
+            scheduler
+                .Schedule(Milliseconds(delay), [this](TaskContext context)
+            {
+                DoCast(me, SPELL_HYJAL_INTRO_PORTAL);
+
+                if (Player* target = ObjectAccessor::GetPlayer(*me, targetGUID))
+                {
+                    target->UpdatePosition(aronusTelePos);
+                    target->Relocate(aronusTelePos);
+                }
+            });
+
+            scheduler
+                .Schedule(Milliseconds(delay += 1500), [this](TaskContext context)
+            {
+                me->GetMotionMaster()->MovePoint(0, aronusTelePos.GetPositionX() + 5.0f, aronusTelePos.GetPositionY(), aronusTelePos.GetPositionZ(), aronusTelePos.GetOrientation()); // updating
+            });
+
+            scheduler
+                .Schedule(Milliseconds(delay += 2000), [this](TaskContext context)
+            {
+                me->StopMoving();
+                Movement::MoveSplineInit init(me);
+                for (auto itr : aronusFlyPath1)
+                    init.Path().push_back(G3D::Vector3(itr.GetPositionX(), itr.GetPositionY(), itr.GetPositionZ()));
+
+                init.SetFly();
+                init.Launch();
+
+                delay = me->GetSplineDuration() + 1500;
+                scheduler
+                    .Schedule(Milliseconds(delay), [this](TaskContext context)
+                {
+                    Talk(TALK_INTRO);
+                });
+
+                scheduler
+                    .Schedule(Milliseconds(delay += 1000), [this](TaskContext context)
+                {
+                    me->StopMoving();
+                    Movement::MoveSplineInit init(me);
+                    for (auto itr : aronusFlyPath2)
+                        init.Path().push_back(G3D::Vector3(itr.GetPositionX(), itr.GetPositionY(), itr.GetPositionZ()));
+
+                    init.SetFly();
+                    init.Launch();
+
+                    scheduler
+                        .Schedule(Milliseconds(me->GetSplineDuration()), [this](TaskContext context)
+                    {
+                        Talk(TALK_SPECIAL_1);
+
+                        me->SetSpeed(MOVE_FLIGHT, 4.0f);
+                        me->StopMoving();
+                        Movement::MoveSplineInit init(me);
+                        for (auto itr : aronusFlyPath3)
+                            init.Path().push_back(G3D::Vector3(itr.GetPositionX(), itr.GetPositionY(), itr.GetPositionZ()));
+
+                        init.SetFly();
+                        init.Launch();
+
+                        scheduler
+                            .Schedule(Milliseconds(me->GetSplineDuration() + 7800), [this](TaskContext context)
+                        {
+                            Talk(TALK_SPECIAL_2);
+
+                            me->StopMoving();
+                            Movement::MoveSplineInit init(me);
+                            for (auto itr : aronusFlyPath4)
+                                init.Path().push_back(G3D::Vector3(itr.GetPositionX(), itr.GetPositionY(), itr.GetPositionZ()));
+
+                            init.SetFly();
+                            init.SetSmooth();
+                            init.Launch();
+
+                            scheduler
+                                .Schedule(Milliseconds(me->GetSplineDuration() + 1000), [this](TaskContext context)
+                            {
+                                if (Player* target = ObjectAccessor::GetPlayer(*me, targetGUID))
+                                {
+                                    target->_ExitVehicle();
+                                    me->DespawnOrUnsummon(500);
+                                }
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    void UpdateAI(uint32 diff) override
+    {
+        scheduler.Update(diff);
+    }
+};
+
+void AddSC_mount_hyjal()
+{	
     new npc_archidrud_hamuul();
     new npcs_taken_by_surprise();
     new spell_tortolla_save_turtle();
     new npc_hyjal_leyara();
     new npc_bounce_controller();
     new spell_bounce_achievement_aura();
+    new creature_script<npc_hyjal_aronus_ride>("npc_hyjal_aronus_ride");
 }

@@ -3122,6 +3122,9 @@ void SpellMgr::LoadSpellInfoCorrections()
             case 47930: // Grace
             case 77613:
                 spellInfo->AttributesEx3 |= SPELL_ATTR3_STACK_FOR_DIFF_CASTERS;
+                break;				
+           case 73518:// Hyjal Intro Flight
+                spellInfo->RangeEntry = sSpellRangeStore.LookupEntry(7);  // 10yd                
                 break;
             case 6770: // Sap
                 spellInfo->AttributesEx6 |= SPELL_ATTR6_CAN_TARGET_INVISIBLE;
