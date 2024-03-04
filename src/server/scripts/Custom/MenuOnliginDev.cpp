@@ -21,7 +21,7 @@ public:
 		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Rates de profesiones x2", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Rates de oro x2", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Contenido Blizzlike", GOSSIP_SENDER_MAIN, 999);
-		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Bandas y Mazmorras parche 4.0.6 funcionales", GOSSIP_SENDER_MAIN, 999);
+		player->ADD_GOSSIP_ITEM(4, " |cFF9400D3Bandas y Mazmorras parche 4.3.4 funcionales", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, " |cFF8B0000---------------------------------------", GOSSIP_SENDER_MAIN, 999);
 		player->ADD_GOSSIP_ITEM(4, "    |cFF006400Anticheat On |cFF8B0000| |cFF006400Secure System On", GOSSIP_SENDER_MAIN, 999);
                                                                             // SetMenuId must be after clear menu and before send menu!!
