@@ -676,6 +676,7 @@ public:
 enum asHyjalBurnsTypes
 {
     SPELL_HYJAL_INTRO_PORTAL        = 73519,
+    SPELL_ARONUS_CUSTOM_RIDE        = 76649,
 
     QUEST_AS_HYJAL_BURNS = 25316,
 
@@ -829,6 +830,7 @@ struct npc_hyjal_aronus_ride : public CreatureAI
                             {
                                 if (Player* target = ObjectAccessor::GetPlayer(*me, targetGUID))
                                 {
+                                    target->RemoveAurasDueToSpell(SPELL_ARONUS_CUSTOM_RIDE);
                                     target->_ExitVehicle();
                                     me->DespawnOrUnsummon(500);
                                 }
