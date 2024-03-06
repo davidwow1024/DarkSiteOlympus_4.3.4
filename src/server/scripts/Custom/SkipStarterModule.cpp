@@ -1,280 +1,187 @@
-/* Skip Death Knight Module
-   Original Module From Single Player Project Consolidated Skip Module
-   Rewritten for TC 434 By Single Player Project Developer MDic
-   Original Concept from conanhun513
-*/
-
-#include "AccountMgr.h"
-#include "ScriptMgr.h"
-#include "Player.h"
-#include "Config.h"
-#include "Common.h"
+/// Game
 #include "Chat.h"
-#include "ObjectAccessor.h"
-#include "ObjectMgr.h"
+#include "Creature.h"
 #include "Player.h"
-#include "SharedDefines.h"
-#include "World.h"
-#include "WorldSession.h"
+#include "ScriptedGossip.h"
+#include "ScriptMgr.h"
+#include "Config.h"
 
-class SPP_skip_deathknight_announce : public PlayerScript
+class skip_StarterArea : public CreatureScript
 {
-public:
-    SPP_skip_deathknight_announce() : PlayerScript("SPP_skip_deathknight_announce") { }
+    public:
+        skip_StarterArea() : CreatureScript("skip_StarterArea") { }
 
-    void onLogin(Player* Player, bool /*firstLogin*/) 
-    {
-        if (sConfigMgr->GetBoolDefault("Skip.Deathknight.Starter.Announce.enable", true))
+        enum eActions
         {
-            ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SPP Skip Deathknight Starter |rmodule.");
+            ActionBoostTo20 = 1,
+        };
+
+        bool OnGossipHello(Player* p_Player, Creature* p_Creature) override
+        {
+            p_Player->ADD_GOSSIP_ITEM(0, "Deseo saltarme la linea de misiones de inicio del Caballero de la Muerte.", 0, eActions::ActionBoostTo20);
+            p_Player->SEND_GOSSIP_MENU(p_Creature->GetEntry(), p_Creature->GetGUID());
+            return true;
         }
-    }
-};
 
-class SPP_skip_deathknight : public PlayerScript
-{
-public:
-    SPP_skip_deathknight() : PlayerScript("SPP_skip_deathknight") { }
-
-    void onLogin(Player* player, bool firstLogin) 
-    {
-        int DKL = sConfigMgr->GetFloatDefault("Skip.Deathknight.Start.Level", 58);
-
-        if (sConfigMgr->GetBoolDefault("Skip.Deathknight.Starter.Enable", true))
+        bool OnGossipSelect(Player* p_Player, Creature* p_Creature, uint32 /*p_Sender*/, uint32 p_Action) override
         {
-            if (player->GetAreaId() == 4342)
-            {
-                if (!firstLogin)
-                    return;
-                player->SetLevel(DKL);
-                player->learnSpell(53428, false);//runeforging
-                player->learnSpell(53441, false);//runeforging
-                player->learnSpell(53344, false);//runeforging
-                player->learnSpell(62158, false);//runeforging
-                player->learnSpell(33391, false);//journeyman riding
-                player->learnSpell(54586, false);//runeforging credit
-                player->learnSpell(48778, false);//acherus deathcharger
-                player->learnSkillRewardedSpells(776, 375);//Runeforging
-                player->learnSkillRewardedSpells(960, 375);//Runeforging
-                player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 38661, true);//Greathelm of the Scourge Champion
-                player->EquipNewItem(EQUIPMENT_SLOT_WRISTS, 38666, true);//Plated Saronite Bracers
-                player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 38668, true);//The Plaguebringer's Girdle
-                player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 38667, true);//Bloodbane's Gauntlets of Command
-                player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 38665, true);//Saronite War Plate
-                player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 38669, true);//Engraved Saronite Legplates
-                player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 38663, true);// Blood-Soaked Saronite Plated Spaulders
-                player->EquipNewItem(EQUIPMENT_SLOT_FEET, 38670, true);//Greaves of the Slaughter
-                player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 38675, true);//Signet of the Dark Brotherhood
-                player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 38674, true);//Soul Harvester's Charm
-                player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 38671, true);//Valanar's Signet Ring
-                player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 38672, true);// Keleseth's Signet Ring
-                player->AddItem(39320, true);//Sky Darkener's Shroud of Blood
-                player->AddItem(38664, true);//Sky Darkener's Shroud of the Unholy
-                player->AddItem(39322, true);//Shroud of the North Wind
-                player->AddItem(38632, true);//Greatsword of the Ebon Blade
-                player->AddItem(6948, true);//Hearthstone
-                player->AddItem(38707, true);//Runed Soulblade
-                player->AddItem(40483, true);//Insignia of the Scourge
+            p_Player->CLOSE_GOSSIP_MENU();
 
-                if (player->GetQuestStatus(12657) == QUEST_STATUS_NONE)//The Might Of The Scourge
+            ///if (p_Action == eActions::ActionBoostTo20)
+            {                
+                p_Player->GiveLevel(60);
+
+                ChrClassesEntry const* classEntry = sChrClassesStore.LookupEntry(p_Player->getClass());
+                if (!classEntry)
+                    return true;
+
+                uint32 family = classEntry->spellfamily;
+
+                for (uint32 i = 0; i < sSkillLineAbilityStore.GetNumRows(); ++i)
                 {
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(12657), nullptr);
-                    player->RewardQuest(sObjectMgr->GetQuestTemplate(12657), false, player);
+                    SkillLineAbilityEntry const* entry = sSkillLineAbilityStore.LookupEntry(i);
+                    if (!entry)
+                        continue;
+
+                    SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(entry->spellId);
+                    if (!spellInfo)
+                        continue;
+
+                    // skip server-side/triggered spells
+                    if (spellInfo->SpellLevel == 0)
+                        continue;
+
+                    // skip wrong class/race skills
+                    if (!p_Player->IsSpellFitByClassAndRace(spellInfo->Id))
+                        continue;
+
+                    // skip other spell families
+                    if (spellInfo->SpellFamilyName != family)
+                        continue;
+
+                    // skip spells with first rank learned as talent (and all talents then also)
+                    uint32 firstRank = sSpellMgr->GetFirstSpellInChain(spellInfo->Id);
+                    if (GetTalentSpellCost(firstRank) > 0)
+                        continue;
+
+                    // skip broken spells
+                    if (!SpellMgr::IsSpellValid(spellInfo, p_Player, false))
+                        continue;
+
+                    if (spellInfo->SpellLevel > p_Player->getLevel())
+                        continue;
+
+                    p_Player->learnSpell(spellInfo->Id, false);
                 }
-                if (player->GetQuestStatus(12801) == QUEST_STATUS_NONE)//The Light of Dawn
+                                
+
+                p_Player->StoreNewItemInBestSlots(22243, 4);
+
+                switch (p_Player->getClass())
                 {
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(12801), nullptr);
-                    player->RewardQuest(sObjectMgr->GetQuestTemplate(12801), false, player);
+                    case CLASS_DEATH_KNIGHT:
+                        p_Player->learnSpell(53428, false);//runeforging
+                        p_Player->learnSpell(53441, false);//runeforging
+                        p_Player->learnSpell(53344, false);//runeforging
+                        p_Player->learnSpell(62158, false);//runeforging
+                        p_Player->learnSpell(33391, false);//journeyman riding
+                        p_Player->learnSpell(54586, false);//runeforging credit
+                        p_Player->learnSpell(48778, false);//acherus deathcharger
+                        p_Player->learnSpell(86524, false);//
+                        p_Player->learnSpell(34090, false);//
+                        p_Player->learnSpell(90267, false);//
+                        p_Player->learnSkillRewardedSpells(776, 375);//Runeforging
+                        p_Player->learnSkillRewardedSpells(960, 375);//Runeforging
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 38661, true);//Greathelm of the Scourge Champion
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_WRISTS, 38666, true);//Plated Saronite Bracers
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 38668, true);//The Plaguebringer's Girdle
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 38667, true);//Bloodbane's Gauntlets of Command
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 38665, true);//Saronite War Plate
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 38669, true);//Engraved Saronite Legplates
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 38663, true);// Blood-Soaked Saronite Plated Spaulders
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_FEET, 38670, true);//Greaves of the Slaughter
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 40483, true);//Signet of the Dark Brotherhood
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 38674, true);//Soul Harvester's Charm
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 38671, true);//Valanar's Signet Ring
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 38672, true);// Keleseth's Signet Ring
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_MAINHAND, 38632, true);// Greatsword of the Ebon Blade
+                        p_Player->EquipNewItem(EQUIPMENT_SLOT_OFFHAND, 39208, true);// 
+                        p_Player->AddItem(39320, true);//Sky Darkener's Shroud of Blood
+                        p_Player->AddItem(38664, true);//Sky Darkener's Shroud of the Unholy
+                        p_Player->AddItem(39322, true);//Shroud of the North Wind
+                        p_Player->AddItem(6948, true);//Hearthstone
+                        p_Player->AddItem(38707, true);//Runed Soulblade
+                        p_Player->AddItem(38675, true);//Signet of the Dark Brotherhood
+
+                        if (p_Player->GetQuestStatus(12657) == QUEST_STATUS_NONE)//The Might Of The Scourge
+                        {
+                            p_Player->AddQuest(sObjectMgr->GetQuestTemplate(12657), nullptr);
+                            p_Player->RewardQuest(sObjectMgr->GetQuestTemplate(12657), false, p_Player);
+                        }
+                        if (p_Player->GetQuestStatus(12801) == QUEST_STATUS_NONE)//The Light of Dawn
+                        {
+                            p_Player->AddQuest(sObjectMgr->GetQuestTemplate(12801), nullptr);
+                            p_Player->RewardQuest(sObjectMgr->GetQuestTemplate(12801), false, p_Player);
+                        }
+                        if (p_Player->GetTeam() == ALLIANCE && p_Player->GetQuestStatus(13188) == QUEST_STATUS_NONE)//Where Kings Walk
+                        {
+                            p_Player->AddQuest(sObjectMgr->GetQuestTemplate(13188), nullptr);
+                            p_Player->RewardQuest(sObjectMgr->GetQuestTemplate(13188), false, p_Player);
+                        }
+                        else if (p_Player->GetTeam() == HORDE && p_Player->GetQuestStatus(13189) == QUEST_STATUS_NONE)//Saurfang's Blessing
+                        {
+                            p_Player->AddQuest(sObjectMgr->GetQuestTemplate(13189), nullptr);
+                            p_Player->RewardQuest(sObjectMgr->GetQuestTemplate(13189), false, p_Player);
+                        }
+                        break;
                 }
-                if (player->GetTeam() == ALLIANCE && player->GetQuestStatus(13188) == QUEST_STATUS_NONE)//Where Kings Walk
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(13188), nullptr);
-                else if (player->GetTeam() == HORDE && player->GetQuestStatus(13189) == QUEST_STATUS_NONE)//Saurfang's Blessing
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(13189), nullptr);
-                if (player->GetTeam() == ALLIANCE)
-                    player->TeleportTo(0, -8833.37f, 628.62f, 94.00f, 1.06f);//Stormwind
-                else
-                    player->TeleportTo(1, 1569.59f, -4397.63f, 16.06f, 0.54f);//Orgrimmar
-                ObjectAccessor::SaveAllPlayers();//Save
             }
-        }
 
-        if (sConfigMgr->GetBoolDefault("GM.Skip.Deathknight.Starter.Enable", true))
-        {
-            if (player->GetSession()->GetSecurity() >= SEC_MODERATOR && player->GetAreaId() == 4342)
+            p_Player->SendTalentsInfoData(false);
+
+            if (p_Player->GetTeamId() == TEAM_ALLIANCE)
             {
-                if (!firstLogin)
-                    return;
-                player->SetLevel(DKL);
-                player->learnSpell(53428, false);//runeforging
-                player->learnSpell(53441, false);//runeforging
-                player->learnSpell(53344, false);//runeforging
-                player->learnSpell(62158, false);//runeforging
-                player->learnSpell(33391, false);//journeyman riding
-                player->learnSpell(54586, false);//runeforging credit
-                player->learnSpell(48778, false);//acherus deathcharger
-                player->learnSkillRewardedSpells(776, 375);//Runeforging
-                player->learnSkillRewardedSpells(960, 375);//Runeforging
-                player->EquipNewItem(EQUIPMENT_SLOT_HEAD, 38661, true);//Greathelm of the Scourge Champion
-                player->EquipNewItem(EQUIPMENT_SLOT_WRISTS, 38666, true);//Plated Saronite Bracers
-                player->EquipNewItem(EQUIPMENT_SLOT_WAIST, 38668, true);//The Plaguebringer's Girdle
-                player->EquipNewItem(EQUIPMENT_SLOT_HANDS, 38667, true);//Bloodbane's Gauntlets of Command
-                player->EquipNewItem(EQUIPMENT_SLOT_CHEST, 38665, true);//Saronite War Plate
-                player->EquipNewItem(EQUIPMENT_SLOT_LEGS, 38669, true);//Engraved Saronite Legplates
-                player->EquipNewItem(EQUIPMENT_SLOT_SHOULDERS, 38663, true);// Blood-Soaked Saronite Plated Spaulders
-                player->EquipNewItem(EQUIPMENT_SLOT_FEET, 38670, true);//Greaves of the Slaughter
-                player->EquipNewItem(EQUIPMENT_SLOT_TRINKET1, 38675, true);//Signet of the Dark Brotherhood
-                player->EquipNewItem(EQUIPMENT_SLOT_TRINKET2, 38674, true);//Soul Harvester's Charm
-                player->EquipNewItem(EQUIPMENT_SLOT_FINGER1, 38671, true);//Valanar's Signet Ring
-                player->EquipNewItem(EQUIPMENT_SLOT_FINGER2, 38672, true);// Keleseth's Signet Ring
-                player->AddItem(39320, true);//Sky Darkener's Shroud of Blood
-                player->AddItem(38664, true);//Sky Darkener's Shroud of the Unholy
-                player->AddItem(39322, true);//Shroud of the North Wind
-                player->AddItem(38632, true);//Greatsword of the Ebon Blade
-                player->AddItem(6948, true);//Hearthstone
-                player->AddItem(38707, true);//Runed Soulblade
-                player->AddItem(40483, true);//Insignia of the Scourge
+                p_Player->TeleportTo(0, -8833.379883f, 628.627991f, 94.006599f, 1.065350f);
 
-                if (player->GetQuestStatus(12657) == QUEST_STATUS_NONE)//The Might Of The Scourge
-                {
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(12657), nullptr);
-                    player->RewardQuest(sObjectMgr->GetQuestTemplate(12657), false, player);
-                }
-                if (player->GetQuestStatus(12801) == QUEST_STATUS_NONE)//The Light of Dawn
-                {
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(12801), nullptr);
-                    player->RewardQuest(sObjectMgr->GetQuestTemplate(12801), false, player);
-                }
-                if (player->GetTeam() == ALLIANCE && player->GetQuestStatus(13188) == QUEST_STATUS_NONE)//Where Kings Walk
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(13188), nullptr);
-                else if (player->GetTeam() == HORDE && player->GetQuestStatus(13189) == QUEST_STATUS_NONE)//Saurfang's Blessing
-                    player->AddQuest(sObjectMgr->GetQuestTemplate(13189), nullptr);
-                if (player->GetTeam() == ALLIANCE)
-                    player->TeleportTo(0, -8833.37f, 628.62f, 94.00f, 1.06f);//Stormwind
-                else
-                    player->TeleportTo(1, 1569.59f, -4397.63f, 16.06f, 0.54f);//Orgrimmar
-                ObjectAccessor::SaveAllPlayers();//Save
+                if (p_Player->getLevel() == 1)
+                    p_Player->SetHomebind(WorldLocation(0, -8833.379883f, 628.627991f, 94.006599f, 1.065350f), 5170);
             }
-        }
-    }
-};
-
-class spp_skip_worgen : public PlayerScript
-{
-public:
-    spp_skip_worgen() : PlayerScript("spp_skip_worgen") { }
-
-    void onLogin(Player* Player, bool firstLogin) 
-    {
-        int WGL = sConfigMgr->GetFloatDefault("Skip.Worgen.Start.Level", 18);
-
-        if (sConfigMgr->GetBoolDefault("Skip.Worgen.Starter.Enable", true))
-        {
-            if (Player->GetMapId() == 654)
+            else
             {
-                if (!firstLogin)
-                    return;
-                Player->learnSpell(72792, false); // Learn Racials
-                Player->learnSpell(72857, false); // Learn Two Forms
-                Player->learnSpell(95759, false); // Learn Darkflight
-                Player->TeleportTo(1, 8181.060059f, 999.103027f, 7.253240f, 6.174160f);
-                Player->SetLevel(WGL);
-                ObjectAccessor::SaveAllPlayers();
+                p_Player->TeleportTo(1, 1568.300049f, -4399.930176f, 16.168900f, 0.239387f);
+
+                if (p_Player->getLevel() == 1)
+                    p_Player->SetHomebind(WorldLocation(1, 1568.300049f, -4399.930176f, 16.168900f, 0.239387f), 5170);
             }
+
+            p_Player->ModifyMoney(500000);
+
+            return true;
         }
+	struct gambler_passivesAI : public ScriptedAI
+	{
+		gambler_passivesAI(Creature * c) : ScriptedAI(c){ }
 
-        if (sConfigMgr->GetBoolDefault("GM.Skip.Worgen.Starter.Enable", true))
-        {
-            if (Player->GetSession()->GetSecurity() >= SEC_MODERATOR && Player->GetMapId() == 654)
-            {
-                if (!firstLogin)
-                    return;
-                Player->learnSpell(72792, false); // Learn Racials
-                Player->learnSpell(72857, false); // Learn Two Forms
-                Player->learnSpell(95759, false); // Learn Darkflight
-                Player->TeleportTo(1, 8181.060059f, 999.103027f, 7.253240f, 6.174160f);
-                Player->SetLevel(WGL);
-                ObjectAccessor::SaveAllPlayers();
-            }
-        }
-    }
-};
+		uint32 uiAdATimer;
+		uint32 uiAdBTimer;
+		uint32 uiAdCTimer;
 
-class SPP_skip_worgen_announce : public PlayerScript
-{
-public:
-    SPP_skip_worgen_announce() : PlayerScript("SPP_skip_worgen_announce") { }
+		void Reset()
+		{
+			uiAdATimer = 1000;
+			uiAdBTimer = 23000;
+			uiAdCTimer = 11000;
+		}
+        		
+	};
 
-    void onLogin(Player* Player, bool /*firstLogin*/)
-    {
-        if (sConfigMgr->GetBoolDefault("Skip.Worgen.Starter.Announce.enable", true))
-        {
-            ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SPP Skip Worgen Starter |rmodule.");
-        }
-    }
-};
-
-
-class spp_skip_goblin : public PlayerScript
-{
-public:
-    spp_skip_goblin() : PlayerScript("spp_skip_goblin") { }
-
-    void onLogin(Player* Player, bool firstLogin) 
-    {
-        int GBL = sConfigMgr->GetFloatDefault("Skip.Goblin.Start.Level", 16);
-
-        if (sConfigMgr->GetBoolDefault("Skip.Goblin.Starter.Enable", true))
-        {
-            if (Player->GetMapId() == 648)
-            {
-                if (!firstLogin)
-                    return;
-                Player->learnSpell(69046, false); // Pack Hobgoblin
-                Player->SetLevel(GBL);
-                Player->TeleportTo(1, 1569.59f, -4397.63f, 16.06f, 0.54f);
-                if (Player->GetTeam() == ALLIANCE && Player->GetQuestStatus(25267) == QUEST_STATUS_NONE)//Message for Saurfang
-                    Player->AddQuest(sObjectMgr->GetQuestTemplate(25267), nullptr);
-                ObjectAccessor::SaveAllPlayers();
-            }
-        }
-
-        if (sConfigMgr->GetBoolDefault("GM.Skip.Goblin.Starter.Enable", true))
-        {
-            if (Player->GetSession()->GetSecurity() >= SEC_MODERATOR && Player->GetMapId() == 648)
-            {
-                if (!firstLogin)
-                    return;
-                Player->learnSpell(69046, false); // Pack Hobgoblin
-                Player->SetLevel(GBL);
-                Player->TeleportTo(1, 1569.59f, -4397.63f, 16.06f, 0.54f);
-                if (Player->GetTeam() == ALLIANCE && Player->GetQuestStatus(25267) == QUEST_STATUS_NONE)//Message for Saurfang
-                    Player->AddQuest(sObjectMgr->GetQuestTemplate(25267), nullptr);
-                ObjectAccessor::SaveAllPlayers();
-            }
-        }
-    }
-};
-
-class SPP_skip_goblin_announce : public PlayerScript
-{
-public:
-    SPP_skip_goblin_announce() : PlayerScript("SPP_skip_goblin_announce") { }
-
-    void onLogin(Player* Player, bool /*firstLogin*/) 
-    {
-        if (sConfigMgr->GetBoolDefault("Skip.Goblin.Starter.Announce.enable", true))
-        {
-            ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00SPP Skip Goblin Starter |rmodule.");
-        }
-    }
+	CreatureAI * GetAI(Creature * pCreature) const
+	{
+		return new gambler_passivesAI(pCreature);
+	}		
 };
 
 void AddSC_skip_StarterArea()
 {
-    new SPP_skip_deathknight_announce;
-    new SPP_skip_deathknight;
-    new spp_skip_goblin;
-    new SPP_skip_goblin_announce;
-    new SPP_skip_worgen_announce;
-    new spp_skip_worgen;
+    new skip_StarterArea();
 }
