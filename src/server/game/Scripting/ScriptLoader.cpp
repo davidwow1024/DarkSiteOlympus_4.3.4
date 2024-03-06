@@ -1632,7 +1632,6 @@ void AddSC_PvPTitles();
 void AddSC_world_chat();
 void AddSC_VAS_AutoBalance();
 void AddSC_skip_StarterArea();
-void AddSolocraftScripts();
 #endif
 
 void AddCustomScripts()
@@ -1657,6 +1656,5 @@ void AddCustomScripts()
 	AddSC_world_chat();
 	AddSC_VAS_AutoBalance();
 	AddSC_skip_StarterArea();
-	AddSolocraftScripts();
 #endif
 }
