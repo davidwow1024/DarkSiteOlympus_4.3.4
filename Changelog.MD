@@ -122,3 +122,21 @@ Quest fix Gauging Success
 Quest fix Decompression
 Quest fix What? What? In My Gut...?
 Quest fix Orders Are For the Living
+
+### ==== 28/01/2024  - 06/03/2024 ====
+Fix undead start
+Fix text echo of Jaina
+Add autovalance
+Fix text Panicked Citizen
+Fix text Frightened Citizen
+Update npc Panicked Citizen
+Fix npc eyes of archerus
+Fix npc Aronus
+Add npc Skip dk zone
+Quest fix quest endgame
+Quest fix quest The maelstrom
+Quest fix quest Patriarch's Blessing
+Quest fix Gunship Down
+Quest fix On Second Thought, Take One Prisoner
+Quest fix Some Spraining to Do
+Quest fix Deathwing's Fall
