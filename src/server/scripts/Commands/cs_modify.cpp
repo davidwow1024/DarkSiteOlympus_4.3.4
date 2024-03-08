@@ -201,7 +201,7 @@ public:
         target->SetMaxPower(POWER_ENERGY, energym);
         target->SetPower(POWER_ENERGY, energy);
 
-        TC_LOG_DEBUG("misc", handler->GetTrinityString(LANG_CURRENT_ENERGY), target->GetMaxPower(POWER_ENERGY));
+        TC_LOG_DEBUG("misc", handler->GetOlympusString(LANG_CURRENT_ENERGY), target->GetMaxPower(POWER_ENERGY));
 
         return true;
     }
@@ -1037,7 +1037,7 @@ public:
         {
             int64 newmoney = int64(targetMoney) + moneyToAdd;
 
-            TC_LOG_DEBUG("misc", handler->GetTrinityString(LANG_CURRENT_MONEY), targetMoney, moneyToAdd, newmoney);
+            TC_LOG_DEBUG("misc", handler->GetOlympusString(LANG_CURRENT_MONEY), targetMoney, moneyToAdd, newmoney);
             if (newmoney <= 0)
             {
                 handler->PSendSysMessage(LANG_YOU_TAKE_ALL_MONEY, handler->GetNameLink(target).c_str());
@@ -1069,7 +1069,7 @@ public:
                 target->ModifyMoney(moneyToAdd);
         }
 
-        TC_LOG_DEBUG("misc", handler->GetTrinityString(LANG_NEW_MONEY), targetMoney, moneyToAdd, target->GetMoney());
+        TC_LOG_DEBUG("misc", handler->GetOlympusString(LANG_NEW_MONEY), targetMoney, moneyToAdd, target->GetMoney());
 
         return true;
     }
@@ -1211,7 +1211,7 @@ public:
             amount = -42000;
             for (; r < MAX_REPUTATION_RANK; ++r)
             {
-                std::string rank = handler->GetTrinityString(ReputationRankStrIndex[r]);
+                std::string rank = handler->GetOlympusString(ReputationRankStrIndex[r]);
                 if (rank.empty())
                     continue;
 

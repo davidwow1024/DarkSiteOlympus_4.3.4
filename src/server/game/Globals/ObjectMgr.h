@@ -487,18 +487,18 @@ struct CellObjectGuids
 typedef UNORDERED_MAP<uint32/*cell_id*/, CellObjectGuids> CellObjectGuidsMap;
 typedef UNORDERED_MAP<uint32/*(mapid, spawnMode) pair*/, CellObjectGuidsMap> MapObjectGuids;
 
-// Trinity string ranges
-#define MIN_TRINITY_STRING_ID           1                    // 'trinity_string'
-#define MAX_TRINITY_STRING_ID           2000000000
-#define MIN_DB_SCRIPT_STRING_ID        MAX_TRINITY_STRING_ID // 'db_script_string'
+// Olympus string ranges
+#define MIN_OLYMPUS_STRING_ID           1                    // 'olympus_string'
+#define MAX_OLYMPUS_STRING_ID           2000000000
+#define MIN_DB_SCRIPT_STRING_ID        MAX_OLYMPUS_STRING_ID // 'db_script_string'
 #define MAX_DB_SCRIPT_STRING_ID        2000010000
 #define MIN_CREATURE_AI_TEXT_STRING_ID (-1)                 // 'creature_ai_texts'
 #define MAX_CREATURE_AI_TEXT_STRING_ID (-1000000)
 
-// Trinity Trainer Reference start range
-#define TRINITY_TRAINER_START_REF      200000
+// Olympus Trainer Reference start range
+#define OLYMPUS_TRAINER_START_REF      200000
 
-struct TrinityStringLocale
+struct OlympusStringLocale
 {
     StringVector Content;
 };
@@ -513,7 +513,7 @@ typedef UNORDERED_MAP<uint32, ItemLocale> ItemLocaleContainer;
 typedef UNORDERED_MAP<uint32, QuestLocale> QuestLocaleContainer;
 typedef UNORDERED_MAP<uint32, NpcTextLocale> NpcTextLocaleContainer;
 typedef UNORDERED_MAP<uint32, PageTextLocale> PageTextLocaleContainer;
-typedef UNORDERED_MAP<int32, TrinityStringLocale> TrinityStringLocaleContainer;
+typedef UNORDERED_MAP<int32, OlympusStringLocale> OlympusStringLocaleContainer;
 typedef UNORDERED_MAP<uint32, GossipMenuItemsLocale> GossipMenuItemsLocaleContainer;
 typedef UNORDERED_MAP<uint32, PointOfInterestLocale> PointOfInterestLocaleContainer;
 
@@ -1019,8 +1019,8 @@ class ObjectMgr
         void LoadBroadcastTextLocales();
         void LoadBroadcastTextHelpers();
         void LoadBroadcastGroups();
-        bool LoadTrinityStrings(char const* table, int32 min_value, int32 max_value);
-        bool LoadTrinityStrings() { return LoadTrinityStrings("olympus_string", MIN_TRINITY_STRING_ID, MAX_TRINITY_STRING_ID); }
+        bool LoadOlympusStrings(char const* table, int32 min_value, int32 max_value);
+        bool LoadOlympusStrings() { return LoadOlympusStrings("olympus_string", MIN_OLYMPUS_STRING_ID, MAX_OLYMPUS_STRING_ID); }
         void LoadDbScriptStrings();
         void LoadCreatureClassLevelStats();
         void LoadCreatureLocales();
@@ -1286,14 +1286,14 @@ class ObjectMgr
         GameObjectData& NewGOData(uint32 guid) { return _gameObjectDataStore[guid]; }
         void DeleteGOData(uint32 guid);
 
-        TrinityStringLocale const* GetTrinityStringLocale(int32 entry) const
+        OlympusStringLocale const* GetOlympusStringLocale(int32 entry) const
         {
-            TrinityStringLocaleContainer::const_iterator itr = _trinityStringLocaleStore.find(entry);
-            if (itr == _trinityStringLocaleStore.end()) return NULL;
+            OlympusStringLocaleContainer::const_iterator itr = _OlympusStringLocaleStore.find(entry);
+            if (itr == _OlympusStringLocaleStore.end()) return NULL;
             return &itr->second;
         }
-        const char *GetTrinityString(int32 entry, LocaleConstant locale_idx) const;
-        const char *GetTrinityStringForDBCLocale(int32 entry) const { return GetTrinityString(entry, DBCLocaleIndex); }
+        const char *GetOlympusString(int32 entry, LocaleConstant locale_idx) const;
+        const char *GetOlympusStringForDBCLocale(int32 entry) const { return GetOlympusString(entry, DBCLocaleIndex); }
         LocaleConstant GetDBCLocaleIndex() const { return DBCLocaleIndex; }
         void SetDBCLocaleIndex(LocaleConstant locale) { DBCLocaleIndex = locale; }
 
@@ -1559,7 +1559,7 @@ class ObjectMgr
         QuestLocaleContainer _questLocaleStore;
         NpcTextLocaleContainer _npcTextLocaleStore;
         PageTextLocaleContainer _pageTextLocaleStore;
-        TrinityStringLocaleContainer _trinityStringLocaleStore;
+        OlympusStringLocaleContainer _OlympusStringLocaleStore;
         GossipMenuItemsLocaleContainer _gossipMenuItemsLocaleStore;
         PointOfInterestLocaleContainer _pointOfInterestLocaleStore;
 
@@ -1620,6 +1620,6 @@ class ObjectMgr
 #define sObjectMgr ACE_Singleton<ObjectMgr, ACE_Null_Mutex>::instance()
 
 // scripting access functions
-bool LoadTrinityStrings(char const* table, int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
+bool LoadOlympusStrings(char const* table, int32 start_value = MAX_CREATURE_AI_TEXT_STRING_ID, int32 end_value = std::numeric_limits<int32>::min());
 
 #endif

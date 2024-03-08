@@ -2728,13 +2728,13 @@ class spell_pursued : public SpellScriptLoader
 
                 if (!tempList.empty())
                 {
-                    _target = Trinity::Containers::SelectRandomContainerElement(tempList)->ToUnit();
+                    _target = Olympus::Containers::SelectRandomContainerElement(tempList)->ToUnit();
                     SetSelectedTarget(tempList);
                 }
                 else
                 {
                     // No vehicles found, select a random target
-                    _target = Trinity::Containers::SelectRandomContainerElement(targets)->ToUnit();
+                    _target = Olympus::Containers::SelectRandomContainerElement(targets)->ToUnit();
                     SetSelectedTarget(targets);
                 }
             }

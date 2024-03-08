@@ -951,7 +951,7 @@ class boss_bwd_nefarian : public CreatureScript
                     {
                         if (targets.empty())
                             break;
-                        if (Unit* target = Trinity::Containers::SelectRandomContainerElement(targets))
+                        if (Unit* target = Olympus::Containers::SelectRandomContainerElement(targets))
                         {
                             if (target->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FALLING_FAR))
                                 target->m_movementInfo.RemoveMovementFlag(MOVEMENTFLAG_FALLING_FAR);

@@ -569,12 +569,12 @@ class spell_marrowgar_bone_spike_graveyard : public SpellScriptLoader
                             playerSet.insert(tank->ToPlayer());
                         std::list<Player*> playerList;
                         float range = 5;
-                        Trinity::AnyPlayerInObjectRangeCheck checker(tank, range, true);
-                        Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(tank, playerList, checker);
+                        Olympus::AnyPlayerInObjectRangeCheck checker(tank, range, true);
+                        Olympus::PlayerListSearcher<Olympus::AnyPlayerInObjectRangeCheck> searcher(tank, playerList, checker);
                         tank->VisitNearbyWorldObject(range, searcher);
                        // playerList = tank->GetNearestPlayersList(5);
                         playerList.remove_if(IsGameMaster());
-                        playerList.sort(Trinity::ObjectDistanceOrderPred(tank));
+                        playerList.sort(Olympus::ObjectDistanceOrderPred(tank));
                         if (playerList.size() > 3)
                         {
                             for (uint32 j = 0; j < playerList.size() - 3; ++j)
@@ -599,7 +599,7 @@ class spell_marrowgar_bone_spike_graveyard : public SpellScriptLoader
                     if (targets.empty())
                         return;
 
-                    Trinity::Containers::RandomResizeList(targets, boneSpikeCount);
+                    Olympus::Containers::RandomResizeList(targets, boneSpikeCount);
 
                     uint8 i = 0;
                     for (std::list<Player*>::iterator it = targets.begin(); it != targets.end(); ++i, ++it)

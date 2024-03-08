@@ -348,7 +348,7 @@ class boss_ignis : public CreatureScript
 
                             if (!summons.empty())
                             {
-                                uint64 selectedConstruct = Trinity::Containers::SelectRandomContainerElement(summons);
+                                uint64 selectedConstruct = Olympus::Containers::SelectRandomContainerElement(summons);
                                 if (Creature* construct = ObjectAccessor::GetCreature(*me, selectedConstruct))
                                 {
                                     construct->RemoveAurasDueToSpell(SPELL_FREEZE_ANIM);

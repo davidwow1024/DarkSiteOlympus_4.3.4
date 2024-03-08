@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2008-2014 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -1291,7 +1291,7 @@ public:
                     temp.push_back(unit);
 
             targets.clear();
-            temp.sort(Trinity::HealthPctOrderPred());
+            temp.sort(Olympus::HealthPctOrderPred());
             if (temp.size() > 3)
                 temp.resize(3);
             for (std::list<Unit *>::iterator itr = temp.begin(); itr != temp.end(); itr++)
@@ -2037,7 +2037,7 @@ public:
 
         void FilterTargets(std::list<WorldObject *> &targets)
         {
-            Trinity::Containers::RandomResizeList(targets, 2);
+            Olympus::Containers::RandomResizeList(targets, 2);
         }
 
         void HandleDummy(SpellEffIndex /*effIndex*/)
@@ -2264,7 +2264,7 @@ public:
                     return;
                 }
 
-                Unit *target = Trinity::Containers::SelectRandomContainerElement(tempTargets);
+                Unit *target = Olympus::Containers::SelectRandomContainerElement(tempTargets);
                 targets.clear();
                 targets.push_back(target);
             }

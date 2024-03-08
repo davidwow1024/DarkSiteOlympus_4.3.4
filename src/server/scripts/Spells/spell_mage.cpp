@@ -1240,7 +1240,7 @@ public:
             if (AuraEffect *aurEff = GetCaster()->GetAuraEffect(SPELL_AURA_DUMMY, SPELLFAMILY_MAGE, 4625, EFFECT_0))
             {
                 targets.remove(GetExplTargetUnit());
-                Trinity::Containers::RandomResizeList(targets, aurEff->GetAmount());
+                Olympus::Containers::RandomResizeList(targets, aurEff->GetAmount());
                 targets.push_back(GetExplTargetUnit());
                 _targets = targets;
             }

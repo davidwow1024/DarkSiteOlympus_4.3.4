@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2021-2023 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -1357,7 +1357,7 @@ public:
 
         void FilterTargetsInitial(std::list<WorldObject *> &targets)
         {
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_WARLOCK_CoE));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_WARLOCK_CoE));
             if (targets.size() > 15)
                 targets.resize(15);
 

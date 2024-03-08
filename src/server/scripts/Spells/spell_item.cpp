@@ -3162,7 +3162,7 @@ public:
                         temp.push_back(unit);
 
                 targets.clear();
-                temp.sort(Trinity::HealthPctOrderPred());
+                temp.sort(Olympus::HealthPctOrderPred());
                 if (temp.size() > 1)
                     temp.resize(1);
                 for (std::list<Unit *>::iterator itr = temp.begin(); itr != temp.end(); itr++)

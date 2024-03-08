@@ -973,7 +973,7 @@ public:
                     temp.push_back(unit);
 
             targets.clear();
-            temp.sort(Trinity::HealthPctOrderPred());
+            temp.sort(Olympus::HealthPctOrderPred());
             if (temp.size() > targetCount)
                 temp.resize(targetCount);
             for (std::list<Unit *>::iterator itr = temp.begin(); itr != temp.end(); itr++)
@@ -1313,8 +1313,8 @@ public:
             if (caster->HasAura(SPELL_PALADIN_SEALS_OF_COMMAND))
             {
                 std::list<Unit *> targets;
-                Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(caster, caster, 5);
-                Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(caster, targets, u_check);
+                Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(caster, caster, 5);
+                Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(caster, targets, u_check);
                 caster->VisitNearbyObject(5, searcher);
                 if (!targets.empty())
                     if (eventInfo.GetDamageInfo() && eventInfo.GetDamageInfo()->GetSpellInfo() && eventInfo.GetDamageInfo()->GetSpellInfo()->Id == SPELL_PALADIN_DIVINE_STORM)

@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_MAIL_H
-#define TRINITY_MAIL_H
+#ifndef OLYMPUS_MAIL_H
+#define OLYMPUS_MAIL_H
 
 #include "Common.h"
 #include <map>

@@ -406,7 +406,7 @@ void CreatureTextMgr::SendBroadcastGroup(Creature* source, uint32 id, uint64 whi
     
     if (!group.empty())
     {
-        uint32 textid = Trinity::Containers::SelectRandomContainerElement(group);
+        uint32 textid = Olympus::Containers::SelectRandomContainerElement(group);
         SendBroadcast(source, textid, whisperguid, msgType, range, team);
     }
 }

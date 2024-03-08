@@ -43,7 +43,7 @@
 #include "World.h"
 #include "WorldPacket.h"
 
-namespace Trinity
+namespace Olympus
 {
     class AchievementChatBuilder
     {
@@ -72,7 +72,7 @@ namespace Trinity
             int32 _textId;
             uint32 _achievementId;
     };
-}                                                           // namespace Trinity
+}                                                           // namespace Olympus
 
 bool AchievementCriteriaData::IsValid(AchievementCriteriaEntry const* criteria)
 {
@@ -951,8 +951,8 @@ void AchievementMgr<T>::SendAchievementEarned(AchievementEntry const* achievemen
 
     if (Guild* guild = sGuildMgr->GetGuildById(GetOwner()->GetGuildId()))
     {
-        Trinity::AchievementChatBuilder _builder(GetOwner(), CHAT_MSG_GUILD_ACHIEVEMENT, BROADCAST_TEXT_ACHIEVEMENT_EARNED, achievement->ID);
-        Trinity::LocalizedPacketDo<Trinity::AchievementChatBuilder> _localizer(_builder);
+        Olympus::AchievementChatBuilder _builder(GetOwner(), CHAT_MSG_GUILD_ACHIEVEMENT, BROADCAST_TEXT_ACHIEVEMENT_EARNED, achievement->ID);
+        Olympus::LocalizedPacketDo<Olympus::AchievementChatBuilder> _localizer(_builder);
         guild->BroadcastWorker(_localizer, GetOwner());
     }
 
@@ -969,9 +969,9 @@ void AchievementMgr<T>::SendAchievementEarned(AchievementEntry const* achievemen
     // if player is in world he can tell his friends about new achievement
     else if (GetOwner()->IsInWorld())
     {
-        Trinity::AchievementChatBuilder _builder(GetOwner(), CHAT_MSG_ACHIEVEMENT, BROADCAST_TEXT_ACHIEVEMENT_EARNED, achievement->ID);
-        Trinity::LocalizedPacketDo<Trinity::AchievementChatBuilder> _localizer(_builder);
-        Trinity::PlayerDistWorker<Trinity::LocalizedPacketDo<Trinity::AchievementChatBuilder> > _worker(GetOwner(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY), _localizer);
+        Olympus::AchievementChatBuilder _builder(GetOwner(), CHAT_MSG_ACHIEVEMENT, BROADCAST_TEXT_ACHIEVEMENT_EARNED, achievement->ID);
+        Olympus::LocalizedPacketDo<Olympus::AchievementChatBuilder> _localizer(_builder);
+        Olympus::PlayerDistWorker<Olympus::LocalizedPacketDo<Olympus::AchievementChatBuilder> > _worker(GetOwner(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY), _localizer);
         GetOwner()->VisitNearbyWorldObject(sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_SAY), _worker);
     }
 

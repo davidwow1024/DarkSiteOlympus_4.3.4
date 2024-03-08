@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2021-2023 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -293,8 +293,8 @@ public:
             float max_range = GetSpellInfo()->GetMaxRange(false);
             WorldObject *result = NULL;
             // search for nearby enemy corpse in range
-            Trinity::AnyDeadUnitSpellTargetInRangeCheck check(caster, max_range, GetSpellInfo(), TARGET_CHECK_ENEMY);
-            Trinity::WorldObjectSearcher<Trinity::AnyDeadUnitSpellTargetInRangeCheck> searcher(caster, result, check);
+            Olympus::AnyDeadUnitSpellTargetInRangeCheck check(caster, max_range, GetSpellInfo(), TARGET_CHECK_ENEMY);
+            Olympus::WorldObjectSearcher<Olympus::AnyDeadUnitSpellTargetInRangeCheck> searcher(caster, result, check);
             caster->GetMap()->VisitFirstFound(caster->m_positionX, caster->m_positionY, max_range, searcher);
             if (!result)
                 return SPELL_FAILED_NO_EDIBLE_CORPSES;
@@ -3495,10 +3495,10 @@ public:
 
         void RemoveInvalidTargets(std::list<WorldObject *> &targets)
         {
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_DEBUFF_SATED));
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_DEBUFF_EXHAUSTION));
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_DEBUFF_TEMPORAL_DISPLACEMENT));
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_DEBUFF_INSANITY));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_DEBUFF_SATED));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_DEBUFF_EXHAUSTION));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_DEBUFF_TEMPORAL_DISPLACEMENT));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_DEBUFF_INSANITY));
         }
 
         void ApplyDebuff()
@@ -3654,7 +3654,7 @@ public:
             if (targets.empty())
                 return;
 
-            WorldObject *target = Trinity::Containers::SelectRandomContainerElement(targets);
+            WorldObject *target = Olympus::Containers::SelectRandomContainerElement(targets);
             targets.clear();
             if (Player *player = target->ToPlayer())
                 if (player->isAlive())

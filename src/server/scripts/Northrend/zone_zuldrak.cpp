@@ -130,8 +130,8 @@ const char* SAY_RAGECLAW_3 =      "No more mister nice wolvar!";
 void DespawnOthers(uint32 const& entry, Unit const* me)
 {
     std::list<Unit*> targets;
-    Trinity::AnyUnitInObjectRangeCheck u_check(me, 500.0f);
-    Trinity::UnitListSearcher<Trinity::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+    Olympus::AnyUnitInObjectRangeCheck u_check(me, 500.0f);
+    Olympus::UnitListSearcher<Olympus::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
     me->VisitNearbyObject(500.0f, searcher);
     for (auto &unit : targets)
     {

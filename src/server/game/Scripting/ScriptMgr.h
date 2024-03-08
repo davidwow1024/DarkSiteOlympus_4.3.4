@@ -845,7 +845,7 @@ public: /* Initialization */
     void LoadDatabase();
     void FillSpellSummary();
 
-    const char *ScriptsVersion() const { return "Integrated Trinity Scripts"; }
+    const char *ScriptsVersion() const { return "Integrated Olympus Scripts"; }
 
     void IncrementScriptCount() { ++_scriptCount; }
     uint32 GetScriptCount() const { return _scriptCount; }

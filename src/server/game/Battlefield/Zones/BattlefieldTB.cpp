@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2011-2012 Project SkyFire <http://www.projectskyfire.org/>
  *
  * This program is free software; you can redistribute it and/or modify it

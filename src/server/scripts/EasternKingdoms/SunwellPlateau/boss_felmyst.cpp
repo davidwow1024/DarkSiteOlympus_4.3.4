@@ -489,13 +489,13 @@ public:
             float x, y, z;
             me->GetPosition(x, y, z);
 
-            CellCoord pair(Trinity::ComputeCellCoord(x, y));
+            CellCoord pair(Olympus::ComputeCellCoord(x, y));
             Cell cell(pair);
             cell.SetNoCreate();
 
-            Trinity::AllCreaturesOfEntryInRange check(me, entry, 100);
-            Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, templist, check);
-            TypeContainerVisitor<Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
+            Olympus::AllCreaturesOfEntryInRange check(me, entry, 100);
+            Olympus::CreatureListSearcher<Olympus::AllCreaturesOfEntryInRange> searcher(me, templist, check);
+            TypeContainerVisitor<Olympus::CreatureListSearcher<Olympus::AllCreaturesOfEntryInRange>, GridTypeMapContainer> cSearcher(searcher);
             cell.Visit(pair, cSearcher, *(me->GetMap()), *me, me->GetGridActivationRange());
 
             for (std::list<Creature*>::const_iterator i = templist.begin(); i != templist.end(); ++i)

@@ -105,8 +105,8 @@ insert into `locales_gossip_menu_option` (`menu_id`, `id`, `option_text_loc6`, `
 ('51003','34','Ya tienes todas las monedas que estoy dispuesto a venderte!','Ya tienes todas las monedas que estoy dispuesto a venderte!');
 
 -- susurros del npc 
-delete from `trinity_string` where `entry` in ('63','64');
-insert into `trinity_string` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`) values
+delete from `Olympus_string` where `entry` in ('63','64');
+insert into `Olympus_string` (`entry`, `content_default`, `content_loc1`, `content_loc2`, `content_loc3`, `content_loc4`, `content_loc5`, `content_loc6`, `content_loc7`, `content_loc8`) values
 ('63','I\'ll wait for you at the top, until then, good luck beginner!',NULL,NULL,NULL,NULL,NULL,'Te esperare en la cima, hasta entonces mucha suerte principiante!','Te esperare en la cima, hasta entonces mucha suerte principiante!',NULL),
 ('64','You can\'t afford it!',NULL,NULL,NULL,NULL,NULL,'No te lo puedes permitir!','No te lo puedes permitir!',NULL);
 

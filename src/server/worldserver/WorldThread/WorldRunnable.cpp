@@ -18,7 +18,7 @@
  */
 
 /** \file
-    \ingroup Trinityd
+    \ingroup Olympusd
 */
 
 #include "Common.h"

@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_DEFINE_H
-#define TRINITY_DEFINE_H
+#ifndef OLYMPUS_DEFINE_H
+#define OLYMPUS_DEFINE_H
 
 #include "CompilerDefs.h"
 
@@ -26,19 +26,19 @@
 
 #include <cstddef>
 
-#define TRINITY_LITTLEENDIAN 0
-#define TRINITY_BIGENDIAN    1
+#define OLYMPUS_LITTLEENDIAN 0
+#define OLYMPUS_BIGENDIAN    1
 
-#if !defined(TRINITY_ENDIAN)
+#if !defined(OLYMPUS_ENDIAN)
 #  if defined (ACE_BIG_ENDIAN)
-#    define TRINITY_ENDIAN TRINITY_BIGENDIAN
+#    define OLYMPUS_ENDIAN OLYMPUS_BIGENDIAN
 #  else //ACE_BYTE_ORDER != ACE_BIG_ENDIAN
-#    define TRINITY_ENDIAN TRINITY_LITTLEENDIAN
+#    define OLYMPUS_ENDIAN OLYMPUS_LITTLEENDIAN
 #  endif //ACE_BYTE_ORDER
-#endif //TRINITY_ENDIAN
+#endif //OLYMPUS_ENDIAN
 
 #if PLATFORM == PLATFORM_WINDOWS
-#  define TRINITY_PATH_MAX MAX_PATH
+#  define OLYMPUS_PATH_MAX MAX_PATH
 #  ifndef DECLSPEC_NORETURN
 #    define DECLSPEC_NORETURN __declspec(noreturn)
 #  endif //DECLSPEC_NORETURN
@@ -46,18 +46,18 @@
 #    define DECLSPEC_DEPRECATED __declspec(deprecated)
 #  endif //DECLSPEC_DEPRECATED
 #else //PLATFORM != PLATFORM_WINDOWS
-#  define TRINITY_PATH_MAX PATH_MAX
+#  define OLYMPUS_PATH_MAX PATH_MAX
 #  define DECLSPEC_NORETURN
 #  define DECLSPEC_DEPRECATED
 #endif //PLATFORM
 
 #if !defined(COREDEBUG)
-#  define TRINITY_INLINE inline
+#  define OLYMPUS_INLINE inline
 #else //COREDEBUG
-#  if !defined(TRINITY_DEBUG)
-#    define TRINITY_DEBUG
-#  endif //TRINITY_DEBUG
-#  define TRINITY_INLINE
+#  if !defined(OLYMPUS_DEBUG)
+#    define OLYMPUS_DEBUG
+#  endif //OLYMPUS_DEBUG
+#  define OLYMPUS_INLINE
 #endif //!COREDEBUG
 
 #if COMPILER == COMPILER_GNU
@@ -107,4 +107,4 @@ enum DBCFormer
     FT_SQL_PRESENT='p',                                     //Used in sql format to mark column present in sql dbc
     FT_SQL_ABSENT='a'                                       //Used in sql format to mark column absent in sql dbc
 };
-#endif //TRINITY_DEFINE_H
+#endif //OLYMPUS_DEFINE_H

@@ -564,7 +564,7 @@ void Battlefield::SendWarningToAllInZone(uint32 entry, ...)
         sCreatureTextMgr->SendChat(stalker, (uint8) entry, 0, CHAT_MSG_BG_SYSTEM_NEUTRAL, LANG_ADDON, TEXT_RANGE_ZONE);
     else
     {
-        const char *format = sObjectMgr->GetTrinityStringForDBCLocale(entry);
+        const char *format = sObjectMgr->GetOlympusStringForDBCLocale(entry);
         va_list ap;
         char str [1024];
         va_start(ap, entry);
@@ -579,7 +579,7 @@ void Battlefield::SendWarningToAllInZone(uint32 entry, ...)
 
 void Battlefield::SendWarningToAllInWar(int32 entry, ...)
 {
-    const char *format = sObjectMgr->GetTrinityStringForDBCLocale(entry);
+    const char *format = sObjectMgr->GetOlympusStringForDBCLocale(entry);
     va_list ap;
     char str [1024];
     va_start(ap, entry);
@@ -1185,8 +1185,8 @@ bool BfCapturePoint::Update(uint32 diff)
         }
 
         std::list<Player*> players;
-        Trinity::AnyPlayerInObjectRangeCheck checker(capturePoint, radius);
-        Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(capturePoint, players, checker);
+        Olympus::AnyPlayerInObjectRangeCheck checker(capturePoint, radius);
+        Olympus::PlayerListSearcher<Olympus::AnyPlayerInObjectRangeCheck> searcher(capturePoint, players, checker);
         capturePoint->VisitNearbyWorldObject(radius, searcher);
 
         for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)

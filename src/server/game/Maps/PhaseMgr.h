@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_PHASEMGR_H
-#define TRINITY_PHASEMGR_H
+#ifndef OLYMPUS_PHASEMGR_H
+#define OLYMPUS_PHASEMGR_H
 
 #include "SharedDefines.h"
 #include "SpellAuras.h"

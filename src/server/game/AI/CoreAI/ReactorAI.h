@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_REACTORAI_H
-#define TRINITY_REACTORAI_H
+#ifndef OLYMPUS_REACTORAI_H
+#define OLYMPUS_REACTORAI_H
 
 #include "CreatureAI.h"
 

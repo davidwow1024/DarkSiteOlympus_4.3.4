@@ -1,4 +1,4 @@
-# Copyright (C) 2021-2023 Trinity <http://www.OlympusCore.org/>
+# Copyright (C) 2021-2023 Olympus <http://www.OlympusCore.org/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without

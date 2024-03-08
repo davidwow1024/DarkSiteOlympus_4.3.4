@@ -15,12 +15,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/// \addtogroup Trinityd
+/// \addtogroup Olympusd
 /// @{
 /// \file
 
-#ifndef _TRINITY_RARUNNABLE_H_
-#define _TRINITY_RARUNNABLE_H_
+#ifndef _OLYMPUS_RARUNNABLE_H_
+#define _OLYMPUS_RARUNNABLE_H_
 
 #include "Common.h"
 
@@ -38,5 +38,5 @@ private:
 
 };
 
-#endif /* _TRINITY_RARUNNABLE_H_ */
+#endif /* _OLYMPUS_RARUNNABLE_H_ */
 /// @}

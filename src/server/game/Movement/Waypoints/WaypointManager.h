@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_WAYPOINTMANAGER_H
-#define TRINITY_WAYPOINTMANAGER_H
+#ifndef OLYMPUS_WAYPOINTMANAGER_H
+#define OLYMPUS_WAYPOINTMANAGER_H
 
 #include <ace/Singleton.h>
 #include <ace/Null_Mutex.h>

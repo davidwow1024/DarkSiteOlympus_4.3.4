@@ -228,14 +228,14 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
     if (type != CHAT_MSG_AFK && type != CHAT_MSG_DND && !sender->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetTrinityString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
+        SendNotification(GetOlympusString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
         recvData.rfinish(); // Prevent warnings
         return;
     }
 
     if (sender->HasAura(1852) && type != CHAT_MSG_WHISPER)
     {
-        SendNotification(GetTrinityString(LANG_GM_SILENCE), sender->GetName().c_str());
+        SendNotification(GetOlympusString(LANG_GM_SILENCE), sender->GetName().c_str());
         recvData.rfinish();
         return;
     }
@@ -316,7 +316,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
         {
             if (sender->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ))
             {
-                SendNotification(GetTrinityString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
+                SendNotification(GetOlympusString(LANG_SAY_REQ), sWorld->getIntConfig(CONFIG_CHAT_SAY_LEVEL_REQ));
                 return;
             }
 
@@ -335,7 +335,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
         {
             if (sender->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ))
             {
-                SendNotification(GetTrinityString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
+                SendNotification(GetOlympusString(LANG_WHISPER_REQ), sWorld->getIntConfig(CONFIG_CHAT_WHISPER_LEVEL_REQ));
                 return;
             }
 
@@ -363,7 +363,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
 
             if (GetPlayer()->HasAura(1852) && !receiver->isGameMaster())
             {
-                SendNotification(GetTrinityString(LANG_GM_SILENCE), GetPlayer()->GetName().c_str());
+                SendNotification(GetOlympusString(LANG_GM_SILENCE), GetPlayer()->GetName().c_str());
                 return;
             }
 
@@ -479,7 +479,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
             {
                 if (_player->getLevel() < sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ))
                 {
-                    SendNotification(GetTrinityString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
+                    SendNotification(GetOlympusString(LANG_CHANNEL_REQ), sWorld->getIntConfig(CONFIG_CHAT_CHANNEL_LEVEL_REQ));
                     return;
                 }
             }
@@ -506,7 +506,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
                 }
                 else                                        // New AFK mode
                 {
-                    _player->autoReplyMsg = msg.empty() ? GetTrinityString(LANG_PLAYER_AFK_DEFAULT) : msg;
+                    _player->autoReplyMsg = msg.empty() ? GetOlympusString(LANG_PLAYER_AFK_DEFAULT) : msg;
 
                     if (_player->isDND())
                         _player->ToggleDND();
@@ -529,7 +529,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recvData)
             }
             else                                            // New DND mode
             {
-                _player->autoReplyMsg = msg.empty() ? GetTrinityString(LANG_PLAYER_DND_DEFAULT) : msg;
+                _player->autoReplyMsg = msg.empty() ? GetOlympusString(LANG_PLAYER_DND_DEFAULT) : msg;
 
                 if (_player->isAFK())
                     _player->ToggleAFK();
@@ -699,7 +699,7 @@ void WorldSession::HandleEmoteOpcode(WorldPacket& recvData)
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetTrinityString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
+        SendNotification(GetOlympusString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
         return;
     }
 
@@ -709,7 +709,7 @@ void WorldSession::HandleEmoteOpcode(WorldPacket& recvData)
     GetPlayer()->HandleEmoteCommand(emote);
 }
 
-namespace Trinity
+namespace Olympus
 {
     class EmoteChatBuilder
     {
@@ -739,7 +739,7 @@ namespace Trinity
             uint32        i_emote_num;
             Unit const*   i_target;
     };
-}                                                           // namespace Trinity
+}                                                           // namespace Olympus
 
 void WorldSession::HandleTextEmoteOpcode(WorldPacket& recvData)
 {
@@ -749,7 +749,7 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket& recvData)
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetTrinityString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
+        SendNotification(GetOlympusString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
         return;
     }
 
@@ -785,15 +785,15 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket& recvData)
 
     Unit* unit = ObjectAccessor::GetUnit(*_player, guid);
 
-    CellCoord p = Trinity::ComputeCellCoord(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
+    CellCoord p = Olympus::ComputeCellCoord(GetPlayer()->GetPositionX(), GetPlayer()->GetPositionY());
 
     Cell cell(p);
     cell.SetNoCreate();
 
-    Trinity::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
-    Trinity::LocalizedPacketDo<Trinity::EmoteChatBuilder > emote_do(emote_builder);
-    Trinity::PlayerDistWorker<Trinity::LocalizedPacketDo<Trinity::EmoteChatBuilder > > emote_worker(GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE), emote_do);
-    TypeContainerVisitor<Trinity::PlayerDistWorker<Trinity::LocalizedPacketDo<Trinity::EmoteChatBuilder> >, WorldTypeMapContainer> message(emote_worker);
+    Olympus::EmoteChatBuilder emote_builder(*GetPlayer(), text_emote, emoteNum, unit);
+    Olympus::LocalizedPacketDo<Olympus::EmoteChatBuilder > emote_do(emote_builder);
+    Olympus::PlayerDistWorker<Olympus::LocalizedPacketDo<Olympus::EmoteChatBuilder > > emote_worker(GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE), emote_do);
+    TypeContainerVisitor<Olympus::PlayerDistWorker<Olympus::LocalizedPacketDo<Olympus::EmoteChatBuilder> >, WorldTypeMapContainer> message(emote_worker);
     cell.Visit(p, message, *GetPlayer()->GetMap(), *GetPlayer(), sWorld->getFloatConfig(CONFIG_LISTEN_RANGE_TEXTEMOTE));
 
     GetPlayer()->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_DO_EMOTE, text_emote, 0, 0, unit);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2008-2014 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -135,8 +135,8 @@ class boss_nalorakk : public CreatureScript
                 me->GetPosition(x, y, z);
 
                 {
-                    Trinity::AllFriendlyCreaturesInGrid check(me);
-                    Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid> searcher(me, templist, check);
+                    Olympus::AllFriendlyCreaturesInGrid check(me);
+                    Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid> searcher(me, templist, check);
                     me->VisitNearbyGridObject(me->GetGridActivationRange(), searcher);
                 }
 

@@ -122,7 +122,7 @@ void WorldSession::HandleSendMail(WorldPacket& recvData)
 
     if (player->getLevel() < sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ))
     {
-        SendNotification(GetTrinityString(LANG_MAIL_SENDER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
+        SendNotification(GetOlympusString(LANG_MAIL_SENDER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
         return;
     }
 
@@ -239,7 +239,7 @@ void WorldSession::HandleSendMail(WorldPacket& recvData)
 
     if (receiveLevel < sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ))
     {
-        SendNotification(GetTrinityString(LANG_MAIL_RECEIVER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
+        SendNotification(GetOlympusString(LANG_MAIL_RECEIVER_REQ), sWorld->getIntConfig(CONFIG_MAIL_LEVEL_REQ));
         return;
     }
 
@@ -560,7 +560,7 @@ void WorldSession::HandleMailTakeItem(WorldPacket& recvData)
                     sender_accId = sObjectMgr->GetPlayerAccountIdByGUID(sender_guid);
 
                     if (!sObjectMgr->GetPlayerNameByGUID(sender_guid, sender_name))
-                        sender_name = sObjectMgr->GetTrinityStringForDBCLocale(LANG_UNKNOWN);
+                        sender_name = sObjectMgr->GetOlympusStringForDBCLocale(LANG_UNKNOWN);
                 }
                 sLog->outCommand(GetAccountId(), "GM %s (Account: %u) receive mail item: %s (Entry: %u Count: %u) and send COD money: " UI64FMTD " to player: %s (Account: %u)",
                     GetPlayerName().c_str(), GetAccountId(), it->GetTemplate()->Name1.c_str(), it->GetEntry(), it->GetCount(), m->COD, sender_name.c_str(), sender_accId);

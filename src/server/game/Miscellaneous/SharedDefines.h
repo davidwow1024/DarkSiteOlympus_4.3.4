@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_SHAREDDEFINES_H
-#define TRINITY_SHAREDDEFINES_H
+#ifndef OLYMPUS_SHAREDDEFINES_H
+#define OLYMPUS_SHAREDDEFINES_H
 
 #include "Define.h"
 #include "DetourNavMesh.h"

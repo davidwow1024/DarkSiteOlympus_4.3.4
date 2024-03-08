@@ -758,8 +758,8 @@ class npc_simon_bunny : public CreatureScript
                 me->SetObjectScale(large ? 2.0f : 1.0f);
 
                 std::list<WorldObject*> ClusterList;
-                Trinity::AllWorldObjectsInRange objects(me, searchDistance);
-                Trinity::WorldObjectListSearcher<Trinity::AllWorldObjectsInRange> searcher(me, ClusterList, objects);
+                Olympus::AllWorldObjectsInRange objects(me, searchDistance);
+                Olympus::WorldObjectListSearcher<Olympus::AllWorldObjectsInRange> searcher(me, ClusterList, objects);
                 me->VisitNearbyObject(searchDistance, searcher);
 
                 for (std::list<WorldObject*>::const_iterator i = ClusterList.begin(); i != ClusterList.end(); ++i)

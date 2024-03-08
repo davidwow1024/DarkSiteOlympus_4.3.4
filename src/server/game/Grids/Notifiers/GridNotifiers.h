@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_GRIDNOTIFIERS_H
-#define TRINITY_GRIDNOTIFIERS_H
+#ifndef OLYMPUS_GRIDNOTIFIERS_H
+#define OLYMPUS_GRIDNOTIFIERS_H
 
 #include "ObjectGridLoader.h"
 #include "UpdateData.h"
@@ -37,7 +37,7 @@
 class Player;
 //class Map;
 
-namespace Trinity
+namespace Olympus
 {
     struct VisibleNotifier
     {

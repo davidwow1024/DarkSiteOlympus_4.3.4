@@ -481,7 +481,7 @@ class spell_wave_of_agony_selector : public SpellScriptLoader
             void FilterTargets(std::list<WorldObject*>& unitList)
             {
                 if (!unitList.empty())
-                    Trinity::Containers::RandomResizeList(unitList, 1);
+                    Olympus::Containers::RandomResizeList(unitList, 1);
             }
 
             void TriggerSpell(SpellEffIndex effIndex)

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2013-2014 trinity core og
+* Copyright (C) 2013-2014 Olympus core og
 * Copyright (C) 2008-2014 OlympusCore <http://www.OlympusCore.org/>
 *
 * This program is free software; you can redistribute it and/or modify it
@@ -458,7 +458,7 @@ public:
                 return;
             }
 
-            Trinity::Containers::RandomResizeList(targets, 2);
+            Olympus::Containers::RandomResizeList(targets, 2);
 
             std::list<WorldObject*>::const_iterator itr = targets.begin();
             target1 = (*itr)->ToUnit();
@@ -527,7 +527,7 @@ public:
 
         void FilterTargets(std::list<WorldObject*>& targets)
         {
-            targets.remove_if(Trinity::UnitAuraCheck(false, SPELL_COUNTDOWN_PERIODIC));
+            targets.remove_if(Olympus::UnitAuraCheck(false, SPELL_COUNTDOWN_PERIODIC));
             targets.remove(GetCaster());
         }
 
@@ -625,7 +625,7 @@ public:
             if (targets.size() <= targetCount)
                 return;
 
-            targets.sort(Trinity::ObjectDistanceOrderPred(GetCaster()));
+            targets.sort(Olympus::ObjectDistanceOrderPred(GetCaster()));
             std::list<WorldObject*> ranged, melee;
             std::list<WorldObject*>::iterator itr = targets.begin();
             while (itr != targets.end() && (*itr)->GetExactDist2d(GetCaster()) < 18.6f)
@@ -646,7 +646,7 @@ public:
 
             if (!melee.empty())
             {
-                WorldObject* target = Trinity::Containers::SelectRandomContainerElement(melee);
+                WorldObject* target = Olympus::Containers::SelectRandomContainerElement(melee);
                 melee.remove(target);
                 targets.push_back(target);
                 --targetCount;
@@ -654,7 +654,7 @@ public:
 
             while (!ranged.empty() && targetCount)
             {
-                WorldObject* target = Trinity::Containers::SelectRandomContainerElement(ranged);
+                WorldObject* target = Olympus::Containers::SelectRandomContainerElement(ranged);
                 ranged.remove(target);
                 targets.push_back(target);
                 --targetCount;
@@ -691,7 +691,7 @@ public:
 
         void FilterTargets(std::list<WorldObject*>& targets)
         {
-            targets.sort(Trinity::ObjectDistanceOrderPred(GetCaster()));
+            targets.sort(Olympus::ObjectDistanceOrderPred(GetCaster()));
             if (Unit* caster = GetCaster())
                 targets.remove_if([caster](WorldObject* target) { return target->GetDistance2d(caster) > 15.0f; });
             if (!targets.empty())

@@ -162,7 +162,7 @@ enum QuestFlags
 enum __QuestSpecialFlags
 {
     QUEST_SPECIAL_FLAGS_NONE                 = 0x000,
-    // Trinity flags for set SpecialFlags in DB if required but used only at server
+    // Olympus flags for set SpecialFlags in DB if required but used only at server
     QUEST_SPECIAL_FLAGS_REPEATABLE           = 0x001,
     QUEST_SPECIAL_FLAGS_EXPLORATION_OR_EVENT = 0x002, // if required area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script)
     QUEST_SPECIAL_FLAGS_AUTO_ACCEPT          = 0x004, // quest is to be auto-accepted.

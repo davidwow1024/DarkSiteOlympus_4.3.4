@@ -72,7 +72,7 @@ public:
     {
         std::list<Creature*> slipStreams;
         player->GetCreatureListWithEntryInGrid(slipStreams, NPC_SLIPSTREAM, 533.0f);
-        slipStreams.sort(Trinity::ObjectDistanceOrderPred(player));
+        slipStreams.sort(Olympus::ObjectDistanceOrderPred(player));
         for (std::list<Creature*>::iterator itr = slipStreams.begin(); itr != slipStreams.end(); ++itr)
         {
             for (int i = 0; i < MAX_SLIPSTREAM; i++)

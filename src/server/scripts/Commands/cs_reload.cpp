@@ -748,7 +748,7 @@ public:
     static bool HandleReloadOlympusStringCommand(ChatHandler* handler, const char* /*args*/)
     {
         TC_LOG_INFO("misc", "Re-Loading olympus_string Table!");
-        sObjectMgr->LoadTrinityStrings();
+        sObjectMgr->LoadOlympusStrings();
         handler->SendGlobalGMSysMessage("DB table `olympus_string` reloaded.");
         return true;
     }

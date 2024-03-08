@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_CONDITIONMGR_H
-#define TRINITY_CONDITIONMGR_H
+#ifndef OLYMPUS_CONDITIONMGR_H
+#define OLYMPUS_CONDITIONMGR_H
 
 #include "Define.h"
 #include "Errors.h"

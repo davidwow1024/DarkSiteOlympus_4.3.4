@@ -105,8 +105,8 @@ class boss_ammunae : public CreatureScript
             void RampartSummon(uint32 entry, float distance)
             {
                 std::list<Creature*> CreatureList;
-                Trinity::AllCreaturesOfEntryInRange checker(me, entry, distance);
-                Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, CreatureList, checker);
+                Olympus::AllCreaturesOfEntryInRange checker(me, entry, distance);
+                Olympus::CreatureListSearcher<Olympus::AllCreaturesOfEntryInRange> searcher(me, CreatureList, checker);
                 me->VisitNearbyObject(distance, searcher);
                 if (CreatureList.empty())
                     return;

@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef TRINITYSERVER_MOVESPLINEINIT_H
-#define TRINITYSERVER_MOVESPLINEINIT_H
+#ifndef OlympusSERVER_MOVESPLINEINIT_H
+#define OlympusSERVER_MOVESPLINEINIT_H
 
 #include "MoveSplineInitArgs.h"
 #include "PathGenerator.h"
@@ -200,4 +200,4 @@ namespace Movement
 
     inline void MoveSplineInit::DisableTransportPathTransformations() { args.TransformForTransport = false; }
 }
-#endif // TRINITYSERVER_MOVESPLINEINIT_H
+#endif // OlympusSERVER_MOVESPLINEINIT_H

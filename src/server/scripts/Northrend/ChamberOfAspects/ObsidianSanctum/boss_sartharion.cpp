@@ -425,8 +425,8 @@ public:
             }
 
             std::list<Unit*> targets;
-            Trinity::AnyUnitInObjectRangeCheck u_check(me, 1000.0f);
-            Trinity::UnitListSearcher<Trinity::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+            Olympus::AnyUnitInObjectRangeCheck u_check(me, 1000.0f);
+            Olympus::UnitListSearcher<Olympus::AnyUnitInObjectRangeCheck> searcher(me, targets, u_check);
             me->VisitNearbyObject(1000.0f, searcher);
 
             for (std::list<Unit*>::iterator itr = targets.begin(); itr != targets.end(); itr++)
@@ -620,8 +620,8 @@ public:
         void CastLavaStrike(bool addAura)
         {
             std::list<Creature*> pFireCyclonesList;
-            Trinity::AllCreaturesOfEntryInRange checker(me, NPC_FIRE_CYCLONE, 200.0f);
-            Trinity::CreatureListSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, pFireCyclonesList, checker);
+            Olympus::AllCreaturesOfEntryInRange checker(me, NPC_FIRE_CYCLONE, 200.0f);
+            Olympus::CreatureListSearcher<Olympus::AllCreaturesOfEntryInRange> searcher(me, pFireCyclonesList, checker);
             me->VisitNearbyObject(200.0f, searcher);
 
             if (pFireCyclonesList.empty())

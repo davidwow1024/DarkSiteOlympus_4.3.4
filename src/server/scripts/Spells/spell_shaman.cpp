@@ -112,7 +112,7 @@ public:
                     temp.push_back(unit);
 
             targets.clear();
-            temp.sort(Trinity::HealthPctOrderPred());
+            temp.sort(Olympus::HealthPctOrderPred());
             if (temp.size() > 1)
                 temp.resize(1);
             for (std::list<Unit *>::iterator itr = temp.begin(); itr != temp.end(); itr++)
@@ -441,8 +441,8 @@ public:
         SpellCastResult CheckCast()
         {
             std::list<Unit *> targets;
-            Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(GetCaster(), GetCaster(), 100.0f);
-            Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(GetCaster(), targets, u_check);
+            Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(GetCaster(), GetCaster(), 100.0f);
+            Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(GetCaster(), targets, u_check);
             GetCaster()->VisitNearbyObject(100.0f, searcher);
             for (std::list<Unit *>::const_iterator itr = targets.begin(); itr != targets.end();)
             {
@@ -808,10 +808,10 @@ public:
             if (GetExplTargetUnit())
                 targets.remove(GetExplTargetUnit());
 
-            targets.remove_if(Trinity::UnitAuraCheck(true, 8050, GetCaster()->GetGUID()));
+            targets.remove_if(Olympus::UnitAuraCheck(true, 8050, GetCaster()->GetGUID()));
 
             if (!targets.empty())
-                Trinity::Containers::RandomResizeList(targets, 4);
+                Olympus::Containers::RandomResizeList(targets, 4);
         }
 
         void HandleOnHit()

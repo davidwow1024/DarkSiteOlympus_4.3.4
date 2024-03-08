@@ -655,7 +655,7 @@ bool Transport::AddPassenger(WorldObject* passenger)
 
     TC_LOG_INFO("entities.transport", "Player %s boarded transport %s.", passenger->GetName().c_str(), GetName().c_str());
     {
-        TRINITY_GUARD(ACE_Thread_Mutex, Lock);
+        OLYMPUS_GUARD(ACE_Thread_Mutex, Lock);
 
         switch (passenger->GetTypeId())
         {
@@ -687,7 +687,7 @@ bool Transport::RemovePassenger(WorldObject* passenger)
         return success;
 
     {
-        TRINITY_GUARD(ACE_Thread_Mutex, Lock);
+        OLYMPUS_GUARD(ACE_Thread_Mutex, Lock);
 
         switch (passenger->GetTypeId())
         {
@@ -1054,7 +1054,7 @@ void Transport::UpdatePassengersPositions()
     }
 
     {
-        TRINITY_GUARD(ACE_Thread_Mutex, Lock);
+        OLYMPUS_GUARD(ACE_Thread_Mutex, Lock);
         std::list<uint64 > cleanUpPassengers;
 
         for (std::map<uint64, WorldObject *>::iterator itr = m_passengers.begin(); itr != m_passengers.end(); ++itr)
@@ -1333,7 +1333,7 @@ Creature* Transport::AddNPCPassengerInInstance(uint32 entry, float x, float y, f
 
 void Transport::BuildPassengersBlockForPlayer(Player *player, UpdateData *data)
 {
-    //    TRINITY_GUARD(ACE_Thread_Mutex, Lock);
+    //    OLYMPUS_GUARD(ACE_Thread_Mutex, Lock);
     for (std::map<uint64, WorldObject *>::const_iterator itr = m_passengers.begin(); itr != m_passengers.end(); ++itr)
         if (WorldObject *passenger = ObjectAccessor::GetWorldObject(*this, itr->first))
             if (player != passenger && player->HaveAtClient(passenger))

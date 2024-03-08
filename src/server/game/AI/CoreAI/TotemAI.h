@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_TOTEMAI_H
-#define TRINITY_TOTEMAI_H
+#ifndef OLYMPUS_TOTEMAI_H
+#define OLYMPUS_TOTEMAI_H
 
 #include "CreatureAI.h"
 #include "Timer.h"

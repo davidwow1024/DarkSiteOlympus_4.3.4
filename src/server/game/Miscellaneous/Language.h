@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __TRINITY_LANGUAGE_H
-#define __TRINITY_LANGUAGE_H
+#ifndef __OLYMPUS_LANGUAGE_H
+#define __OLYMPUS_LANGUAGE_H
 
 enum BroadcastTextIds
 {
@@ -27,7 +27,7 @@ enum BroadcastTextIds
 };
 
 // clang-format off
-enum TrinityStrings
+enum OlympusStrings
 {
     // for chat commands
     LANG_SELECT_CHAR_OR_CREATURE        = 1,
@@ -1018,7 +1018,7 @@ enum TrinityStrings
     LANG_COMMAND_TICKETRESET            = 2028,
     LANG_COMMAND_TICKETLISTRESPONSE     = 2029,
 
-    // Trinity strings                    5000-9999
+    // Olympus strings                    5000-9999
     LANG_COMMAND_FREEZE                 = 5000,
     LANG_COMMAND_FREEZE_ERROR           = 5001,
     LANG_COMMAND_FREEZE_WRONG           = 5002,
@@ -1056,7 +1056,7 @@ enum TrinityStrings
     LANG_COMMAND_NO_ACHIEVEMENT_CRITERIA_FOUND = 5033,
     LANG_COMMAND_NO_OUTDOOR_PVP_FORUND  = 5034,
     LANG_CALL_FOR_HELP                  = 5035, // unused
-    // Room for more Trinity strings      5036-9999
+    // Room for more Olympus strings      5036-9999
 
     // Level requirement notifications
     LANG_SAY_REQ                        = 6604,

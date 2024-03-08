@@ -124,7 +124,7 @@ public:
         bool first = true;
         bool footer = false;
 
-        TRINITY_READ_GUARD(HashMapHolder<Player>::LockType, *HashMapHolder<Player>::GetLock());
+        OLYMPUS_READ_GUARD(HashMapHolder<Player>::LockType, *HashMapHolder<Player>::GetLock());
         HashMapHolder<Player>::MapType const& m = sObjectAccessor->GetPlayers();
         for (HashMapHolder<Player>::MapType::const_iterator itr = m.begin(); itr != m.end(); ++itr)
         {
@@ -201,7 +201,7 @@ public:
     {
         if (!*args)
         {
-            handler->PSendSysMessage(LANG_YOU_ARE, handler->GetSession()->GetPlayer()->isGMVisible() ? handler->GetTrinityString(LANG_VISIBLE) : handler->GetTrinityString(LANG_INVISIBLE));
+            handler->PSendSysMessage(LANG_YOU_ARE, handler->GetSession()->GetPlayer()->isGMVisible() ? handler->GetOlympusString(LANG_VISIBLE) : handler->GetOlympusString(LANG_INVISIBLE));
             return true;
         }
 

@@ -912,16 +912,16 @@ void hyjalAI::JustDied(Unit* /*killer*/)
 
 void hyjalAI::HideNearPos(float x, float y)
 {
-    CellCoord pair(Trinity::ComputeCellCoord(x, y));
+    CellCoord pair(Olympus::ComputeCellCoord(x, y));
     Cell cell(pair);
     cell.SetNoCreate();
 
     // First get all creatures.
     std::list<Creature*> creatures;
-    Trinity::AllFriendlyCreaturesInGrid creature_check(me);
-    Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+    Olympus::AllFriendlyCreaturesInGrid creature_check(me);
+    Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
 
-    TypeContainerVisitor <Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> creature_visitor(creature_searcher);
+    TypeContainerVisitor <Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid>, GridTypeMapContainer> creature_visitor(creature_searcher);
     cell.Visit(pair, creature_visitor, *(me->GetMap()), *me, me->GetGridActivationRange());
 
     if (!creatures.empty())
@@ -936,13 +936,13 @@ void hyjalAI::HideNearPos(float x, float y)
 
 void hyjalAI::RespawnNearPos(float x, float y)
 {
-    CellCoord p(Trinity::ComputeCellCoord(x, y));
+    CellCoord p(Olympus::ComputeCellCoord(x, y));
     Cell cell(p);
     cell.SetNoCreate();
 
-    Trinity::RespawnDo u_do;
-    Trinity::WorldObjectWorker<Trinity::RespawnDo> worker(me, u_do);
-    TypeContainerVisitor<Trinity::WorldObjectWorker<Trinity::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
+    Olympus::RespawnDo u_do;
+    Olympus::WorldObjectWorker<Olympus::RespawnDo> worker(me, u_do);
+    TypeContainerVisitor<Olympus::WorldObjectWorker<Olympus::RespawnDo>, GridTypeMapContainer > obj_worker(worker);
     cell.Visit(p, obj_worker, *me->GetMap(), *me, me->GetGridActivationRange());
 }
 
@@ -967,16 +967,16 @@ void hyjalAI::WaypointReached(uint32 waypointId)
         }
         //do some talking
         //all alive guards walk near here
-        CellCoord pair(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+        CellCoord pair(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
         Cell cell(pair);
         cell.SetNoCreate();
 
         // First get all creatures.
         std::list<Creature*> creatures;
-        Trinity::AllFriendlyCreaturesInGrid creature_check(me);
-        Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+        Olympus::AllFriendlyCreaturesInGrid creature_check(me);
+        Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
         TypeContainerVisitor
-            <Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid>,
+            <Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid>,
             GridTypeMapContainer> creature_visitor(creature_searcher);
 
         cell.Visit(pair, creature_visitor, *(me->GetMap()), *me, me->GetGridActivationRange());
@@ -1008,15 +1008,15 @@ void hyjalAI::DoOverrun(uint32 faction, const uint32 diff)
     {
         if (TeleportTimer <= diff)
         {
-            CellCoord pair(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+            CellCoord pair(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
             Cell cell(pair);
             cell.SetNoCreate();
 
             std::list<Creature*> creatures;
-            Trinity::AllFriendlyCreaturesInGrid creature_check(me);
-            Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
+            Olympus::AllFriendlyCreaturesInGrid creature_check(me);
+            Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid> creature_searcher(me, creatures, creature_check);
             TypeContainerVisitor
-                <Trinity::CreatureListSearcher<Trinity::AllFriendlyCreaturesInGrid>,
+                <Olympus::CreatureListSearcher<Olympus::AllFriendlyCreaturesInGrid>,
                 GridTypeMapContainer> creature_visitor(creature_searcher);
 
             cell.Visit(pair, creature_visitor, *(me->GetMap()), *me, me->GetGridActivationRange());

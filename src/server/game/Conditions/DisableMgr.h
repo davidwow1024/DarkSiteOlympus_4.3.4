@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_DISABLEMGR_H
-#define TRINITY_DISABLEMGR_H
+#ifndef OLYMPUS_DISABLEMGR_H
+#define OLYMPUS_DISABLEMGR_H
 
 #include "Define.h"
 
@@ -70,4 +70,4 @@ namespace DisableMgr
     void CheckQuestDisables();
 }
 
-#endif //TRINITY_DISABLEMGR_H
+#endif //OLYMPUS_DISABLEMGR_H

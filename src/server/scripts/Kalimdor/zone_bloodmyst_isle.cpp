@@ -858,14 +858,14 @@ public:
 				SetEscortPaused(true);
 
 				//Find Sironas and make it respawn if needed
-				CellCoord p(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+				CellCoord p(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
 				Cell cell(p);
 				cell.SetNoCreate();
 
 				Creature* sironas = NULL;
-				Trinity::AllCreaturesOfEntryInRange check(me, NPC_SIRONAS, SIZE_OF_GRIDS);
-				Trinity::CreatureSearcher<Trinity::AllCreaturesOfEntryInRange> searcher(me, sironas, check);
-				TypeContainerVisitor<Trinity::CreatureSearcher<Trinity::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
+				Olympus::AllCreaturesOfEntryInRange check(me, NPC_SIRONAS, SIZE_OF_GRIDS);
+				Olympus::CreatureSearcher<Olympus::AllCreaturesOfEntryInRange> searcher(me, sironas, check);
+				TypeContainerVisitor<Olympus::CreatureSearcher<Olympus::AllCreaturesOfEntryInRange>, GridTypeMapContainer> visitor(searcher);
 
 				cell.Visit(p, visitor, *(me->GetMap()), *me, SIZE_OF_GRIDS);
 

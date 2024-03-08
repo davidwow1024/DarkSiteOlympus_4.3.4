@@ -15,7 +15,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Reordenada, trinity codestyle y limpieza de CRLF por Eilo
+// Reordenada, Olympus codestyle y limpieza de CRLF por Eilo
 // Waypoints mejorados y varios detalles en el movimiento
 
 /* ScriptData

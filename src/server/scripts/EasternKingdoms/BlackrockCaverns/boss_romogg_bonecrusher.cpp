@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2008-2014 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -260,7 +260,7 @@ public:
             GetCreatureListWithEntryInGrid(quakeTriggers, target, NPC_QUAKE_TRIGGER, 200.0f);
             if (!quakeTriggers.empty())
             {
-                quakeTriggers.sort(Trinity::ObjectDistanceOrderPred(target, true));
+                quakeTriggers.sort(Olympus::ObjectDistanceOrderPred(target, true));
                 Creature* quake = quakeTriggers.front();
 
                 if (target->GetExactDist2d(quake) >= 2.0f)
@@ -582,7 +582,7 @@ public:
         void FilterTargets(std::list<WorldObject*>& targets)
         {
             if (!targets.empty())
-                Trinity::Containers::RandomResizeList(targets, 1);
+                Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void HandleDummy(SpellEffIndex effIndex)

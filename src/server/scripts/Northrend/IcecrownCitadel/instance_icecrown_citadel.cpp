@@ -1344,7 +1344,7 @@ class instance_icecrown_citadel : public InstanceMapScript
                         if (stalkers.empty())
                             return;
 
-                        stalkers.sort(Trinity::ObjectDistanceOrderPred(teleporter));
+                        stalkers.sort(Olympus::ObjectDistanceOrderPred(teleporter));
                         stalkers.front()->CastSpell((Unit*)NULL, SPELL_ARTHAS_TELEPORTER_CEREMONY, false);
                         stalkers.pop_front();
                         for (std::list<Creature*>::iterator itr = stalkers.begin(); itr != stalkers.end(); ++itr)
@@ -1525,7 +1525,7 @@ class instance_icecrown_citadel : public InstanceMapScript
                             GetCreatureListWithEntryInGrid(triggers, terenas, NPC_WORLD_TRIGGER_INFINITE_AOI, 100.0f);
                             if (!triggers.empty())
                             {
-                                triggers.sort(Trinity::ObjectDistanceOrderPred(terenas, false));
+                                triggers.sort(Olympus::ObjectDistanceOrderPred(terenas, false));
                                 Unit* visual = triggers.front();
                                 visual->CastSpell(visual, SPELL_FROSTMOURNE_TELEPORT_VISUAL, true);
                             }

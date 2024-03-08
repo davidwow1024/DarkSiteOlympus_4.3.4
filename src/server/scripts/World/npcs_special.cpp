@@ -2235,8 +2235,8 @@ public:
             {
                 init = true;
                 std::list<Unit *> targets;
-                Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 30.00f);
-                Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+                Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 30.00f);
+                Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
                 me->VisitNearbyObject(30.00f, searcher);
                 bool targetFound = false;
 
@@ -2255,7 +2255,7 @@ public:
                 {
                     if (!targets.empty())
                     {
-                        targets.sort(Trinity::ObjectDistanceOrderPred(me));
+                        targets.sort(Olympus::ObjectDistanceOrderPred(me));
                         me->Attack(targets.front(), false);
                         me->GetMotionMaster()->MoveChase(targets.front(), 20.00f, 0.00f);
                     }
@@ -4102,11 +4102,11 @@ public:
                     {
                         Unit *auraTarget = NULL;
                         std::list<Unit *> targets;
-                        Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 20.0f);
-                        Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+                        Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 20.0f);
+                        Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
                         me->VisitNearbyObject(20.0f, searcher);
                         if (!targets.empty())
-                            targets.sort(Trinity::ObjectDistanceOrderPred(me));
+                            targets.sort(Olympus::ObjectDistanceOrderPred(me));
 
                         for (Unit *target : targets)
                         {
@@ -4194,8 +4194,8 @@ public:
                 {
                     targetFound = false;
                     std::list<Unit *> targets;
-                    Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, range);
-                    Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+                    Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, range);
+                    Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
                     me->VisitNearbyObject(range, searcher);
                     for (std::list<Unit *>::iterator itr = targets.begin(); itr != targets.end(); ++itr)
                     {
@@ -4260,8 +4260,8 @@ public:
                 {
                     targetFound = false;
                     std::list<Unit *> targets;
-                    Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 40);
-                    Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+                    Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 40);
+                    Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
                     me->VisitNearbyObject(40, searcher);
                     for (std::list<Unit *>::iterator itr = targets.begin(); itr != targets.end(); ++itr)
                     {
@@ -4741,8 +4741,8 @@ public:
                     Unit *closestTarget = NULL;
                     float closestDistance = 40.0f;
                     std::list<Unit *> targets;
-                    Trinity::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 40.0f);
-                    Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
+                    Olympus::AnyUnfriendlyUnitInObjectRangeCheck u_check(me, me, 40.0f);
+                    Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, targets, u_check);
                     me->VisitNearbyObject(40.0f, searcher);
                     me->GetPosition(&casterPos);
                     for (Unit *target : targets)

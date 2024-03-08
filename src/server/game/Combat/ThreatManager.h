@@ -275,7 +275,7 @@ class ThreatManager
 
 //=================================================
 
-namespace Trinity
+namespace Olympus
 {
     // Binary predicate for sorting HostileReferences based on threat value
     class ThreatOrderPred

@@ -367,7 +367,7 @@ public:
             GetCreatureListWithEntryInGrid(triggers, GetHitUnit(), NPC_BAD_INTENTIONS_TARGET, 100.0f);
             if (!triggers.empty())
             {
-                triggers.sort(Trinity::ObjectDistanceOrderPred(GetHitUnit(), true));
+                triggers.sort(Olympus::ObjectDistanceOrderPred(GetHitUnit(), true));
                 Creature* trigger = triggers.front();
                 GetHitUnit()->CastSpell(trigger, uint32(GetEffectValue()), true);
             }

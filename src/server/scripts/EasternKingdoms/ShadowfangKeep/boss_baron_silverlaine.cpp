@@ -94,7 +94,7 @@ class boss_baron_silverlaine : public CreatureScript
                     if (spellSet.empty())
                         return;
 
-                    uint32 summonspell = Trinity::Containers::SelectRandomContainerElement(spellSet);
+                    uint32 summonspell = Olympus::Containers::SelectRandomContainerElement(spellSet);
                     DoCast(summonspell);
                     spellSet.erase(summonspell);
                 }

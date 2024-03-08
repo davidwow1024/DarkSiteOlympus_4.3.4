@@ -1161,7 +1161,7 @@ public:
         void FilterTargetsInitial(std::list<WorldObject*>& targets)
         {
             targets.remove_if(WrackAuraCheck());
-            Trinity::Containers::RandomResizeList(targets, 2);
+            Olympus::Containers::RandomResizeList(targets, 2);
             sharedTargets = targets;
         }
 

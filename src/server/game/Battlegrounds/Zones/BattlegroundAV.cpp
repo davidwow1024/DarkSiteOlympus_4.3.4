@@ -101,7 +101,7 @@ void BattlegroundAV::HandleKillUnit(Creature* unit, Player* killer)
             SpawnBGObject(BG_AV_OBJECT_BURN_BUILDING_ALLIANCE+i, RESPAWN_IMMEDIATELY);
         Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
         if (creature)
-            YellToAll(creature, GetTrinityString(LANG_BG_AV_A_CAPTAIN_DEAD), LANG_UNIVERSAL);
+            YellToAll(creature, GetOlympusString(LANG_BG_AV_A_CAPTAIN_DEAD), LANG_UNIVERSAL);
         DelCreature(AV_CPLACE_TRIGGER16);
     }
     else if (entry == BG_AV_CreatureInfo[AV_NPC_H_CAPTAIN][0])
@@ -120,7 +120,7 @@ void BattlegroundAV::HandleKillUnit(Creature* unit, Player* killer)
             SpawnBGObject(BG_AV_OBJECT_BURN_BUILDING_HORDE+i, RESPAWN_IMMEDIATELY);
         Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
         if (creature)
-            YellToAll(creature, GetTrinityString(LANG_BG_AV_H_CAPTAIN_DEAD), LANG_UNIVERSAL);
+            YellToAll(creature, GetOlympusString(LANG_BG_AV_H_CAPTAIN_DEAD), LANG_UNIVERSAL);
         DelCreature(AV_CPLACE_TRIGGER18);
     }
     else if (entry == BG_AV_CreatureInfo[AV_NPC_N_MINE_N_4][0] || entry == BG_AV_CreatureInfo[AV_NPC_N_MINE_A_4][0] || entry == BG_AV_CreatureInfo[AV_NPC_N_MINE_H_4][0])
@@ -638,9 +638,9 @@ void BattlegroundAV::EventPlayerDestroyedPoint(BG_AV_Nodes node)
     //send a nice message to all :)
     char buf[256];
     if (IsTower(node))
-        sprintf(buf, GetTrinityString(LANG_BG_AV_TOWER_TAKEN), GetNodeName(node), (owner == ALLIANCE) ? GetTrinityString(LANG_BG_AV_ALLY) : GetTrinityString(LANG_BG_AV_HORDE));
+        sprintf(buf, GetOlympusString(LANG_BG_AV_TOWER_TAKEN), GetNodeName(node), (owner == ALLIANCE) ? GetOlympusString(LANG_BG_AV_ALLY) : GetOlympusString(LANG_BG_AV_HORDE));
     else
-        sprintf(buf, GetTrinityString(LANG_BG_AV_GRAVE_TAKEN), GetNodeName(node), (owner == ALLIANCE) ? GetTrinityString(LANG_BG_AV_ALLY) :GetTrinityString(LANG_BG_AV_HORDE));
+        sprintf(buf, GetOlympusString(LANG_BG_AV_GRAVE_TAKEN), GetNodeName(node), (owner == ALLIANCE) ? GetOlympusString(LANG_BG_AV_ALLY) :GetOlympusString(LANG_BG_AV_HORDE));
 
     Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
     if (creature)
@@ -719,8 +719,8 @@ void BattlegroundAV::ChangeMineOwner(uint8 mine, uint32 team, bool initial)
     {
         m_Mine_Reclaim_Timer[mine]=AV_MINE_RECLAIM_TIMER;
         char buf[256];
-        sprintf(buf, GetTrinityString(LANG_BG_AV_MINE_TAKEN), GetTrinityString((mine == AV_NORTH_MINE) ? LANG_BG_AV_MINE_NORTH : LANG_BG_AV_MINE_SOUTH),
-                (team == ALLIANCE) ?  GetTrinityString(LANG_BG_AV_ALLY) : GetTrinityString(LANG_BG_AV_HORDE));
+        sprintf(buf, GetOlympusString(LANG_BG_AV_MINE_TAKEN), GetOlympusString((mine == AV_NORTH_MINE) ? LANG_BG_AV_MINE_NORTH : LANG_BG_AV_MINE_SOUTH),
+                (team == ALLIANCE) ?  GetOlympusString(LANG_BG_AV_ALLY) : GetOlympusString(LANG_BG_AV_HORDE));
         Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
         if (creature)
             YellToAll(creature, buf, LANG_UNIVERSAL);
@@ -966,8 +966,8 @@ void BattlegroundAV::EventPlayerDefendsPoint(Player* player, uint32 object)
     }
     //send a nice message to all :)
     char buf[256];
-    sprintf(buf, GetTrinityString((IsTower(node)) ? LANG_BG_AV_TOWER_DEFENDED : LANG_BG_AV_GRAVE_DEFENDED), GetNodeName(node),
-            (team == ALLIANCE) ?  GetTrinityString(LANG_BG_AV_ALLY) : GetTrinityString(LANG_BG_AV_HORDE));
+    sprintf(buf, GetOlympusString((IsTower(node)) ? LANG_BG_AV_TOWER_DEFENDED : LANG_BG_AV_GRAVE_DEFENDED), GetNodeName(node),
+            (team == ALLIANCE) ?  GetOlympusString(LANG_BG_AV_ALLY) : GetOlympusString(LANG_BG_AV_HORDE));
     Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
     if (creature)
         YellToAll(creature, buf, LANG_UNIVERSAL);
@@ -1081,8 +1081,8 @@ void BattlegroundAV::EventPlayerAssaultsPoint(Player* player, uint32 object)
 
     //send a nice message to all :)
     char buf[256];
-    sprintf(buf, (IsTower(node)) ? GetTrinityString(LANG_BG_AV_TOWER_ASSAULTED) : GetTrinityString(LANG_BG_AV_GRAVE_ASSAULTED), GetNodeName(node),
-            (team == ALLIANCE) ?  GetTrinityString(LANG_BG_AV_ALLY) : GetTrinityString(LANG_BG_AV_HORDE));
+    sprintf(buf, (IsTower(node)) ? GetOlympusString(LANG_BG_AV_TOWER_ASSAULTED) : GetOlympusString(LANG_BG_AV_GRAVE_ASSAULTED), GetNodeName(node),
+            (team == ALLIANCE) ?  GetOlympusString(LANG_BG_AV_ALLY) : GetOlympusString(LANG_BG_AV_HORDE));
     Creature* creature = GetBGCreature(AV_CPLACE_HERALD);
     if (creature)
         YellToAll(creature, buf, LANG_UNIVERSAL);
@@ -1521,21 +1521,21 @@ char const* BattlegroundAV::GetNodeName(BG_AV_Nodes node)
 {
     switch (node)
     {
-        case BG_AV_NODES_FIRSTAID_STATION:  return GetTrinityString(LANG_BG_AV_NODE_GRAVE_STORM_AID);
-        case BG_AV_NODES_DUNBALDAR_SOUTH:   return GetTrinityString(LANG_BG_AV_NODE_TOWER_DUN_S);
-        case BG_AV_NODES_DUNBALDAR_NORTH:   return GetTrinityString(LANG_BG_AV_NODE_TOWER_DUN_N);
-        case BG_AV_NODES_STORMPIKE_GRAVE:   return GetTrinityString(LANG_BG_AV_NODE_GRAVE_STORMPIKE);
-        case BG_AV_NODES_ICEWING_BUNKER:    return GetTrinityString(LANG_BG_AV_NODE_TOWER_ICEWING);
-        case BG_AV_NODES_STONEHEART_GRAVE:  return GetTrinityString(LANG_BG_AV_NODE_GRAVE_STONE);
-        case BG_AV_NODES_STONEHEART_BUNKER: return GetTrinityString(LANG_BG_AV_NODE_TOWER_STONE);
-        case BG_AV_NODES_SNOWFALL_GRAVE:    return GetTrinityString(LANG_BG_AV_NODE_GRAVE_SNOW);
-        case BG_AV_NODES_ICEBLOOD_TOWER:    return GetTrinityString(LANG_BG_AV_NODE_TOWER_ICE);
-        case BG_AV_NODES_ICEBLOOD_GRAVE:    return GetTrinityString(LANG_BG_AV_NODE_GRAVE_ICE);
-        case BG_AV_NODES_TOWER_POINT:       return GetTrinityString(LANG_BG_AV_NODE_TOWER_POINT);
-        case BG_AV_NODES_FROSTWOLF_GRAVE:   return GetTrinityString(LANG_BG_AV_NODE_GRAVE_FROST);
-        case BG_AV_NODES_FROSTWOLF_ETOWER:  return GetTrinityString(LANG_BG_AV_NODE_TOWER_FROST_E);
-        case BG_AV_NODES_FROSTWOLF_WTOWER:  return GetTrinityString(LANG_BG_AV_NODE_TOWER_FROST_W);
-        case BG_AV_NODES_FROSTWOLF_HUT:     return GetTrinityString(LANG_BG_AV_NODE_GRAVE_FROST_HUT);
+        case BG_AV_NODES_FIRSTAID_STATION:  return GetOlympusString(LANG_BG_AV_NODE_GRAVE_STORM_AID);
+        case BG_AV_NODES_DUNBALDAR_SOUTH:   return GetOlympusString(LANG_BG_AV_NODE_TOWER_DUN_S);
+        case BG_AV_NODES_DUNBALDAR_NORTH:   return GetOlympusString(LANG_BG_AV_NODE_TOWER_DUN_N);
+        case BG_AV_NODES_STORMPIKE_GRAVE:   return GetOlympusString(LANG_BG_AV_NODE_GRAVE_STORMPIKE);
+        case BG_AV_NODES_ICEWING_BUNKER:    return GetOlympusString(LANG_BG_AV_NODE_TOWER_ICEWING);
+        case BG_AV_NODES_STONEHEART_GRAVE:  return GetOlympusString(LANG_BG_AV_NODE_GRAVE_STONE);
+        case BG_AV_NODES_STONEHEART_BUNKER: return GetOlympusString(LANG_BG_AV_NODE_TOWER_STONE);
+        case BG_AV_NODES_SNOWFALL_GRAVE:    return GetOlympusString(LANG_BG_AV_NODE_GRAVE_SNOW);
+        case BG_AV_NODES_ICEBLOOD_TOWER:    return GetOlympusString(LANG_BG_AV_NODE_TOWER_ICE);
+        case BG_AV_NODES_ICEBLOOD_GRAVE:    return GetOlympusString(LANG_BG_AV_NODE_GRAVE_ICE);
+        case BG_AV_NODES_TOWER_POINT:       return GetOlympusString(LANG_BG_AV_NODE_TOWER_POINT);
+        case BG_AV_NODES_FROSTWOLF_GRAVE:   return GetOlympusString(LANG_BG_AV_NODE_GRAVE_FROST);
+        case BG_AV_NODES_FROSTWOLF_ETOWER:  return GetOlympusString(LANG_BG_AV_NODE_TOWER_FROST_E);
+        case BG_AV_NODES_FROSTWOLF_WTOWER:  return GetOlympusString(LANG_BG_AV_NODE_TOWER_FROST_W);
+        case BG_AV_NODES_FROSTWOLF_HUT:     return GetOlympusString(LANG_BG_AV_NODE_GRAVE_FROST_HUT);
         default:
             TC_LOG_ERROR("bg.battleground", "tried to get name for node %u", node);
             break;

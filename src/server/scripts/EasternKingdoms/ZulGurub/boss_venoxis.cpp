@@ -560,7 +560,7 @@ class spell_toxic_link_selector : public SpellScriptLoader
             void FilterTargets(std::list<WorldObject*>& unitList)
             {
                 if (unitList.size() > 2)
-                    Trinity::Containers::RandomResizeList(unitList, 2);
+                    Olympus::Containers::RandomResizeList(unitList, 2);
             }
 
             void TriggerSpell(SpellEffIndex effIndex)

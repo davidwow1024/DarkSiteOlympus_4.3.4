@@ -1888,7 +1888,7 @@ public:
         void FilterTargets(std::list<WorldObject*>& targets)
         {
             targets.remove_if(DisperseFilter());
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void EffectScriptEffect(SpellEffIndex /*effIndex*/)
@@ -2082,7 +2082,7 @@ public:
                 if (targets.empty())
                     return;
 
-                Trinity::Containers::RandomResizeList(targets, GetCaster()->GetMap()->Is25ManRaid() ? 3 : 1);
+                Olympus::Containers::RandomResizeList(targets, GetCaster()->GetMap()->Is25ManRaid() ? 3 : 1);
                 for (std::list<WorldObject*>::iterator itr = targets.begin(); itr != targets.end(); itr++)
                     saveTargets.push_back(*itr);
             }
@@ -2402,7 +2402,7 @@ public:
                 else if (hitPlr > (is25Raid ? 25 : 10))
                     hitPlr = (is25Raid ? 25 : 10);
 
-                Trinity::Containers::RandomResizeList(targets, hitPlr);
+                Olympus::Containers::RandomResizeList(targets, hitPlr);
             }
         }
 
@@ -2508,7 +2508,7 @@ public:
         {
             targets.remove_if(AllTankCheck());
             targets.remove_if(StaticOverloadCheck());
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
             if (!targets.empty())
                 _target = targets.front();
         }
@@ -2666,7 +2666,7 @@ public:
         {
             targets.remove_if(AllTankCheck());
             targets.remove_if(GravityCoreCheck());
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
             if (!targets.empty())
                 _target = targets.front();
         }

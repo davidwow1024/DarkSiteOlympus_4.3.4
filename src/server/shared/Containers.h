@@ -15,15 +15,15 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_CONTAINERS_H
-#define TRINITY_CONTAINERS_H
+#ifndef OLYMPUS_CONTAINERS_H
+#define OLYMPUS_CONTAINERS_H
 
 #include <list>
 
 //! Because circular includes are bad
 extern uint32 urand(uint32 min, uint32 max);
 
-namespace Trinity
+namespace Olympus
 {
     namespace Containers
     {
@@ -66,6 +66,6 @@ namespace Trinity
     }
     //! namespace Containers
 }
-//! namespace Trinity
+//! namespace Olympus
 
-#endif //! #ifdef TRINITY_CONTAINERS_H
+#endif //! #ifdef OLYMPUS_CONTAINERS_H

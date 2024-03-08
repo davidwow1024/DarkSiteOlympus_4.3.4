@@ -901,8 +901,8 @@ class npc_blazing_inferno : public CreatureScript
                 }
                 x = startX + (me->GetObjectSize() + radius + temprad) * std::cos(ori);
                 y = startY + (me->GetObjectSize() + radius + temprad) * std::sin(ori);
-                Trinity::NormalizeMapCoord(x);
-                Trinity::NormalizeMapCoord(y);
+                Olympus::NormalizeMapCoord(x);
+                Olympus::NormalizeMapCoord(y);
                 ori += M_PI / 9;
                 me->CastSpell(x, y, me->GetPositionZ(), SPELL_IGNITION_MISSILE, true);
             }
@@ -944,8 +944,8 @@ class npc_blazing_inferno : public CreatureScript
                 }
                 x = startX + (me->GetObjectSize() + radius + temprad) * std::cos(ori + M_PI);
                 y = startY + (me->GetObjectSize() + radius + temprad) * std::sin(ori + M_PI);
-                Trinity::NormalizeMapCoord(x);
-                Trinity::NormalizeMapCoord(y);
+                Olympus::NormalizeMapCoord(x);
+                Olympus::NormalizeMapCoord(y);
                 ori += M_PI / 9;
                 me->CastSpell(x, y, me->GetPositionZ(), SPELL_IGNITION_MISSILE, true);
             }
@@ -1040,7 +1040,7 @@ class spell_nefarius_magmaw_shadow_breath : public SpellScriptLoader
             if (!GetCaster())
                 return;
 
-            WorldObject* target = Trinity::Containers::SelectRandomContainerElement(unitList);
+            WorldObject* target = Olympus::Containers::SelectRandomContainerElement(unitList);
 
             for (auto& itr : unitList)
             {

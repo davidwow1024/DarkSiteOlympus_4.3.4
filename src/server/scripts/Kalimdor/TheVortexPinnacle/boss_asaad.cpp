@@ -164,7 +164,7 @@ class boss_asaad : public CreatureScript
                 std::list<Creature* > triggerList;
                 me->GetCreatureListWithEntryInGrid(triggerList, NPC_STORM_TARGET, 100.0f);
                 if (!triggerList.empty())
-                    return Trinity::Containers::SelectRandomContainerElement(triggerList)->GetGUID();
+                    return Olympus::Containers::SelectRandomContainerElement(triggerList)->GetGUID();
                 return 0;
             }
 

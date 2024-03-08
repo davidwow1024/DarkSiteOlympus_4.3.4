@@ -16,12 +16,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_GRID_H
-#define TRINITY_GRID_H
+#ifndef OLYMPUS_GRID_H
+#define OLYMPUS_GRID_H
 
 /*
   @class Grid
-  Grid is a logical segment of the game world represented inside TrinIty.
+  Grid is a logical segment of the game world represented inside Olympus.
   Grid is bind at compile time to a particular type of object which
   we call it the object of interested.  There are many types of loader,
   specially, dynamic loader, static loader, or on-demand loader.  There's

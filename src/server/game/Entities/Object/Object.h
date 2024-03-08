@@ -134,7 +134,7 @@ struct ObjectGuid
         {
             ASSERT(index < sizeof(uint64));
 
-#if TRINITY_ENDIAN == TRINITY_LITTLEENDIAN
+#if OLYMPUS_ENDIAN == OLYMPUS_LITTLEENDIAN
             return _data.byte[index];
 #else
             return _data.byte[7 - index];
@@ -145,7 +145,7 @@ struct ObjectGuid
         {
             ASSERT(index < sizeof(uint64));
 
-#if TRINITY_ENDIAN == TRINITY_LITTLEENDIAN
+#if OLYMPUS_ENDIAN == OLYMPUS_LITTLEENDIAN
             return _data.byte[index];
 #else
             return _data.byte[7 - index];
@@ -1038,7 +1038,7 @@ class WorldObject : public Object, public WorldLocation
         bool CanDetectStealthOf(WorldObject const* obj) const;
 };
 
-namespace Trinity
+namespace Olympus
 {
     // Binary predicate to sort WorldObjects based on the distance to a reference WorldObject
     class ObjectDistanceOrderPred

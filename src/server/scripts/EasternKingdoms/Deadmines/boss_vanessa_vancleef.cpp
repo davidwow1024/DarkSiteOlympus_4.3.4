@@ -1,11 +1,11 @@
 /*
  * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
  *
- * Copyright (C) 2008-2011 Trinity <http://www.OlympusCore.org/>
+ * Copyright (C) 2008-2011 Olympus <http://www.OlympusCore.org/>
  *
  * Copyright (C) 2006-2011 ScriptDev2 <http://www.scriptdev2.com/>
  *
- * Copyright (C) 2010-2011 Project Trinity <http://www.projecttrinity.org/>
+ * Copyright (C) 2010-2011 Project Olympus <http://www.projectOlympus.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -600,7 +600,7 @@ public:
             if (unitList.size() > 1)
                 unitList.remove_if(NonPreviousTarget(previousTarget));
             if (!unitList.empty())
-                Trinity::Containers::RandomResizeList(unitList, 1);
+                Olympus::Containers::RandomResizeList(unitList, 1);
         }
 
 

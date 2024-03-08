@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2013-2014 trinity core og
+* Copyright (C) 2013-2014 Olympus core og
 * Copyright (C) 2012-2013 Reign of Darkness Network <http://reignofdarkness.net/>
 *
 * Este codigo es de uso exclusivo y privado para la red de gaming

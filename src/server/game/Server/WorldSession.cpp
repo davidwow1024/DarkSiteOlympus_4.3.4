@@ -231,7 +231,7 @@ void WorldSession::SendPacket(WorldPacket const* packet, bool forced /*= false*/
         }
     }
 
-#ifdef TRINITY_DEBUG
+#ifdef OLYMPUS_DEBUG
     // Code for network use statistic
     static uint64 sendPacketCount = 0;
     static uint64 sendPacketBytes = 0;
@@ -263,7 +263,7 @@ void WorldSession::SendPacket(WorldPacket const* packet, bool forced /*= false*/
         sendLastPacketCount = 1;
         sendLastPacketBytes = packet->wpos();               // wpos is real written size
     }
-#endif                                                      // !TRINITY_DEBUG
+#endif                                                      // !OLYMPUS_DEBUG
 
     if (m_Socket->SendPacket(*packet) == -1)
         m_Socket->CloseSocket();
@@ -650,7 +650,7 @@ void WorldSession::SendNotification(const char *format, ...)
 
 void WorldSession::SendNotification(uint32 string_id, ...)
 {
-    char const* format = GetTrinityString(string_id);
+    char const* format = GetOlympusString(string_id);
     if (format)
     {
         va_list ap;
@@ -669,9 +669,9 @@ void WorldSession::SendNotification(uint32 string_id, ...)
     }
 }
 
-const char *WorldSession::GetTrinityString(int32 entry) const
+const char *WorldSession::GetOlympusString(int32 entry) const
 {
-    return sObjectMgr->GetTrinityString(entry, GetSessionDbLocaleIndex());
+    return sObjectMgr->GetOlympusString(entry, GetSessionDbLocaleIndex());
 }
 
 void WorldSession::Handle_Ignore(WorldPacket& recvPacket)

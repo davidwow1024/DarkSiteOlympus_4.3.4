@@ -395,9 +395,9 @@ public:
                             uint64 bossGuid = i <= 3 ? _falricGUID : _marwynGUID;
 
                             if (!i)
-                                Trinity::Containers::RandomResizeList(tempList, 3);
+                                Olympus::Containers::RandomResizeList(tempList, 3);
                             else if (i < 6 && i != 3)
-                                Trinity::Containers::RandomResizeList(tempList, 4);
+                                Olympus::Containers::RandomResizeList(tempList, 4);
 
                             for (std::list<uint32>::const_iterator itr = tempList.begin(); itr != tempList.end(); ++itr)
                             {

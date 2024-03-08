@@ -72,7 +72,7 @@ public:
 
     void remove(const T& value)
     {
-        for (auto& p : Trinity::Containers::MapEqualRange(memberTable, &value))
+        for (auto& p : Olympus::Containers::MapEqualRange(memberTable, &value))
             p.second->remove(value);
         // Remove the member
         memberTable.erase(&value);

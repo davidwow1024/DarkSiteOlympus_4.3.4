@@ -1,5 +1,5 @@
 /*
- * trinity core og
+ * Olympus core og
  */
 
 /* TODOO :
@@ -374,7 +374,7 @@ public:
                     {
                         if (Creature *moonlight = me->SummonCreature(NPC_POOL_OF_MOONLIGHT, PoolPositions[_poolCount]))
                         {
-                            _gountletNpcs.sort(Trinity::ObjectDistanceOrderPred(moonlight));
+                            _gountletNpcs.sort(Olympus::ObjectDistanceOrderPred(moonlight));
                             moonlight->AI()->Talk(_poolCount);
                         }
                         _poolCount++;

@@ -69,7 +69,7 @@ bool PathGenerator::CalculatePath(float destX, float destY, float destZ, bool fo
         z = startZ;
     }
 
-    if (!Trinity::IsValidMapCoord(destX, destY, destZ) || !Trinity::IsValidMapCoord(x, y, z))
+    if (!Olympus::IsValidMapCoord(destX, destY, destZ) || !Olympus::IsValidMapCoord(x, y, z))
         return false;
 
     G3D::Vector3 dest(destX, destY, destZ);

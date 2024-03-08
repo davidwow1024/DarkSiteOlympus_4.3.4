@@ -307,7 +307,7 @@ void WorldSession::HandlePetitionQueryOpcode(WorldPacket& recvData)
 
     uint32 guildguid;
     uint64 petitionguid;
-    recvData >> guildguid;                                 // in Trinity always same as GUID_LOPART(petitionguid)
+    recvData >> guildguid;                                 // in Olympus always same as GUID_LOPART(petitionguid)
     recvData >> petitionguid;                              // petition guid
     TC_LOG_DEBUG("network.opcode", "CMSG_PETITION_QUERY Petition GUID %u Guild GUID %u", GUID_LOPART(petitionguid), guildguid);
 
@@ -340,7 +340,7 @@ void WorldSession::SendPetitionQueryOpcode(uint64 petitionguid)
     }
 
     WorldPacket data(SMSG_PETITION_QUERY_RESPONSE, (4+8+name.size()+1+1+4*12+2+10));
-    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (in Trinity always same as GUID_LOPART(petition guid)
+    data << uint32(GUID_LOPART(petitionguid));              // guild/team guid (in Olympus always same as GUID_LOPART(petition guid)
     data << uint64(ownerguid);                              // charter owner guid
     data << name;                                           // name (guild/arena team)
     data << uint8(0);                                       // some string

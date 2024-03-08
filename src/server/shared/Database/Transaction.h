@@ -52,7 +52,7 @@ class Transaction
         bool _cleanedUp;
 
 };
-typedef Trinity::AutoPtr<Transaction, ACE_Thread_Mutex> SQLTransaction;
+typedef Olympus::AutoPtr<Transaction, ACE_Thread_Mutex> SQLTransaction;
 typedef std::future<bool> SQLTransactionFuture;
 typedef std::promise<bool> SQLTransactionPromise;
 

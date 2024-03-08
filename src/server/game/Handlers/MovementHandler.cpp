@@ -350,7 +350,7 @@ bool WorldSession::HandleMovementInfo(MovementInfo &movementInfo, const uint16 o
         }
         if (!stopTransportSeq)
         {
-            if (!Trinity::IsValidMapCoord(
+            if (!Olympus::IsValidMapCoord(
                                           movementInfo.pos.GetPositionX() + movementInfo.t_pos.GetPositionX(),
                                           movementInfo.pos.GetPositionY() + movementInfo.t_pos.GetPositionY(),
                                           movementInfo.pos.GetPositionZ() + movementInfo.t_pos.GetPositionZ(),

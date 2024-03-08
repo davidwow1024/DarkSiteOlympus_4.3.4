@@ -1653,7 +1653,7 @@ public:
                 count += 1;
             if (GetCaster()->GetMap()->IsHeroic())
                 count += 1;
-            Trinity::Containers::RandomResizeList(targets, count);
+            Olympus::Containers::RandomResizeList(targets, count);
         }
 
         void Register ()
@@ -1865,7 +1865,7 @@ class spell_twilight_sentry_summon : public SpellScriptLoader // 93035
             void FilterTargets(std::list<WorldObject*>& targets)
             {
                 if (!targets.empty())
-                    Trinity::Containers::RandomResizeList(targets, 1);
+                    Olympus::Containers::RandomResizeList(targets, 1);
             }
 
             void Register()

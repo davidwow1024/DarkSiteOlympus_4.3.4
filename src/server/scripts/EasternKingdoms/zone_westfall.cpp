@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2011-2013 Project Trinity <http://www.projectTrinity.org/>
-* Copyright (C) 2021-2023 Trinity <http://www.OlympusCore.org/>
+* Copyright (C) 2011-2013 Project Olympus <http://www.projectOlympus.org/>
+* Copyright (C) 2021-2023 Olympus <http://www.OlympusCore.org/>
 * Copyright (C) 2005-2013 MaNGOS <http://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 */
 
 /* ScriptData
-TrinityScript_Name: Westfall
+OlympusScript_Name: Westfall
 %Complete: 90
 Comment: Alot of this needs moved to db... it doesnt belong in core script.
 Category: Westfall
@@ -758,8 +758,8 @@ public:
 
                                     std::list<Player*> players;
 
-                                    Trinity::AnyPlayerInObjectRangeCheck checker(me, 25.0f);
-                                    Trinity::PlayerListSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
+                                    Olympus::AnyPlayerInObjectRangeCheck checker(me, 25.0f);
+                                    Olympus::PlayerListSearcher<Olympus::AnyPlayerInObjectRangeCheck> searcher(me, players, checker);
                                     me->VisitNearbyWorldObject(20.0f, searcher);
 
                                     for (std::list<Player*>::const_iterator itr = players.begin(); itr != players.end(); ++itr)

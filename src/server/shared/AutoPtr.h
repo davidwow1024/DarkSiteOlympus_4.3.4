@@ -15,12 +15,12 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _TRINITY_AUTO_PTR_H
-#define _TRINITY_AUTO_PTR_H
+#ifndef _OLYMPUS_AUTO_PTR_H
+#define _OLYMPUS_AUTO_PTR_H
 
 #include <ace/Bound_Ptr.h>
 
-namespace Trinity
+namespace Olympus
 {
 
 template <class Pointer, class Lock>
@@ -48,6 +48,6 @@ public:
     }
 };
 
-} // namespace Trinity
+} // namespace Olympus
 
 #endif

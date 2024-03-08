@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_CELL_H
-#define TRINITY_CELL_H
+#ifndef OLYMPUS_CELL_H
+#define OLYMPUS_CELL_H
 
 #include <cmath>
 

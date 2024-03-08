@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_MOTIONMASTER_H
-#define TRINITY_MOTIONMASTER_H
+#ifndef OLYMPUS_MOTIONMASTER_H
+#define OLYMPUS_MOTIONMASTER_H
 
 #include "Common.h"
 #include <vector>

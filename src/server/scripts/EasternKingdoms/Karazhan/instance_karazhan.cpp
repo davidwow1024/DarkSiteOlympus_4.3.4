@@ -346,7 +346,7 @@ void instance_karazhan::instance_karazhan_InstanceMapScript::DoPrepareChessEvent
     if (!pStatusBar)
         return;
 
-    lStalkers.sort(Trinity::ObjectDistanceOrderPred(pStatusBar));
+    lStalkers.sort(Olympus::ObjectDistanceOrderPred(pStatusBar));
     for (std::list<Creature*>::const_iterator itr = lStalkers.begin(); itr != lStalkers.end(); ++itr)
         m_vHordeStalkers.push_back((*itr)->GetGUID());
 
@@ -363,7 +363,7 @@ void instance_karazhan::instance_karazhan_InstanceMapScript::DoPrepareChessEvent
     if (!pStatusBar)
         return;
 
-    lStalkers.sort(Trinity::ObjectDistanceOrderPred(pStatusBar));
+    lStalkers.sort(Olympus::ObjectDistanceOrderPred(pStatusBar));
     for (std::list<Creature*>::const_iterator itr = lStalkers.begin(); itr != lStalkers.end(); ++itr)
         m_vAllianceStalkers.push_back((*itr)->GetGUID());
 }

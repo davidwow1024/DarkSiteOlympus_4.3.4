@@ -707,11 +707,11 @@ public:
 
         void FilterTargets(std::list<WorldObject*>& targets)
         {
-            targets.remove_if(Trinity::UnitAuraCheck(true, SPELL_ALPHA_BEAMS_AURA));
+            targets.remove_if(Olympus::UnitAuraCheck(true, SPELL_ALPHA_BEAMS_AURA));
             if (targets.empty())
                 return;
 
-            WorldObject* target = Trinity::Containers::SelectRandomContainerElement(targets);
+            WorldObject* target = Olympus::Containers::SelectRandomContainerElement(targets);
             targets.clear();
             targets.push_back(target);
         }

@@ -16,8 +16,8 @@
 * with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TRINITY_TARGETEDMOVEMENTGENERATOR_H
-#define TRINITY_TARGETEDMOVEMENTGENERATOR_H
+#ifndef OLYMPUS_TARGETEDMOVEMENTGENERATOR_H
+#define OLYMPUS_TARGETEDMOVEMENTGENERATOR_H
 
 #include "MovementGenerator.h"
 #include "FollowerReference.h"

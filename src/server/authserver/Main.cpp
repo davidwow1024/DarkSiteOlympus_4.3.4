@@ -39,8 +39,8 @@
 #include "RealmList.h"
 #include "RealmAcceptor.h"
 
-#ifndef _TRINITY_REALM_CONFIG
-# define _TRINITY_REALM_CONFIG  "authserver.conf"
+#ifndef _OLYMPUS_REALM_CONFIG
+# define _OLYMPUS_REALM_CONFIG  "authserver.conf"
 #endif
 
 bool StartDB();
@@ -51,7 +51,7 @@ bool stopEvent = false;                                     // Setting it to tru
 LoginDatabaseWorkerPool LoginDatabase;                      // Accessor to the auth server database
 
 /// Handle authserver's termination signals
-class AuthServerSignalHandler : public Trinity::SignalHandler
+class AuthServerSignalHandler : public Olympus::SignalHandler
 {
 public:
     virtual void HandleSignal(int SigNum)
@@ -78,7 +78,7 @@ void usage(const char *prog)
 extern int main(int argc, char **argv)
 {
     // Command line parsing to get the configuration file name
-    char const* cfg_file = _TRINITY_REALM_CONFIG;
+    char const* cfg_file = _OLYMPUS_REALM_CONFIG;
     int c = 1;
     while (c < argc)
     {

@@ -479,14 +479,14 @@ class spell_rotface_ooze_flood : public SpellScriptLoader
                 if (triggers.empty())
                     return;
 
-                triggers.sort(Trinity::ObjectDistanceOrderPred(GetHitUnit()));
+                triggers.sort(Olympus::ObjectDistanceOrderPred(GetHitUnit()));
                 GetHitUnit()->CastSpell(triggers.back(), uint32(GetEffectValue()), false, NULL, NULL, GetOriginalCaster() ? GetOriginalCaster()->GetGUID() : 0);
             }
 
             void FilterTargets(std::list<WorldObject*>& targets)
             {
                 // get 2 targets except 2 nearest
-                targets.sort(Trinity::ObjectDistanceOrderPred(GetCaster()));
+                targets.sort(Olympus::ObjectDistanceOrderPred(GetCaster()));
 
                 // .resize() runs pop_back();
                 if (targets.size() > 4)
@@ -530,13 +530,13 @@ class spell_rotface_mutated_infection : public SpellScriptLoader
                 // tank is not on this list -- doch
                 if (Unit* caster = GetCaster())
                     if (Unit* tank = caster->getVictim())
-                        targets.remove_if(Trinity::ObjectGUIDCheck(tank->GetGUID()));
+                        targets.remove_if(Olympus::ObjectGUIDCheck(tank->GetGUID()));
 
-                targets.remove_if(Trinity::UnitAuraCheck(true, GetSpellInfo()->Id));
+                targets.remove_if(Olympus::UnitAuraCheck(true, GetSpellInfo()->Id));
                 if (targets.empty())
                     return;
 
-                WorldObject* target = Trinity::Containers::SelectRandomContainerElement(targets);
+                WorldObject* target = Olympus::Containers::SelectRandomContainerElement(targets);
                 targets.clear();
                 targets.push_back(target);
                 _target = target;

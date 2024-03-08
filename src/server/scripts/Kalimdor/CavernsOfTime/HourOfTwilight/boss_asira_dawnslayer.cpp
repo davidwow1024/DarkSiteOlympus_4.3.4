@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -954,7 +954,7 @@ public:
                 caster->SetFacingToObject(GetTarget());
 
                 std::list<Player *> players = caster->GetPlayersInRange(80.0f, true);
-                players.sort(Trinity::ObjectDistanceOrderPred(caster));
+                players.sort(Olympus::ObjectDistanceOrderPred(caster));
                 for (Player *player : players)
                 {
                     if (player == GetTarget() || player->IsInBetween(caster, GetTarget(), 5.00f))

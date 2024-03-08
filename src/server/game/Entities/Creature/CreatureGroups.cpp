@@ -233,8 +233,8 @@ void CreatureGroup::LeaderMoveTo(float x, float y, float z, bool inverseAngle)
         float dy = y + std::sin(angle + pathangle) * dist;
         float dz = z;
 
-        Trinity::NormalizeMapCoord(dx);
-        Trinity::NormalizeMapCoord(dy);
+        Olympus::NormalizeMapCoord(dx);
+        Olympus::NormalizeMapCoord(dy);
 
         member->UpdateGroundPositionZ(dx, dy, dz);
 

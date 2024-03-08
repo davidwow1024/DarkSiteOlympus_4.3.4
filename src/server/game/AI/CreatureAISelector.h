@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_CREATUREAISELECTOR_H
-#define TRINITY_CREATUREAISELECTOR_H
+#ifndef OLYMPUS_CREATUREAISELECTOR_H
+#define OLYMPUS_CREATUREAISELECTOR_H
 
 class CreatureAI;
 class Creature;

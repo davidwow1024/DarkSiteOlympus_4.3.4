@@ -221,7 +221,7 @@ class misc_commandscript : public CommandScript
             }
         }
 
-        CellCoord cellCoord = Trinity::ComputeCellCoord(object->GetPositionX(), object->GetPositionY());
+        CellCoord cellCoord = Olympus::ComputeCellCoord(object->GetPositionX(), object->GetPositionY());
         Cell cell(cellCoord);
 
         uint32 zoneId, areaId;
@@ -240,7 +240,7 @@ class misc_commandscript : public CommandScript
         float groundZ = map->GetHeight(object->GetPhaseMask(), object->GetPositionX(), object->GetPositionY(), object->GetPositionZ(), true, MAX_FALL_DISTANCE);
         float floorZ = std::max<float>(map->GetHeight(object->GetPhaseMask(), object->GetPositionX(), object->GetPositionY(), object->GetPositionZ()),
             map->GetHeight(object->GetPhaseMask(), object->GetPositionX(), object->GetPositionY(), object->GetPositionZ(), true, MAX_FALL_DISTANCE));
-        GridCoord gridCoord = Trinity::ComputeGridCoord(object->GetPositionX(), object->GetPositionY());
+        GridCoord gridCoord = Olympus::ComputeGridCoord(object->GetPositionX(), object->GetPositionY());
 
         // 63? WHY?
         int gridX = 63 - gridCoord.x_coord;
@@ -565,7 +565,7 @@ class misc_commandscript : public CommandScript
 
             std::string nameLink = handler->playerLink(targetName);
 
-            handler->PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), handler->GetTrinityString(LANG_OFFLINE));
+            handler->PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), handler->GetOlympusString(LANG_OFFLINE));
 
             // in point where GM stay
             SQLTransaction dummy;
@@ -836,13 +836,13 @@ class misc_commandscript : public CommandScript
 
             if (!sSpellMgr->GetSpellInfo(spellIid))
             {
-                handler->PSendSysMessage(LANG_UNKNOWN_SPELL, target == handler->GetSession()->GetPlayer() ? handler->GetTrinityString(LANG_YOU) : nameLink.c_str());
+                handler->PSendSysMessage(LANG_UNKNOWN_SPELL, target == handler->GetSession()->GetPlayer() ? handler->GetOlympusString(LANG_YOU) : nameLink.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
 
             target->RemoveSpellCooldown(spellIid, true);
-            handler->PSendSysMessage(LANG_REMOVE_COOLDOWN, spellIid, target == handler->GetSession()->GetPlayer() ? handler->GetTrinityString(LANG_YOU) : nameLink.c_str());
+            handler->PSendSysMessage(LANG_REMOVE_COOLDOWN, spellIid, target == handler->GetSession()->GetPlayer() ? handler->GetOlympusString(LANG_YOU) : nameLink.c_str());
         }
         return true;
     }
@@ -1116,14 +1116,14 @@ class misc_commandscript : public CommandScript
 
             team = data->team;
 
-            std::string team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_NOTEAM);
+            std::string team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_NOTEAM);
 
             if (team == 0)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_ANY);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_ANY);
             else if (team == HORDE)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_HORDE);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_HORDE);
             else if (team == ALLIANCE)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
 
             handler->PSendSysMessage(LANG_COMMAND_GRAVEYARDNEAREST, graveyardId, team_name.c_str(), zone_id);
         }
@@ -1132,11 +1132,11 @@ class misc_commandscript : public CommandScript
             std::string team_name;
 
             if (team == 0)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_ANY);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_ANY);
             else if (team == HORDE)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_HORDE);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_HORDE);
             else if (team == ALLIANCE)
-                team_name = handler->GetTrinityString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
+                team_name = handler->GetOlympusString(LANG_COMMAND_GRAVEYARD_ALLIANCE);
 
             if (team == ~uint32(0))
                 handler->PSendSysMessage(LANG_COMMAND_ZONENOGRAVEYARDS, zone_id);
@@ -1272,7 +1272,7 @@ class misc_commandscript : public CommandScript
         if (!playerTarget)
             playerTarget = player;
 
-        TC_LOG_DEBUG("misc", handler->GetTrinityString(LANG_ADDITEM), itemId, count);
+        TC_LOG_DEBUG("misc", handler->GetOlympusString(LANG_ADDITEM), itemId, count);
 
         ItemTemplate const* itemTemplate = sObjectMgr->GetItemTemplate(itemId);
         if (!itemTemplate)
@@ -1358,7 +1358,7 @@ class misc_commandscript : public CommandScript
         if (!playerTarget)
             playerTarget = player;
 
-        TC_LOG_DEBUG("misc", handler->GetTrinityString(LANG_ADDITEMSET), itemSetId);
+        TC_LOG_DEBUG("misc", handler->GetOlympusString(LANG_ADDITEMSET), itemSetId);
 
         bool found = false;
         ItemTemplateContainer const* its = sObjectMgr->GetItemTemplateStore();
@@ -1594,11 +1594,11 @@ class misc_commandscript : public CommandScript
             areaId = fields[7].GetUInt16();
         }
 
-        std::string userName = handler->GetTrinityString(LANG_ERROR);
-        std::string eMail = handler->GetTrinityString(LANG_ERROR);
-        std::string lastIp = handler->GetTrinityString(LANG_ERROR);
+        std::string userName = handler->GetOlympusString(LANG_ERROR);
+        std::string eMail = handler->GetOlympusString(LANG_ERROR);
+        std::string lastIp = handler->GetOlympusString(LANG_ERROR);
         uint32 security = 0;
-        std::string lastLogin = handler->GetTrinityString(LANG_ERROR);
+        std::string lastLogin = handler->GetOlympusString(LANG_ERROR);
 
         PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_SEL_PINFO);
         stmt->setInt32(0, int32(realmID));
@@ -1622,7 +1622,7 @@ class misc_commandscript : public CommandScript
                 lastLogin = fields[4].GetString();
 
                 uint32 ip = inet_addr(lastIp.c_str());
-#if TRINITY_ENDIAN == BIGENDIAN
+#if OLYMPUS_ENDIAN == BIGENDIAN
                 EndianConvertReverse(ip);
 #endif
 
@@ -1649,7 +1649,7 @@ class misc_commandscript : public CommandScript
 
         std::string nameLink = handler->playerLink(targetName);
 
-        handler->PSendSysMessage(LANG_PINFO_ACCOUNT, (target ? "" : handler->GetTrinityString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(targetGuid), userName.c_str(), accId, eMail.c_str(),
+        handler->PSendSysMessage(LANG_PINFO_ACCOUNT, (target ? "" : handler->GetOlympusString(LANG_OFFLINE)), nameLink.c_str(), GUID_LOPART(targetGuid), userName.c_str(), accId, eMail.c_str(),
             security, lastIp.c_str(), lastLogin.c_str(), latency);
 
         std::string bannedby = "unknown";
@@ -1826,14 +1826,14 @@ class misc_commandscript : public CommandScript
             return true;
         }
 
-        CellCoord p(Trinity::ComputeCellCoord(player->GetPositionX(), player->GetPositionY()));
+        CellCoord p(Olympus::ComputeCellCoord(player->GetPositionX(), player->GetPositionY()));
         Cell cell(p);
         cell.SetNoCreate();
 
-        Trinity::RespawnDo u_do;
-        Trinity::WorldObjectWorker<Trinity::RespawnDo> worker(player, u_do);
+        Olympus::RespawnDo u_do;
+        Olympus::WorldObjectWorker<Olympus::RespawnDo> worker(player, u_do);
 
-        TypeContainerVisitor<Trinity::WorldObjectWorker<Trinity::RespawnDo>, GridTypeMapContainer> obj_worker(worker);
+        TypeContainerVisitor<Olympus::WorldObjectWorker<Olympus::RespawnDo>, GridTypeMapContainer> obj_worker(worker);
         cell.Visit(p, obj_worker, *player->GetMap(), *player, player->GetGridActivationRange());
 
         return true;

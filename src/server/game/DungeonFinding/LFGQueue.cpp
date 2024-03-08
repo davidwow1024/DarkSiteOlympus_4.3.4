@@ -399,7 +399,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(LfgGuidList check)
             return LFG_INCOMPATIBLES_NO_DUNGEONS;
         }
 
-        proposal.dungeonId = Trinity::Containers::SelectRandomContainerElement(proposalDungeons);
+        proposal.dungeonId = Olympus::Containers::SelectRandomContainerElement(proposalDungeons);
         proposalDungeons.erase(proposal.dungeonId);
         dungeon = sLFGMgr->GetLFGDungeon(proposal.dungeonId);
     }

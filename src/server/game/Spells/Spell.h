@@ -719,7 +719,7 @@ class Spell
 #endif
 };
 
-namespace Trinity
+namespace Olympus
 {
     struct WorldObjectSpellTargetCheck
     {

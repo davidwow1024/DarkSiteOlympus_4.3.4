@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2013-2014 trinity core og
+* Copyright (C) 2013-2014 Olympus core og
 * Copyright (C) 2012-2013 Reign of Darkness Network <http://reignofdarkness.net/>
 *
 * Este codigo es de uso exclusivo y privado para la red de gaming
@@ -233,10 +233,10 @@ class boss_bethtilac : public CreatureScript
                     return;
 
                 if (action == ACTION_SUMMON_SPIDERLING)
-                    Trinity::Containers::RandomResizeList(targetList, Is25ManRaid() ? 3 : 1);
+                    Olympus::Containers::RandomResizeList(targetList, Is25ManRaid() ? 3 : 1);
 
                 if (action == ACTION_SUMMON_SPINNERS)
-                    Trinity::Containers::RandomResizeList(targetList, RAID_MODE(2, 4, 2, 5));
+                    Olympus::Containers::RandomResizeList(targetList, RAID_MODE(2, 4, 2, 5));
 
                 for (std::list<Creature*>::const_iterator itr = targetList.begin(); itr != targetList.end(); ++itr)
                     (*itr)->AI()->DoAction(action);

@@ -313,7 +313,7 @@ public:
                                     if (pl->isAlive())
                                         targets.push_back(pl);
                             if (!targets.empty())
-                                Trinity::Containers::RandomResizeList(targets, 1);
+                                Olympus::Containers::RandomResizeList(targets, 1);
                             target = targets.front();
                         }
                         if (target)
@@ -562,7 +562,7 @@ public:
                         me->GetCreatureListWithEntryInGrid(triggerList, NPC_DARKWEB_DEVOURER, 100.0f);
                         me->GetCreatureListWithEntryInGrid(triggerList, NPC_CHATTERING_HORROR, 100.0f);
                         me->GetCreatureListWithEntryInGrid(triggerList, NPC_NIGHTMARE_SKITTERLING, 100.0f);
-                        Trinity::Containers::RandomResizeList(triggerList, std::max(1, rand() % 2));
+                        Olympus::Containers::RandomResizeList(triggerList, std::max(1, rand() % 2));
                         for (std::list<Creature* >::iterator itr = triggerList.begin(); itr != triggerList.end(); itr++)
                             if (Creature *spider = *itr)
                                 if (spider->HasReactState(REACT_PASSIVE))

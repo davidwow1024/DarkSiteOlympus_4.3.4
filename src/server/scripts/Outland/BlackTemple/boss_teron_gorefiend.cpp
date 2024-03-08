@@ -179,7 +179,7 @@ public:
                 if (unit && unit->isAlive())
                     targets.push_back(unit);
             }
-            targets.sort(Trinity::ObjectDistanceOrderPred(me));
+            targets.sort(Olympus::ObjectDistanceOrderPred(me));
             Unit* target = targets.front();
             if (target && me->IsWithinDistInMap(target, me->GetAttackDistance(target)))
             {
@@ -337,7 +337,7 @@ public:
         {
             /************************************************************************/
             /** NOTE FOR FUTURE DEVELOPER: PROPERLY IMPLEMENT THE GHOST PORTION *****/
-            /**  ONLY AFTER TrinIty FULLY IMPLEMENTS MIND CONTROL ABILITIES      *****/
+            /**  ONLY AFTER Olympus FULLY IMPLEMENTS MIND CONTROL ABILITIES      *****/
             /**   THE CURRENT CODE IN THIS FUNCTION IS ONLY THE BEGINNING OF    *****/
             /**    WHAT IS FULLY NECESSARY FOR GOREFIEND TO BE 100% COMPLETE    *****/
             /************************************************************************/

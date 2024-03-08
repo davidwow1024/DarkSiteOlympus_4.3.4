@@ -2637,7 +2637,7 @@ class Unit : public WorldObject
     uint32 m_gameObjectType;
 };
 
-namespace Trinity
+namespace Olympus
 {
     // Binary predicate for sorting Units based on percent value of a power
     class PowerPctOrderPred
@@ -2671,5 +2671,5 @@ namespace Trinity
       private:
         const bool m_ascending;
     };
-} // namespace Trinity
+} // namespace Olympus
 #endif

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2012 CVMagic <http://www.trinitycore.org/f/topic/6551-vas-autobalance/>
- * Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2012 CVMagic <http://www.Olympuscore.org/f/topic/6551-vas-autobalance/>
+ * Copyright (C) 2008-2010 OlympusCore <http://www.Olympuscore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  * Copyright (C) 1985-2010 {VAS} KalCorp  <http://vasserver.dyndns.org/>
  *

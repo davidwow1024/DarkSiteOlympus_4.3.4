@@ -229,8 +229,8 @@ public:
             {
                 _wipeCheckTimer = 5000;
                 Player* player = NULL;
-                Trinity::AnyPlayerInObjectRangeCheck check(me, 60.0f);
-                Trinity::PlayerSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
+                Olympus::AnyPlayerInObjectRangeCheck check(me, 60.0f);
+                Olympus::PlayerSearcher<Olympus::AnyPlayerInObjectRangeCheck> searcher(me, player, check);
                 me->VisitNearbyWorldObject(60.0f, searcher);
                 if (!player)
                     Reset();

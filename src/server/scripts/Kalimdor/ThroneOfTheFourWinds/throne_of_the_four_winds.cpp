@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2009 - 2016 trinity core og
+* Copyright (C) 2009 - 2016 Olympus core og
 */
 
 #include "Player.h"

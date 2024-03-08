@@ -1,5 +1,5 @@
 /*
- * trinity core og
+ * Olympus core og
  */
 
 #include "ObjectMgr.h"
@@ -259,7 +259,7 @@ public:
                     if ((*itr)->isAlive())
                         targets.push_back(*itr);
             }
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void HandleDummy(SpellEffIndex effIndex)
@@ -311,7 +311,7 @@ public:
                     if ((*itr)->isAlive())
                         targets.push_back(*itr);
             }
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void HandleDummy(SpellEffIndex effIndex)

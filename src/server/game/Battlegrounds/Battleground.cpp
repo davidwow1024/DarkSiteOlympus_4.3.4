@@ -41,7 +41,7 @@
 #include "Transport.h"
 #include "Chat.h"
 
-namespace Trinity
+namespace Olympus
 {
     class BattlegroundChatBuilder
     {
@@ -51,7 +51,7 @@ namespace Trinity
 
             void operator()(WorldPacket& data, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetTrinityString(_textId, loc_idx);
+                char const* text = sObjectMgr->GetOlympusString(_textId, loc_idx);
                 if (_args)
                 {
                     // we need copy va_list before use or original va_list will corrupted
@@ -97,9 +97,9 @@ namespace Trinity
 
             void operator()(WorldPacket& data, LocaleConstant loc_idx)
             {
-                char const* text = sObjectMgr->GetTrinityString(_textId, loc_idx);
-                char const* arg1str = _arg1 ? sObjectMgr->GetTrinityString(_arg1, loc_idx) : "";
-                char const* arg2str = _arg2 ? sObjectMgr->GetTrinityString(_arg2, loc_idx) : "";
+                char const* text = sObjectMgr->GetOlympusString(_textId, loc_idx);
+                char const* arg1str = _arg1 ? sObjectMgr->GetOlympusString(_arg1, loc_idx) : "";
+                char const* arg2str = _arg2 ? sObjectMgr->GetOlympusString(_arg2, loc_idx) : "";
 
                 char str[2048];
                 snprintf(str, 2048, text, arg1str, arg2str);
@@ -123,7 +123,7 @@ namespace Trinity
             int32 _arg1;
             int32 _arg2;
     };
-}                                                           // namespace Trinity
+}                                                           // namespace Olympus
 
 template<class Do>
 void Battleground::BroadcastWorker(Do& _do)
@@ -1539,7 +1539,7 @@ uint32 Battleground::GetBonusHonorFromKill(uint32 kills) const
 {
     //variable kills means how many honorable kills you scored (so we need kills * honor_for_one_kill)
     uint32 maxLevel = std::min<uint32>(GetMaxLevel(), 85U);
-    return Trinity::Honor::hk_honor_at_level(maxLevel, float(kills));
+    return Olympus::Honor::hk_honor_at_level(maxLevel, float(kills));
 }
 
 void Battleground::BlockMovement(Player* player)
@@ -2318,8 +2318,8 @@ void Battleground::SendMessageToAll(int32 entry, ChatMsg type, Player const* sou
     if (!entry)
         return;
 
-    Trinity::BattlegroundChatBuilder bg_builder(type, entry, source);
-    Trinity::LocalizedPacketDo<Trinity::BattlegroundChatBuilder> bg_do(bg_builder);
+    Olympus::BattlegroundChatBuilder bg_builder(type, entry, source);
+    Olympus::LocalizedPacketDo<Olympus::BattlegroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -2331,8 +2331,8 @@ void Battleground::PSendMessageToAll(int32 entry, ChatMsg type, Player const* so
     va_list ap;
     va_start(ap, source);
 
-    Trinity::BattlegroundChatBuilder bg_builder(type, entry, source, &ap);
-    Trinity::LocalizedPacketDo<Trinity::BattlegroundChatBuilder> bg_do(bg_builder);
+    Olympus::BattlegroundChatBuilder bg_builder(type, entry, source, &ap);
+    Olympus::LocalizedPacketDo<Olympus::BattlegroundChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 
     va_end(ap);
@@ -2343,7 +2343,7 @@ void Battleground::SendWarningToAll(int32 entry, ...)
     if (!entry)
         return;
 
-    char const* format = sObjectMgr->GetTrinityStringForDBCLocale(entry);
+    char const* format = sObjectMgr->GetOlympusStringForDBCLocale(entry);
 
     char str[1024];
     va_list ap;
@@ -2374,8 +2374,8 @@ void Battleground::SendWarningToAll(int32 entry, ...)
 
 void Battleground::SendMessage2ToAll(int32 entry, ChatMsg type, Player const* source, int32 arg1, int32 arg2)
 {
-    Trinity::Battleground2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
-    Trinity::LocalizedPacketDo<Trinity::Battleground2ChatBuilder> bg_do(bg_builder);
+    Olympus::Battleground2ChatBuilder bg_builder(type, entry, source, arg1, arg2);
+    Olympus::LocalizedPacketDo<Olympus::Battleground2ChatBuilder> bg_do(bg_builder);
     BroadcastWorker(bg_do);
 }
 
@@ -2387,10 +2387,10 @@ void Battleground::EndNow()
 }
 
 // To be removed
-char const* Battleground::GetTrinityString(int32 entry)
+char const* Battleground::GetOlympusString(int32 entry)
 {
     // FIXME: now we have different DBC locales and need localized message for each target client
-    return sObjectMgr->GetTrinityStringForDBCLocale(entry);
+    return sObjectMgr->GetOlympusStringForDBCLocale(entry);
 }
 
 // IMPORTANT NOTICE:

@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_SKILL_EXTRA_ITEMS_H
-#define TRINITY_SKILL_EXTRA_ITEMS_H
+#ifndef OLYMPUS_SKILL_EXTRA_ITEMS_H
+#define OLYMPUS_SKILL_EXTRA_ITEMS_H
 
 #include "Common.h"
 

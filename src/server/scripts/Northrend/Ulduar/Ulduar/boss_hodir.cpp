@@ -543,8 +543,8 @@ public:
         void FlashFreeze()
         {
             std::list<Unit*> TargetList;
-            Trinity::AnyUnfriendlyUnitInObjectRangeCheck checker(me, me, 100.0f);
-            Trinity::UnitListSearcher<Trinity::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, TargetList, checker);
+            Olympus::AnyUnfriendlyUnitInObjectRangeCheck checker(me, me, 100.0f);
+            Olympus::UnitListSearcher<Olympus::AnyUnfriendlyUnitInObjectRangeCheck> searcher(me, TargetList, checker);
             me->VisitNearbyObject(100.0f, searcher);
             for (std::list<Unit*>::iterator itr = TargetList.begin(); itr != TargetList.end(); ++itr)
             {
@@ -719,8 +719,8 @@ public:
                 case EVENT_DISPEL_MAGIC:
                 {
                     std::list<Unit*> allies;
-                    Trinity::AnyFriendlyUnitInObjectRangeCheck checker(me, me, 30.0f);
-                    Trinity::UnitListSearcher<Trinity::AnyFriendlyUnitInObjectRangeCheck> searcher(me, allies, checker);
+                    Olympus::AnyFriendlyUnitInObjectRangeCheck checker(me, me, 30.0f);
+                    Olympus::UnitListSearcher<Olympus::AnyFriendlyUnitInObjectRangeCheck> searcher(me, allies, checker);
                     me->VisitNearbyObject(30.0f, searcher);
                     // TODO: Check if the below is intended: it will dispell freeze from every player
                     for (std::list<Unit*>::iterator itr = allies.begin(); itr != allies.end(); ++itr)
@@ -793,8 +793,8 @@ public:
                 case EVENT_STORM_CLOUD:
                 {
                     std::list<Unit*> allies;
-                    Trinity::AnyFriendlyUnitInObjectRangeCheck checker(me, me, 30.0f);
-                    Trinity::UnitListSearcher<Trinity::AnyFriendlyUnitInObjectRangeCheck> searcher(me, allies, checker);
+                    Olympus::AnyFriendlyUnitInObjectRangeCheck checker(me, me, 30.0f);
+                    Olympus::UnitListSearcher<Olympus::AnyFriendlyUnitInObjectRangeCheck> searcher(me, allies, checker);
                     me->VisitNearbyWorldObject(30.0f, searcher);
                     if (!allies.empty())
                     {

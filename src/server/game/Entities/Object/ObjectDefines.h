@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_OBJECTDEFINES_H
-#define TRINITY_OBJECTDEFINES_H
+#ifndef OLYMPUS_OBJECTDEFINES_H
+#define OLYMPUS_OBJECTDEFINES_H
 
 #include "Define.h"
 

@@ -526,8 +526,8 @@ void GameObject::Update(uint32 diff)
                     if (owner)                    // hunter trap
                     {
                         std::list<Unit*> possibleTargets;
-                        Trinity::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
-                        Trinity::UnitListSearcher<Trinity::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, possibleTargets, checker);
+                        Olympus::AnyUnfriendlyNoTotemUnitInObjectRangeCheck checker(this, owner, radius);
+                        Olympus::UnitListSearcher<Olympus::AnyUnfriendlyNoTotemUnitInObjectRangeCheck> searcher(this, possibleTargets, checker);
                         VisitNearbyGridObject(radius, searcher);
                         if (possibleTargets.empty())
                             VisitNearbyWorldObject(radius, searcher);
@@ -550,8 +550,8 @@ void GameObject::Update(uint32 diff)
                         // environmental damage spells already have around enemies targeting but this not help in case not existed GO casting support
                         // affect only players
                         Player* player = NULL;
-                        Trinity::AnyPlayerInObjectRangeCheck checker(this, radius);
-                        Trinity::PlayerSearcher<Trinity::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
+                        Olympus::AnyPlayerInObjectRangeCheck checker(this, radius);
+                        Olympus::PlayerSearcher<Olympus::AnyPlayerInObjectRangeCheck> searcher(this, player, checker);
                         VisitNearbyWorldObject(radius, searcher);
                         ok = player;
                     }
@@ -1159,13 +1159,13 @@ void GameObject::TriggeringLinkedGameObject(uint32 trapEntry, Unit* target)
     GameObject* trapGO = NULL;
     {
         // using original GO distance
-        CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+        CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
         Cell cell(p);
 
-        Trinity::NearestGameObjectEntryInObjectRangeCheck go_check(*target, trapEntry, range);
-        Trinity::GameObjectLastSearcher<Trinity::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO, go_check);
+        Olympus::NearestGameObjectEntryInObjectRangeCheck go_check(*target, trapEntry, range);
+        Olympus::GameObjectLastSearcher<Olympus::NearestGameObjectEntryInObjectRangeCheck> checker(this, trapGO, go_check);
 
-        TypeContainerVisitor<Trinity::GameObjectLastSearcher<Trinity::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
+        TypeContainerVisitor<Olympus::GameObjectLastSearcher<Olympus::NearestGameObjectEntryInObjectRangeCheck>, GridTypeMapContainer > object_checker(checker);
         cell.Visit(p, object_checker, *GetMap(), *target, range);
     }
 
@@ -1178,12 +1178,12 @@ GameObject* GameObject::LookupFishingHoleAround(float range)
 {
     GameObject* ok = NULL;
 
-    CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
     Cell cell(p);
-    Trinity::NearestGameObjectFishingHole u_check(*this, range);
-    Trinity::GameObjectSearcher<Trinity::NearestGameObjectFishingHole> checker(this, ok, u_check);
+    Olympus::NearestGameObjectFishingHole u_check(*this, range);
+    Olympus::GameObjectSearcher<Olympus::NearestGameObjectFishingHole> checker(this, ok, u_check);
 
-    TypeContainerVisitor<Trinity::GameObjectSearcher<Trinity::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
+    TypeContainerVisitor<Olympus::GameObjectSearcher<Olympus::NearestGameObjectFishingHole>, GridTypeMapContainer > grid_object_checker(checker);
     cell.Visit(p, grid_object_checker, *GetMap(), *this, range);
 
     return ok;
@@ -1634,7 +1634,7 @@ void GameObject::Use(Unit* user)
                 if (info->summoningRitual.casterTargetSpell && info->summoningRitual.casterTargetSpell != 1) // No idea why this field is a bool in some cases
                     for (uint32 i = 0; i < info->summoningRitual.casterTargetSpellTargets; i++)
                         // m_unique_users can contain only player GUIDs
-                        if (Player* target = ObjectAccessor::GetPlayer(*this, Trinity::Containers::SelectRandomContainerElement(m_unique_users)))
+                        if (Player* target = ObjectAccessor::GetPlayer(*this, Olympus::Containers::SelectRandomContainerElement(m_unique_users)))
                             spellCaster->CastSpell(target, info->summoningRitual.casterTargetSpell, true);
 
                 // finish owners spell

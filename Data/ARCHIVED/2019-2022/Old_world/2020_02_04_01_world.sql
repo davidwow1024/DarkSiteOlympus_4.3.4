@@ -3,7 +3,7 @@
 /*
 	El portal estaba accesible, al llegar al lugar se puedo observar varios aspectos.
 	Primero tenía una facción solo para la horda.
-	Luego, también pudimos notar que tenía mal el type, en trinity / azeroth recomendaban
+	Luego, también pudimos notar que tenía mal el type, en Olympus / azeroth recomendaban
 	el uso del 22, así que en el parámetro data0 se le agrego el spell y de esa manera
 	fue probado tanto en la alianza como en la horda.
 	-- DEFAULT: TYPE 5

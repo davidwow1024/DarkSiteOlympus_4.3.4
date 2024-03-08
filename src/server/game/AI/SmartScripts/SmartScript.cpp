@@ -2474,7 +2474,7 @@ ObjectList* SmartScript::GetTargets(SmartScriptHolder const& e, Unit* invoker /*
                     std::list<Player*> players = me->GetPlayersInRange((float)e.target.playerDistance.dist, true);
                     if (!players.empty())
                     {
-                        players.sort(Trinity::ObjectDistanceOrderPred(me));
+                        players.sort(Olympus::ObjectDistanceOrderPred(me));
                         std::list<Player*>::reverse_iterator ritr = players.rbegin();
                         l->push_back(*ritr);
                     }
@@ -2501,8 +2501,8 @@ ObjectList* SmartScript::GetWorldObjectsInDist(float dist)
     WorldObject* obj = GetBaseObject();
     if (obj)
     {
-        Trinity::AllWorldObjectsInRange u_check(obj, dist);
-        Trinity::WorldObjectListSearcher<Trinity::AllWorldObjectsInRange> searcher(obj, *targets, u_check);
+        Olympus::AllWorldObjectsInRange u_check(obj, dist);
+        Olympus::WorldObjectListSearcher<Olympus::AllWorldObjectsInRange> searcher(obj, *targets, u_check);
         obj->VisitNearbyObject(dist, searcher);
     }
     return targets;
@@ -3033,7 +3033,7 @@ void SmartScript::ProcessEvent(SmartScriptHolder& e, Unit* unit, uint32 var0, ui
             std::list<Player*> list = me->GetPlayersInRange((float)e.event.playerDistance.range, true);
 
             if (e.event.playerDistance.aura)
-                list.remove_if(Trinity::UnitAuraCheck(!e.event.playerDistance.isPresent, e.event.playerDistance.aura));
+                list.remove_if(Olympus::UnitAuraCheck(!e.event.playerDistance.isPresent, e.event.playerDistance.aura));
 
             if (!list.empty())
                 ProcessTimedAction(e, e.event.playerDistance.repeat, e.event.playerDistance.repeat, list.front());
@@ -3235,7 +3235,7 @@ void SmartScript::FillScript(SmartAIEventList e, WorldObject* obj, AreaTriggerEn
     }
     for (SmartAIEventList::iterator i = e.begin(); i != e.end(); ++i)
     {
-        #ifndef TRINITY_DEBUG
+        #ifndef OLYMPUS_DEBUG
             if ((*i).event.event_flags & SMART_EVENT_FLAG_DEBUG_ONLY)
                 continue;
         #endif
@@ -3379,16 +3379,16 @@ Unit* SmartScript::DoSelectLowestHpFriendly(float range, uint32 MinHPDiff)
     if (!me)
         return NULL;
 
-    CellCoord p(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
     Unit* unit = NULL;
 
-    Trinity::MostHPMissingInRange u_check(me, range, MinHPDiff);
-    Trinity::UnitLastSearcher<Trinity::MostHPMissingInRange> searcher(me, unit, u_check);
+    Olympus::MostHPMissingInRange u_check(me, range, MinHPDiff);
+    Olympus::UnitLastSearcher<Olympus::MostHPMissingInRange> searcher(me, unit, u_check);
 
-    TypeContainerVisitor<Trinity::UnitLastSearcher<Trinity::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
+    TypeContainerVisitor<Olympus::UnitLastSearcher<Olympus::MostHPMissingInRange>, GridTypeMapContainer >  grid_unit_searcher(searcher);
 
     cell.Visit(p, grid_unit_searcher, *me->GetMap(), *me, range);
     return unit;
@@ -3399,14 +3399,14 @@ void SmartScript::DoFindFriendlyCC(std::list<Creature*>& _list, float range)
     if (!me)
         return;
 
-    CellCoord p(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
-    Trinity::FriendlyCCedInRange u_check(me, range);
-    Trinity::CreatureListSearcher<Trinity::FriendlyCCedInRange> searcher(me, _list, u_check);
+    Olympus::FriendlyCCedInRange u_check(me, range);
+    Olympus::CreatureListSearcher<Olympus::FriendlyCCedInRange> searcher(me, _list, u_check);
 
-    TypeContainerVisitor<Trinity::CreatureListSearcher<Trinity::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<Olympus::CreatureListSearcher<Olympus::FriendlyCCedInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     cell.Visit(p, grid_creature_searcher, *me->GetMap(), *me, range);
 }
@@ -3416,14 +3416,14 @@ void SmartScript::DoFindFriendlyMissingBuff(std::list<Creature*>& list, float ra
     if (!me)
         return;
 
-    CellCoord p(Trinity::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(me->GetPositionX(), me->GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
-    Trinity::FriendlyMissingBuffInRange u_check(me, range, spellid);
-    Trinity::CreatureListSearcher<Trinity::FriendlyMissingBuffInRange> searcher(me, list, u_check);
+    Olympus::FriendlyMissingBuffInRange u_check(me, range, spellid);
+    Olympus::CreatureListSearcher<Olympus::FriendlyMissingBuffInRange> searcher(me, list, u_check);
 
-    TypeContainerVisitor<Trinity::CreatureListSearcher<Trinity::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
+    TypeContainerVisitor<Olympus::CreatureListSearcher<Olympus::FriendlyMissingBuffInRange>, GridTypeMapContainer >  grid_creature_searcher(searcher);
 
     cell.Visit(p, grid_creature_searcher, *me->GetMap(), *me, range);
 }

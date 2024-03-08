@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_CALENDARMGR_H
-#define TRINITY_CALENDARMGR_H
+#ifndef OLYMPUS_CALENDARMGR_H
+#define OLYMPUS_CALENDARMGR_H
 
 #include <ace/Singleton.h>
 #include "Common.h"

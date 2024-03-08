@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  * Copyright (C) 2008-2014 OlympusCore <http://www.OlympusCore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -182,7 +182,7 @@ class boss_ascendant_lord_obsidius : public CreatureScript
                                 if (temp.empty())
                                     break;
 
-                                if (Creature* shadow = Trinity::Containers::SelectRandomContainerElement(temp))
+                                if (Creature* shadow = Olympus::Containers::SelectRandomContainerElement(temp))
                                 {
                                     Position telePos; // this part doesn't work until the teleport opcodes are fixed
                                     me->GetPosition(&telePos);

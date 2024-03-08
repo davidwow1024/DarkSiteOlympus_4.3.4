@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_DB2STRUCTURE_H
-#define TRINITY_DB2STRUCTURE_H
+#ifndef OLYMPUS_DB2STRUCTURE_H
+#define OLYMPUS_DB2STRUCTURE_H
 
 #include "Common.h"
 #include "DBCEnums.h"

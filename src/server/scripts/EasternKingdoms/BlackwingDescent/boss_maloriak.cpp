@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2014 trinity core og
+ * Copyright (C) 2013-2014 Olympus core og
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1022,11 +1022,11 @@ public:
         {
             if (!unitList.empty())
             {
-                WorldObject *target = Trinity::Containers::SelectRandomContainerElement(unitList);
+                WorldObject *target = Olympus::Containers::SelectRandomContainerElement(unitList);
                 if (Unit *caster = GetCaster())
                     unitList.remove_if(FlashFreezeTargetSelector(caster));
                 if (!unitList.empty())
-                    Trinity::Containers::RandomResizeList(unitList, 1);
+                    Olympus::Containers::RandomResizeList(unitList, 1);
                 else if (target)
                     unitList.push_back(target);
             }

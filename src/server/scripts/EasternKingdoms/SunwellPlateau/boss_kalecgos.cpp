@@ -831,7 +831,7 @@ public:
                         }
                     }
                     if (!targets.empty())
-                        if (Unit* newTarget = Trinity::Containers::SelectRandomContainerElement(targets))
+                        if (Unit* newTarget = Olympus::Containers::SelectRandomContainerElement(targets))
                             caster->AddAura(SPELL_AGONY_CURSE, newTarget);
                 }
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2015 trinity core og
+ * Copyright (C) 2013-2015 Olympus core og
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1960,10 +1960,10 @@ public:
 
         void FilterTargets(std::list<WorldObject*>& targets)
         {
-            targets.remove_if(Trinity::UnitAuraCheck(false, SPELL_EASY_PREY));
+            targets.remove_if(Olympus::UnitAuraCheck(false, SPELL_EASY_PREY));
             // should never happen
             if (targets.size() > 1)
-                Trinity::Containers::RandomResizeList(targets, 1);
+                Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void Register()

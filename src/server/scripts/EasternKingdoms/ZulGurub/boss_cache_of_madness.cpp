@@ -1123,7 +1123,7 @@ private:
             if (!targets.empty())
                 targets.remove_if(NonPlayerTarget(GetCaster()));
             if (targets.size() > 1)
-                Trinity::Containers::RandomResizeList(targets, targets.size() - 1);
+                Olympus::Containers::RandomResizeList(targets, targets.size() - 1);
         }
 
         void Register()

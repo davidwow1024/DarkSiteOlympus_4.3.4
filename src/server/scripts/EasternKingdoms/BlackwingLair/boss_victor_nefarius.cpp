@@ -240,7 +240,7 @@ public:
         {
             Talk(SAY_GAMESBEGIN_2);
 
-            //Trinity::Singleton<MapManager>::Instance().GetMap(me->GetMapId(), me)->GetPlayers().begin();
+            //Olympus::Singleton<MapManager>::Instance().GetMap(me->GetMapId(), me)->GetPlayers().begin();
             /*
             list <Player*>::const_iterator i = sMapMgr->GetMap(me->GetMapId(), me)->GetPlayers().begin();
 
@@ -352,7 +352,7 @@ public:
                         //Make super invis
                         DoCast(me, 8149);
 
-                        //Teleport self to a hiding spot (this causes errors in the Trinity log but no real issues)
+                        //Teleport self to a hiding spot (this causes errors in the Olympus log but no real issues)
                         DoTeleportTo(HIDE_X, HIDE_Y, HIDE_Z);
                         me->AddUnitState(UNIT_STATE_FLEEING);
 

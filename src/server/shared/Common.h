@@ -25,7 +25,7 @@
 #ifdef HAVE_CONFIG_H
 // Remove Some things that we will define
 // This is in case including another config.h
-// before trinity config.h
+// before Olympus config.h
 #ifdef PACKAGE
 #undef PACKAGE
 #endif // PACKAGE
@@ -196,23 +196,23 @@ typedef std::vector<std::string> StringVector;
 
 #define MAX_QUERY_LEN 32 * 1024
 
-#define TRINITY_GUARD(MUTEX, LOCK)             \
-  ACE_Guard<MUTEX> TRINITY_GUARD_OBJECT(LOCK); \
-  if (TRINITY_GUARD_OBJECT.locked() == 0)      \
+#define OLYMPUS_GUARD(MUTEX, LOCK)             \
+  ACE_Guard<MUTEX> OLYMPUS_GUARD_OBJECT(LOCK); \
+  if (OLYMPUS_GUARD_OBJECT.locked() == 0)      \
     ASSERT(false);
 
 //! For proper implementation of multiple-read, single-write pattern, use
 //! ACE_RW_Mutex as underlying @MUTEX
-#define TRINITY_WRITE_GUARD(MUTEX, LOCK)             \
-  ACE_Write_Guard<MUTEX> TRINITY_GUARD_OBJECT(LOCK); \
-  if (TRINITY_GUARD_OBJECT.locked() == 0)            \
+#define OLYMPUS_WRITE_GUARD(MUTEX, LOCK)             \
+  ACE_Write_Guard<MUTEX> OLYMPUS_GUARD_OBJECT(LOCK); \
+  if (OLYMPUS_GUARD_OBJECT.locked() == 0)            \
     ASSERT(false);
 
 //! For proper implementation of multiple-read, single-write pattern, use
 //! ACE_RW_Mutex as underlying @MUTEX
-#define TRINITY_READ_GUARD(MUTEX, LOCK)             \
-  ACE_Read_Guard<MUTEX> TRINITY_GUARD_OBJECT(LOCK); \
-  if (TRINITY_GUARD_OBJECT.locked() == 0)           \
+#define OLYMPUS_READ_GUARD(MUTEX, LOCK)             \
+  ACE_Read_Guard<MUTEX> OLYMPUS_GUARD_OBJECT(LOCK); \
+  if (OLYMPUS_GUARD_OBJECT.locked() == 0)           \
     ASSERT(false);
 
 #endif

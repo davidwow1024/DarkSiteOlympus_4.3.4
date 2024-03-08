@@ -375,7 +375,7 @@ public:
             if (targets.empty())
                 return false;
 
-            targets.sort(Trinity::ObjectDistanceOrderPred(me));
+            targets.sort(Olympus::ObjectDistanceOrderPred(me));
             Unit* target = targets.front();
             if (target)
             {

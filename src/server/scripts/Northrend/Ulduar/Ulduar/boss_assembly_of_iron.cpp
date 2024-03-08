@@ -515,7 +515,7 @@ class boss_steelbreaker : public CreatureScript
                             return 0;
                     }
 
-                    return Trinity::Containers::SelectRandomContainerElement(playerList);
+                    return Olympus::Containers::SelectRandomContainerElement(playerList);
                 }
                 else
                     return 0;

@@ -21,7 +21,7 @@
 #include "Define.h"
 #include <utility>
 
-namespace Trinity
+namespace Olympus
 {
     /**
      * @class IteratorPair
@@ -52,6 +52,6 @@ namespace Trinity
     }
     //! namespace Containers
 }
-//! namespace Trinity
+//! namespace Olympus
 
 #endif // IteratorPair_h__

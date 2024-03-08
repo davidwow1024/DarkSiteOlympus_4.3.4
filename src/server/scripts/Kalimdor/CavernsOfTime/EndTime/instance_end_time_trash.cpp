@@ -1,5 +1,5 @@
 /*
-* trinity core og
+* Olympus core og
 */
 
 #include "ObjectMgr.h"

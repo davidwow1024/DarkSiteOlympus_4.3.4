@@ -286,7 +286,7 @@ public:
                     {
                         if (!announceID.empty())
                         {
-                            int32 announce = Trinity::Containers::SelectRandomContainerElement(announceID);
+                            int32 announce = Olympus::Containers::SelectRandomContainerElement(announceID);
                             Talk(announce, player->GetGUID());
                             announceID.erase(announce);
                         }

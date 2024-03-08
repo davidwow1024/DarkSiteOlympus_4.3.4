@@ -706,13 +706,13 @@ void Creature::DoFleeToGetAssistance()
     {
         Creature *creature = NULL;
 
-        CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+        CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
         Cell cell(p);
         cell.SetNoCreate();
-        Trinity::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
-        Trinity::CreatureLastSearcher<Trinity::NearestAssistCreatureInCreatureRangeCheck> searcher(this, creature, u_check);
+        Olympus::NearestAssistCreatureInCreatureRangeCheck u_check(this, getVictim(), radius);
+        Olympus::CreatureLastSearcher<Olympus::NearestAssistCreatureInCreatureRangeCheck> searcher(this, creature, u_check);
 
-        TypeContainerVisitor<Trinity::CreatureLastSearcher<Trinity::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer> grid_creature_searcher(searcher);
+        TypeContainerVisitor<Olympus::CreatureLastSearcher<Olympus::NearestAssistCreatureInCreatureRangeCheck>, GridTypeMapContainer> grid_creature_searcher(searcher);
 
         cell.Visit(p, grid_creature_searcher, *GetMap(), *this, radius);
 
@@ -1841,7 +1841,7 @@ SpellInfo const *Creature::reachWithSpellCure(Unit *victim)
 // select nearest hostile unit within the given distance (regardless of threat list).
 Unit *Creature::SelectNearestTarget(float dist) const
 {
-    CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
@@ -1851,11 +1851,11 @@ Unit *Creature::SelectNearestTarget(float dist) const
         if (dist == 0.0f)
             dist = MAX_VISIBILITY_DISTANCE;
 
-        Trinity::NearestHostileUnitCheck u_check(this, dist);
-        Trinity::UnitLastSearcher<Trinity::NearestHostileUnitCheck> searcher(this, target, u_check);
+        Olympus::NearestHostileUnitCheck u_check(this, dist);
+        Olympus::UnitLastSearcher<Olympus::NearestHostileUnitCheck> searcher(this, target, u_check);
 
-        TypeContainerVisitor<Trinity::UnitLastSearcher<Trinity::NearestHostileUnitCheck>, WorldTypeMapContainer> world_unit_searcher(searcher);
-        TypeContainerVisitor<Trinity::UnitLastSearcher<Trinity::NearestHostileUnitCheck>, GridTypeMapContainer> grid_unit_searcher(searcher);
+        TypeContainerVisitor<Olympus::UnitLastSearcher<Olympus::NearestHostileUnitCheck>, WorldTypeMapContainer> world_unit_searcher(searcher);
+        TypeContainerVisitor<Olympus::UnitLastSearcher<Olympus::NearestHostileUnitCheck>, GridTypeMapContainer> grid_unit_searcher(searcher);
 
         cell.Visit(p, world_unit_searcher, *GetMap(), *this, dist);
         cell.Visit(p, grid_unit_searcher, *GetMap(), *this, dist);
@@ -1867,7 +1867,7 @@ Unit *Creature::SelectNearestTarget(float dist) const
 // select nearest hostile unit within the given attack distance (i.e. distance is ignored if > than ATTACK_DISTANCE), regardless of threat list.
 Unit *Creature::SelectNearestTargetInAttackDistance(float dist) const
 {
-    CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
@@ -1877,11 +1877,11 @@ Unit *Creature::SelectNearestTargetInAttackDistance(float dist) const
         dist = ATTACK_DISTANCE;
 
     {
-        Trinity::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
-        Trinity::UnitLastSearcher<Trinity::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
+        Olympus::NearestHostileUnitInAttackDistanceCheck u_check(this, dist);
+        Olympus::UnitLastSearcher<Olympus::NearestHostileUnitInAttackDistanceCheck> searcher(this, target, u_check);
 
-        TypeContainerVisitor<Trinity::UnitLastSearcher<Trinity::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer> world_unit_searcher(searcher);
-        TypeContainerVisitor<Trinity::UnitLastSearcher<Trinity::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer> grid_unit_searcher(searcher);
+        TypeContainerVisitor<Olympus::UnitLastSearcher<Olympus::NearestHostileUnitInAttackDistanceCheck>, WorldTypeMapContainer> world_unit_searcher(searcher);
+        TypeContainerVisitor<Olympus::UnitLastSearcher<Olympus::NearestHostileUnitInAttackDistanceCheck>, GridTypeMapContainer> grid_unit_searcher(searcher);
 
         cell.Visit(p, world_unit_searcher, *GetMap(), *this, ATTACK_DISTANCE > dist ? ATTACK_DISTANCE : dist);
         cell.Visit(p, grid_unit_searcher, *GetMap(), *this, ATTACK_DISTANCE > dist ? ATTACK_DISTANCE : dist);
@@ -1894,8 +1894,8 @@ Player *Creature::SelectNearestPlayer(float distance, int32 aura) const
 {
     Player *target = NULL;
 
-    Trinity::NearestPlayerInObjectRangeCheck checker(this, distance, aura);
-    Trinity::PlayerLastSearcher<Trinity::NearestPlayerInObjectRangeCheck> searcher(this, target, checker);
+    Olympus::NearestPlayerInObjectRangeCheck checker(this, distance, aura);
+    Olympus::PlayerLastSearcher<Olympus::NearestPlayerInObjectRangeCheck> searcher(this, target, checker);
     VisitNearbyObject(distance, searcher);
 
     return target;
@@ -1924,14 +1924,14 @@ void Creature::CallAssistance()
             std::list<Creature *> assistList;
 
             {
-                CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+                CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
                 Cell cell(p);
                 cell.SetNoCreate();
 
-                Trinity::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
-                Trinity::CreatureListSearcher<Trinity::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
+                Olympus::AnyAssistCreatureInRangeCheck u_check(this, getVictim(), radius);
+                Olympus::CreatureListSearcher<Olympus::AnyAssistCreatureInRangeCheck> searcher(this, assistList, u_check);
 
-                TypeContainerVisitor<Trinity::CreatureListSearcher<Trinity::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer> grid_creature_searcher(searcher);
+                TypeContainerVisitor<Olympus::CreatureListSearcher<Olympus::AnyAssistCreatureInRangeCheck>, GridTypeMapContainer> grid_creature_searcher(searcher);
 
                 cell.Visit(p, grid_creature_searcher, *GetMap(), *this, radius);
             }
@@ -1956,14 +1956,14 @@ void Creature::CallForHelp(float radius)
     if (radius <= 0.0f || !getVictim() || isPet() || isCharmed())
         return;
 
-    CellCoord p(Trinity::ComputeCellCoord(GetPositionX(), GetPositionY()));
+    CellCoord p(Olympus::ComputeCellCoord(GetPositionX(), GetPositionY()));
     Cell cell(p);
     cell.SetNoCreate();
 
-    Trinity::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), radius);
-    Trinity::CreatureWorker<Trinity::CallOfHelpCreatureInRangeDo> worker(this, u_do);
+    Olympus::CallOfHelpCreatureInRangeDo u_do(this, getVictim(), radius);
+    Olympus::CreatureWorker<Olympus::CallOfHelpCreatureInRangeDo> worker(this, u_do);
 
-    TypeContainerVisitor<Trinity::CreatureWorker<Trinity::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer> grid_creature_searcher(worker);
+    TypeContainerVisitor<Olympus::CreatureWorker<Olympus::CallOfHelpCreatureInRangeDo>, GridTypeMapContainer> grid_creature_searcher(worker);
 
     cell.Visit(p, grid_creature_searcher, *GetMap(), *this, radius);
 }
@@ -2454,7 +2454,7 @@ void Creature::FarTeleportTo(Map *map, float X, float Y, float Z, float O)
 void Creature::SetPosition(float x, float y, float z, float o)
 {
     // prevent crash when a bad coord is sent by the client
-    if (!Trinity::IsValidMapCoord(x, y, z, o))
+    if (!Olympus::IsValidMapCoord(x, y, z, o))
         return;
 
     GetMap()->CreatureRelocation(ToCreature(), x, y, z, o);
@@ -2567,8 +2567,8 @@ Unit *Creature::SelectNearestHostileUnitInAggroRange(bool useLOS) const
     Unit *target = NULL;
 
     {
-        Trinity::NearestHostileUnitInAggroRangeCheck u_check(this, useLOS);
-        Trinity::UnitSearcher<Trinity::NearestHostileUnitInAggroRangeCheck> searcher(this, target, u_check);
+        Olympus::NearestHostileUnitInAggroRangeCheck u_check(this, useLOS);
+        Olympus::UnitSearcher<Olympus::NearestHostileUnitInAggroRangeCheck> searcher(this, target, u_check);
 
         VisitNearbyWorldObject(MAX_AGGRO_RADIUS, searcher);
     }

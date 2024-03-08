@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2016 trinity core og
+ * Copyright (C) 2013-2016 Olympus core og
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -1241,7 +1241,7 @@ public:
 
         void FilterTargets(std::list<WorldObject *> &targets)
         {
-            Trinity::Containers::RandomResizeList(targets, 1);
+            Olympus::Containers::RandomResizeList(targets, 1);
         }
 
         void HandleDummy(SpellEffIndex effIndex)
@@ -1310,7 +1310,7 @@ public:
 
         void FilterTargets(std::list<WorldObject *> &targets)
         {
-            targets.remove_if(Trinity::ObjectTypeIdCheck(TYPEID_PLAYER, false));
+            targets.remove_if(Olympus::ObjectTypeIdCheck(TYPEID_PLAYER, false));
             _targets = targets;
         }
 
@@ -1329,7 +1329,7 @@ public:
                     continue;
                 }
 
-                if (WorldObject *target = Trinity::Containers::SelectRandomContainerElement(_targets))
+                if (WorldObject *target = Olympus::Containers::SelectRandomContainerElement(_targets))
                 {
                     orb->CastSpell(target->ToUnit(), orb->GetEntry() == NPC_PURIFYING_LIGHT ? SPELL_PURIFYING_ORB_EXPLOSION : SPELL_SHADOW_ORB_EXPLOSION, true);
                     _targets.remove(target);

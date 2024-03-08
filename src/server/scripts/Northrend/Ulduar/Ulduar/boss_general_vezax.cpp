@@ -286,7 +286,7 @@ class boss_general_vezax : public CreatureScript
                     if (PlayerList.empty() || PlayerList.size()<playersMin)
                         return SelectTarget(SELECT_TARGET_RANDOM, 0, 150.0f, true);
 
-                    return Trinity::Containers::SelectRandomContainerElement(PlayerList);
+                    return Olympus::Containers::SelectRandomContainerElement(PlayerList);
                 }
                 return 0;
             }

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2021-2023 OlympusCore <http://www.OlympusCore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
- * Copyright (C) 2018-2019 OlympusCore                         trinity core og
+ * Copyright (C) 2018-2019 OlympusCore                         Olympus core og
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,15 +19,15 @@
 
 // THIS FILE IS DEPRECATED
 
-#ifndef TRINITY_SYSTEMCONFIG_H
-#define TRINITY_SYSTEMCONFIG_H
+#ifndef OLYMPUS_SYSTEMCONFIG_H
+#define OLYMPUS_SYSTEMCONFIG_H
 
 #include "Define.h"
 #include "revision.h"
 
 #define _PACKAGENAME "Olympus-Core"
 
-#if TRINITY_ENDIAN == TRINITY_BIGENDIAN
+#if OLYMPUS_ENDIAN == OLYMPUS_BIGENDIAN
 # define _ENDIAN_STRING "big-endian"
 #else
 # define _ENDIAN_STRING "little-endian"

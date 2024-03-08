@@ -16,8 +16,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef TRINITY_UNITAI_H
-#define TRINITY_UNITAI_H
+#ifndef OLYMPUS_UNITAI_H
+#define OLYMPUS_UNITAI_H
 
 #include "Define.h"
 #include "Unit.h"
@@ -238,7 +238,7 @@ class UnitAI
                 return NULL;
 
             if (targetType == SELECT_TARGET_NEAREST || targetType == SELECT_TARGET_FARTHEST)
-                targetList.sort(Trinity::ObjectDistanceOrderPred(me));
+                targetList.sort(Olympus::ObjectDistanceOrderPred(me));
 
             switch (targetType)
             {
@@ -287,13 +287,13 @@ class UnitAI
                 maxTargets = targetList.size();
 
             if (targetType == SELECT_TARGET_NEAREST || targetType == SELECT_TARGET_FARTHEST)
-                targetList.sort(Trinity::ObjectDistanceOrderPred(me));
+                targetList.sort(Olympus::ObjectDistanceOrderPred(me));
 
             if (targetType == SELECT_TARGET_FARTHEST || targetType == SELECT_TARGET_BOTTOMAGGRO)
                 targetList.reverse();
 
             if (targetType == SELECT_TARGET_RANDOM)
-                Trinity::Containers::RandomResizeList(targetList, maxTargets);
+                Olympus::Containers::RandomResizeList(targetList, maxTargets);
             else
                 targetList.resize(maxTargets);
         }

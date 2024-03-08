@@ -1215,7 +1215,7 @@ public:
             {
                 std::list<Creature*> temp;
                 SparkSearcher check(t, 100.0f);
-                Trinity::CreatureListSearcher<SparkSearcher> searcher(t, temp, check);
+                Olympus::CreatureListSearcher<SparkSearcher> searcher(t, temp, check);
                 t->VisitNearbyGridObject(100.0f, searcher);
                 for (std::list<Creature*>::iterator itr = temp.begin(); itr != temp.end(); ++itr)
                     if ((*itr)->ToTempSummon())
@@ -1357,7 +1357,7 @@ public:
         {
             std::list<Creature*> temp;
             YoungNagaSearcher check(creature, 900.0f);
-            Trinity::CreatureListSearcher<YoungNagaSearcher> searcher(creature, temp, check);
+            Olympus::CreatureListSearcher<YoungNagaSearcher> searcher(creature, temp, check);
             creature->VisitNearbyGridObject(900.0f, searcher);
             for (std::list<Creature*>::iterator itr = temp.begin(); itr != temp.end(); ++itr)
                 if ((*itr)->ToTempSummon())

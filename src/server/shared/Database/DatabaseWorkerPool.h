@@ -356,7 +356,7 @@ class DatabaseWorkerPool
         //! were appended to the transaction will be respected during execution.
         void CommitTransaction(SQLTransaction transaction)
         {
-            #ifdef TRINITY_DEBUG
+            #ifdef OLYMPUS_DEBUG
             //! Only analyze transaction weaknesses in Debug mode.
             //! Ideally we catch the faults in Debug mode and then correct them,
             //! so there's no need to waste these CPU cycles in Release mode.
@@ -371,14 +371,14 @@ class DatabaseWorkerPool
                 default:
                     break;
             }
-            #endif // TRINITY_DEBUG
+            #endif // OLYMPUS_DEBUG
 
             Enqueue(new TransactionTask(transaction));
         }
 
         SQLTransactionFuture CommitTransactionWithFuture(SQLTransaction transaction)
         {
-            #ifdef TRINITY_DEBUG
+            #ifdef OLYMPUS_DEBUG
             //! Only analyze transaction weaknesses in Debug mode.
             //! Ideally we catch the faults in Debug mode and then correct them,
             //! so there's no need to waste these CPU cycles in Release mode.
@@ -397,7 +397,7 @@ class DatabaseWorkerPool
                 default:
                     break;
             }
-            #endif // TRINITY_DEBUG
+            #endif // OLYMPUS_DEBUG
 
             TransactionTaskWithFuture* task = new TransactionTaskWithFuture(transaction);
             // Store future result before enqueueing - task might get already processed and deleted before returning from this method
