@@ -12,6 +12,5 @@ Emulator MMORPG Core 434 Based on Olympus Core
 
 # Contribullentes
 
-[jorge990125](https://github.com/jorge990125)
 
 
