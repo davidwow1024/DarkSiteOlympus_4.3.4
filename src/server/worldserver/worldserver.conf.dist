@@ -90,13 +90,13 @@ LogsDir = ""
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;root;password;auth"       - (LoginDatabaseInfo)
-#                     "127.0.0.1;3306;root;password;world"      - (WorldDatabaseInfo)
-#                     "127.0.0.1;3306;root;password;characters" - (CharacterDatabaseInfo)
+#        Default:     "127.0.0.1;3306;Olympus;Olympus;auth"       - (LoginDatabaseInfo)
+#                     "127.0.0.1;3306;Olympus;Olympus;world"      - (WorldDatabaseInfo)
+#                     "127.0.0.1;3306;Olympus;Olympus;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;root;password;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;password;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;password;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;Olympus;Olympus;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;Olympus;Olympus;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;Olympus;Olympus;characters"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -1055,10 +1055,10 @@ BeepAtStart = 1
 #    Motd
 #        Description: Message of the Day, displayed at login.
 #                     Use '@' for a newline and be sure to escape special characters.
-#        Example:     "Welcome to John\'s Server@This server runs on trinity Core."
-#        Default:     "Welcome to a trinity Core server."
+#        Example:     "Welcome to John\'s Server@This server runs on Olympus Core."
+#        Default:     "Welcome to a Olympus Core server."
 
-Motd = "Welcome to a trinity Core server."
+Motd = "Welcome to a Olympus Core server."
 
 #
 #    Server.LoginInfo

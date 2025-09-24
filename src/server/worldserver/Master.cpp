@@ -21,6 +21,7 @@
 */
 
 #include <ace/Sig_Handler.h>
+
 #include "Common.h"
 #include "SystemConfig.h"
 #include "SignalHandler.h"
@@ -31,6 +32,7 @@
 #include "Configuration/Config.h"
 #include "Database/DatabaseEnv.h"
 #include "Database/DatabaseWorkerPool.h"
+
 #include "CliRunnable.h"
 #include "Log.h"
 #include "Master.h"
@@ -40,7 +42,9 @@
 #include "Util.h"
 #include "AuthSocket.h"
 #include "RealmList.h"
+
 #include "BigNumber.h"
+
 #ifdef _WIN32
 #include "ServiceWin32.h"
 extern int m_ServiceStatus;
@@ -123,8 +127,18 @@ int Master::Run()
 
     TC_LOG_INFO("server.worldserver", "%s (worldserver-daemon)", _FULLVERSION);
     TC_LOG_INFO("server.worldserver", "<Ctrl-C> to stop.\n");
-	TC_LOG_INFO("server.worldserver", "Source DarkSite 2025");
-	TC_LOG_INFO("server.worldserver", "MMORPG Cata 4.3.4");
+	
+	TC_LOG_INFO("server.worldserver", " ______     _        _                            ________                     _______");
+	TC_LOG_INFO("server.worldserver", "//    \\   //        \\                         //       ||   //      \\      //     \\ ");
+	TC_LOG_INFO("server.worldserver", "\\     \\  \\         \\        \\         //   ||       ||   ||      ||      \\");
+	TC_LOG_INFO("server.worldserver", " \\     \\  \\         \\      ||\\       //||  ||_______||   ||      ||       \\");
+	TC_LOG_INFO("server.worldserver", "  \\     \\  \\         \\     || \\     // ||  ||_______/    ||      ||        \\");
+	TC_LOG_INFO("server.worldserver", "   \\     \\  \\         \\    ||  \\   //  ||  ||            ||      ||        //");
+	TC_LOG_INFO("server.worldserver", "    \\     \\  \\         \\   ||   \\ //   ||  ||            ||      ||       //");
+	TC_LOG_INFO("server.worldserver", "     \\_____\\  \\____//   \\  ||    \\/    ||  ||   C O R E  \\______// ||___//");
+	TC_LOG_INFO("server.worldserver", "Source Olympus 2023");
+	TC_LOG_INFO("server.worldserver", "Basado en OlympusCore");
+	TC_LOG_INFO("server.worldserver", "MMORPG V2.1 Cata 4.3.4");
 
     /// worldserver PID file creation
     std::string pidfile = sConfigMgr->GetStringDefault("PidFile", "");
