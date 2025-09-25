@@ -90,13 +90,13 @@ LogsDir = ""
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;Olympus;Olympus;auth"       - (LoginDatabaseInfo)
-#                     "127.0.0.1;3306;Olympus;Olympus;world"      - (WorldDatabaseInfo)
-#                     "127.0.0.1;3306;Olympus;Olympus;characters" - (CharacterDatabaseInfo)
+#        Default:     "127.0.0.1;3306;username;password;auth"       - (LoginDatabaseInfo)
+#                     "127.0.0.1;3306;username;password;world"      - (WorldDatabaseInfo)
+#                     "127.0.0.1;3306;username;password;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;Olympus;Olympus;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;Olympus;Olympus;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;Olympus;Olympus;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;username;password;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;username;password;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;username;password;characters"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -186,7 +186,7 @@ Compression = 1
 #                     1+  - (Enabled)
 #                     0   - (Disabled, No limit)
 
-PlayerLimit = 100
+PlayerLimit = 0
 
 #
 #    SaveRespawnTimeImmediately
@@ -1055,10 +1055,10 @@ BeepAtStart = 1
 #    Motd
 #        Description: Message of the Day, displayed at login.
 #                     Use '@' for a newline and be sure to escape special characters.
-#        Example:     "Welcome to John\'s Server@This server runs on Olympus Core."
-#        Default:     "Welcome to a Olympus Core server."
+#        Example:     "Welcome to John\'s Server@This server runs on Trinity Core."
+#        Default:     "Welcome to a Trinity Core server."
 
-Motd = "Welcome to a Olympus Core server."
+Motd = "Welcome to Trinity server."
 
 #
 #    Server.LoginInfo
@@ -1769,7 +1769,7 @@ Visibility.GroupMode = 1
 #                     533 - (Visibility.Distance.BGArenas)
 
 Visibility.Distance.Continents = 90
-Visibility.Distance.Instances = 500
+Visibility.Distance.Instances = 170
 Visibility.Distance.BGArenas = 533
 
 #
@@ -3276,7 +3276,7 @@ IPHistory.Enable = 0
 #                    1 - Log + kick
 #                    2 - Log + kick + ban
 
-PacketSpoof.Policy = 1
+PacketSpoof.Policy = 2
 
 #
 #    PacketSpoof.BanMode
