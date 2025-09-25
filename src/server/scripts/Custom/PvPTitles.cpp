@@ -2,20 +2,6 @@
 #include "Player.h"
 #include "Config.h"
 
-class PvPTitlesAnnouncer : public PlayerScript
-{
-    public:
-        PvPTitlesAnnouncer() : PlayerScript("PvPTitlesAnnouncer") {}
-
-        void OnLogin(Player* player)
-        {
-            if (sConfigMgr->GetBoolDefault("PvPTitles.announceEnable", true))
-            {
-                ChatHandler(player->GetSession()).SendSysMessage("Modulo de Servidor |cff4CFF00Titulos PvP.");
-            }
-        }
-};
-
 enum eRanks
 {
     /* Alliance */
@@ -194,5 +180,4 @@ public:
 void AddSC_PvPTitles()
 {
     new PvPTitles;
-	new PvPTitlesAnnouncer();
 }

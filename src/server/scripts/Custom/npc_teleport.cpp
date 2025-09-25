@@ -1,21 +1,6 @@
 #include "ScriptPCH.h"
 #include "Config.h"
 
-class npc_teleportAnnouncer : public PlayerScript
-{
-    public:
-        npc_teleportAnnouncer() : PlayerScript("npc_teleportAnnouncer") {}
-
-        void OnLogin(Player* player)
-        {
-            if (sConfigMgr->GetBoolDefault("npc_teleport.announceEnable", true))
-            {
-                ChatHandler(player->GetSession()).SendSysMessage("Modulo de Servidor |cff4CFF00Npc Teleport.");
-            }
-        }
-};
-
-
 class npc_teleport : public CreatureScript
 {
 public:
@@ -314,5 +299,4 @@ public:
 void AddSC_npc_teleport()
 {
 new npc_teleport();
-new npc_teleportAnnouncer();
 }
