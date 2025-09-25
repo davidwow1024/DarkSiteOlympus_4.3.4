@@ -1614,8 +1614,6 @@ void AddBattlegroundScripts()
 
 #ifdef SCRIPTS
 /* This is where custom scripts' loading functions should be declared. */
-void AddSC_Skirmish_npc();
-void AddSC_solo_queue();
 void AddSC_class_coins();
 void AddSC_LearnSpellsOnLevelUp();
 void AddSC_transfer_commandscript();
@@ -1626,20 +1624,16 @@ void AddSC_clean_character_commandscript();
 void AddSC_npc_change_racial_traits();
 void AddSC_accontmounts();
 void AddSC_bug_dual();
-void AddSC_WelcomeWindowDev();
 void AddSC_npc_teleport();
 void AddSC_PvPTitles();
 void AddSC_world_chat();
 void AddSC_VAS_AutoBalance();
-void AddSC_skip_StarterArea();
 #endif
 
 void AddCustomScripts()
 {
 #ifdef SCRIPTS
     /* This is where custom scripts should be added. */
-    AddSC_Skirmish_npc();
-    AddSC_solo_queue();
     AddSC_class_coins();
     AddSC_LearnSpellsOnLevelUp();
     AddSC_transfer_commandscript();
@@ -1650,11 +1644,10 @@ void AddCustomScripts()
     AddSC_npc_change_racial_traits();
 	AddSC_accontmounts();
 	AddSC_bug_dual();
-	AddSC_WelcomeWindowDev();
 	AddSC_npc_teleport();
 	AddSC_PvPTitles();
 	AddSC_world_chat();
 	AddSC_VAS_AutoBalance();
-	AddSC_skip_StarterArea();
+
 #endif
 }
